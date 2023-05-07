@@ -1,23 +1,18 @@
-// import Head from 'next/head'
+import Head from 'next/head'
 import Image from 'next/image'
-// import { Inter } from 'next/font/google'
-import style from '@/assets/styles/navbar.css'
+import { Inter } from 'next/font/google'
+import styles from '@/assets/styles/Home.module.css'
 
-// const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] })
 
-export default function Navbar() {
+export default function Home() {
   return (
     <>
-        <nav className='navbar'>
-            <div className='navbar-container container'>
-                <div className='content'></div>
-            </div>
-        </nav>
-      <main className={style.main}>
-        <div className={style.description}>
+      <main className={styles.main}>
+        <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
-            <code className={style.code}>src/pages/index.js</code>
+            <code className={styles.code}>src/pages/index.js</code>
           </p>
           <div>
             <a
@@ -29,7 +24,7 @@ export default function Navbar() {
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
-                className={style.vercelLogo}
+                className={styles.vercelLogo}
                 width={100}
                 height={24}
                 priority
@@ -38,16 +33,16 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className={style.center}>
+        <div className={styles.center}>
           <Image
-            className={style.logo}
+            className={styles.logo}
             src="/next.svg"
             alt="Next.js Logo"
             width={180}
             height={37}
             priority
           />
-          <div className={style.thirteen}>
+          <div className={styles.thirteen}>
             <Image
               src="/thirteen.svg"
               alt="13"
@@ -58,10 +53,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className={style.grid}>
+        <div className={styles.grid}>
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={style.card}
+            className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -75,7 +70,7 @@ export default function Navbar() {
 
           <a
             href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={style.card}
+            className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -89,7 +84,7 @@ export default function Navbar() {
 
           <a
             href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={style.card}
+            className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -103,7 +98,7 @@ export default function Navbar() {
 
           <a
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={style.card}
+            className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
           >
