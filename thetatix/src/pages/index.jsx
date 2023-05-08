@@ -2,8 +2,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-import Layout from '@/components/Layout'
-
 import styles from '@/assets/styles/Home.module.css'
 // import { getAllUsers } from '@/server/users'
 
@@ -11,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <Layout>
+    <>
       <Head>
         <title>Thetatix</title>
         <meta name="description" content="Thetatix web app" />
@@ -121,7 +119,7 @@ export default function Home() {
           </a>
         </div>
       </main>
-    </Layout>
+    </>
   );
 }
 
