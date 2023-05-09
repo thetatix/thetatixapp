@@ -31,7 +31,9 @@ const eventSchema = new mongoose.Schema({
         required: true,
         type: Date
     },
-    img: File,//??temporal,
+    img: {
+        type: Buffer
+    },//??temporal,
     location : {
         type:{type:String},
         coordinates:[Number],
