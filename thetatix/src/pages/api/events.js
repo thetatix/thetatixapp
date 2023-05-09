@@ -1,15 +1,26 @@
-import { connectToDatabase } from "@/server/mongo"
+import connectMongo from '@/server/mongo';
+import Event from '@/server/models/event';
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
   try {
-    console.log("Start events.js");
-    const db = await connectToDatabase();
-    console.log("Getting collection events");
-    const eventCollection = db.collection("events");
-    const events = await eventCollection.find({}).toArray();
-    res.status(200).json(events);
-    console.log("Fetched events");
+    // connect to MongoDB
+    await connectMongo();
+
+    // find all events and return them
+    const events = await Event.find().exec();
+    if (events.length === 0) {
+      // Handle case where no events were found
+      // For example, return an error message
+      res.status(404).json({ message: "No events found." });
+    } else {
+      // Return the events
+      res.status(200).json(events);
+    }
+    // res.status(200).json(events);
   } catch (error) {
-    res.status(500).json({ error: "Unable to fetch events." });
+    console.error(error);
+    res.status(500).json({ message: "Unable to fetch events." });
   }
-}
+};
+
+export default handler;

@@ -30,7 +30,7 @@ export default function Home() {
                   <div className={styles.event}>
                     <div className={styles.eventImg}>
                       <Image
-                        src="/img/example_event_img.jpg"
+                        src="/img/event-afterlife.png"
                         alt="Event image"
                         width={2400}
                         height={1600}

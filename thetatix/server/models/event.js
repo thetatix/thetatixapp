@@ -36,7 +36,7 @@ const eventSchema = new mongoose.Schema({
     location : {
         type:{type:String},
         coordinates:[Number],
-        default: undefined
+        default: {}
     },
     category: {
         type: mongoose.ObjectId,
