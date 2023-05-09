@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-    contractAddress:{
+    contractAddress:{ //adress of the contract event
         type:String,
         required: true
     },
-    creator: {
-        type: mongoose.ObjectId,
-        required: true,
-        ref: 'user'
+    creator: { //adress of creator
+        type:String,
+        required: true
     },
     ticketsAmount:{
         type: Number,
