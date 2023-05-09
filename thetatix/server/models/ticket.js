@@ -19,5 +19,12 @@ const ticketSchema = new mongoose.Schema({
     }
 })
 
+ticketSchema.virtual('eventDataTrait',{
+    ref:'event',
+    localField: 'eventContractAdress', 
+    foreignField: 'contractAddress',
+    justOne: true
+})
+
 const Ticket = mongoose.models.ticket || mongoose.model('ticket',ticketSchema);
 export default Ticket;
