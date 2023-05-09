@@ -48,5 +48,7 @@ const eventSchema = new mongoose.Schema({
     
 })
 
+eventSchema.set('_id','contractAddress');
+
 const Event = mongoose.models.event || mongoose.model('event',eventSchema);
 export default Event;

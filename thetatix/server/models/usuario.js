@@ -8,5 +8,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+userSchema.set('_id','walletAddress')
+
 const User = mongoose.models.user || mongoose.model('user',userSchema);
 export default User;
