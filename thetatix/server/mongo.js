@@ -1,25 +1,22 @@
 const { MongoClient } = require("mongodb");
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const DB_NAME = "thetatixdb";
+const uri = process.env.MONGODB_URI;
+const dbName = "thetatix_db";
+
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 async function connectToDatabase() {
-  const client = new MongoClient(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
   try {
-    // Connect to the MongoDB cluster
+    console.log("Awaiting connection");
     await client.connect();
-
-    console.log("Connected to MongoDB");
-
-    // Make the appropriate DB calls
-    const db = client.db(DB_NAME);
+    console.log('Connected to MongoDB');
+    const db = client.db(dbName);
     return db;
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
     throw new Error("Unable to connect to MongoDB");
   }
 }

@@ -1,0 +1,25 @@
+.main { padding-top: 6rem; }
+.header {  }
+.headerContainer {  }
+.headerContainer .content {  }
+.headerContainer h1 {  }
+
+.section {  }
+.sectionContainer {  }
+.sectionContainer .content { display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: flex-start; width: 100%; }
+
+
+.eventCard { width: 100%; text-decoration: none; color: var(--text-color); flex: 1 0 25%; max-width: 25%; padding: 1.25rem; }
+.eventCard:hover { color: var(--pri-color); }
+.eventCard .event { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; }
+.eventCard .eventImg {  }
+.eventCard .eventImg img { width: 100%; height: auto; }
+.eventCard .eventInfo {  }
+.eventCard .eventTitle {  }
+.eventCard .eventTitle h4 {  }
+.eventCard .eventPrice {  }
+.eventCard .eventPrice span {  }
+.eventCard .eventDate {  }
+.eventCard .eventDate p {  }
+.eventCard .eventAddress {  }
+.eventCard .eventAddress p {  }

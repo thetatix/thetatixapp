@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Inter } from 'next/font/google'
 
 import styles from '@/assets/styles/Home.module.css'
@@ -16,7 +17,42 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
+        <header className={styles.header}>
+          <div className={styles.headerContainer + ' container'}>
+            <div className={styles.squareLeft}></div>
+            <div className={styles.squareRight}></div>
+            <div className={styles.content + ' row'}>
+              <div className={styles.column + ' col'}>
+                <h1>The Web3 ticketing and events platform</h1>
+              </div>
+              <div className={styles.column + ' col'}>
+                <Link href="/" className={styles.eventCard}>
+                  <div className={styles.event}>
+                    <div className={styles.eventImg}>
+                      <Image
+                        src="/img/example_event_img.jpg"
+                        alt="Event image"
+                        width={2400}
+                        height={1600}
+                        priority
+                      />
+                    </div>
+                    <p>
+                      <strong>Afterlife</strong>
+                      <br />
+                      Monday, 10:00 A.M.
+                      <br />
+                      Mexico City
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </header>
+        <section className={styles.section}></section>
+        
+        {/* <div className={styles.description}>
           <p>
             Get started by editing&nbsp;
             <code className={styles.code}>src/pages/index.js</code>
@@ -117,7 +153,7 @@ export default function Home() {
               with&nbsp;Vercel.
             </p>
           </a>
-        </div>
+        </div> */}
       </main>
     </>
   );
