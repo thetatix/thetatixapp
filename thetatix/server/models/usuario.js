@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    //completar
+    walletAddress: {
+        type: String, 
+        required: true,
+        unique: true
+    }
 })
 
-const User = mongoose.model('user',userSchema);
+const User = mongoose.models.user || mongoose.model('user',userSchema);
 export default User;
