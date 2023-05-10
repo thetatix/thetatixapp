@@ -46,7 +46,7 @@ export default function Navbar() {
           <div className={styles.center}>
             <ul>
               <li>
-                <Link href="/" className={styles.navLink}>
+                <Link href="/mytickets" className={styles.navLink}>
                   My tickets
                 </Link>
               </li>
@@ -56,7 +56,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <Link href="/" className={styles.navLink}>
+                <Link href="/create" className={styles.navLink}>
                   Create an event
                 </Link>
               </li>

@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
+import styleCards from '@/assets/styles/Cards.module.css'
 
 const images = [
   { id: 1, img: "event-afterlife.png" },
@@ -33,7 +34,7 @@ export default function Events() {
 
   const [events, setEvents] = useState([]);
   useEffect(() => {
-    fetch("/api/events")
+    fetch("/api/event/getEvents")
       .then((response) => response.json())
       .then((data) => setEvents(data))
       .catch((error) => console.error(error));
@@ -58,16 +59,15 @@ export default function Events() {
           </header>
           <section className={styles.section}>
             <div className={styles.sectionContainer + ' container'}>
-              <div className={styles.content + ' row'}>
-                
+              <div className={styleCards.contentCards + ' row'}>
               {/* Para pruebas: */}
               {events.length > 0 ? (
                 events.map((event) => {
                   const randomImage = getRandomImage(images);
                   return (
-                    <Link href={`api/event/${event._id}`} className={styles.eventCard + ' col-4'} key={event._id}>
-                      <div className={styles.event}>
-                        <div className={styles.eventImg}>
+                    <Link href={`api/event/${event._id}`} className={styleCards.eventCard + ' col-4'} key={event._id}>
+                      <div className={styleCards.event}>
+                        <div className={styleCards.eventImg}>
                           <Image
                             src={'/img/' + randomImage.img}
                             alt="Event image"
@@ -75,17 +75,17 @@ export default function Events() {
                             height={1600}
                           />
                         </div>
-                        <div className={styles.eventInfo}>
-                          <div className={styles.eventTitle}>
+                        <div className={styleCards.eventInfo}>
+                          <div className={styleCards.eventTitle}>
                             <h4>{event.title}</h4>
                           </div>
-                          <div className={styles.eventPrice}>
+                          <div className={styleCards.eventPrice}>
                             <span>{event.price} USDT</span>
                           </div>
-                          <div className={styles.eventDate}>
+                          <div className={styleCards.eventDate}>
                             <p>{event.date}</p>
                           </div>
-                          <div className={styles.eventAddress}>
+                          <div className={styleCards.eventAddress}>
                             <p>{event.address}</p>
                           </div>
                         </div>
@@ -99,9 +99,9 @@ export default function Events() {
 
               {/* Correcto: */}
               {/* {events.map((event) => (
-                <Link href={`api/event/${event._id}`} className={styles.eventCard + ' col-4'} key={event._id}>
-                <div className={styles.event}>
-                  <div className={styles.eventImg}>
+                <Link href={`api/event/${event._id}`} className={styleCards.eventCard + ' col-4'} key={event._id}>
+                <div className={styleCards.event}>
+                  <div className={styleCards.eventImg}>
                     <Image
                       src="/img/event-afterlife.png"
                       alt="Event image"
@@ -109,17 +109,17 @@ export default function Events() {
                       height={1600}
                     />
                   </div>
-                  <div className={styles.eventInfo}>
-                    <div className={styles.eventTitle}>
+                  <div className={styleCards.eventInfo}>
+                    <div className={styleCards.eventTitle}>
                       <h4>{event.title}</h4>
                     </div>
-                    <div className={styles.eventPrice}>
+                    <div className={styleCards.eventPrice}>
                       <span>{event.price} USDT</span>
                     </div>
-                    <div className={styles.eventDate}>
+                    <div className={styleCards.eventDate}>
                       <p>{event.date}</p>
                     </div>
-                    <div className={styles.eventAddress}>
+                    <div className={styleCards.eventAddress}>
                       <p>{event.address}</p>
                     </div>
                   </div>
