@@ -15,5 +15,5 @@ const categorySchema = new mongoose.Schema({
     } // temporal
 })
 
-const Category = mongoose.model('category',categorySchema);
+const Category = mongoose.models.category || mongoose.model('category',categorySchema);
 export default Category;
