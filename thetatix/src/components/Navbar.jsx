@@ -1,9 +1,40 @@
-import { useEffect, useState } from "react";
+
+'use client'
+
+import { useContext, useEffect, useState } from "react";
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Navbar.module.css'
 
+import { DataContext } from "../context/DataContext";
+
+
 export default function Navbar() {
+  
+
+  const {address, setAddress} =  useContext(DataContext);
+
+  const connect = async () => {
+    if(window.ethereum){
+      try {
+        
+        const accounts = await window.ethereum.request({method: "eth_requestAccounts",});
+        console.log(accounts)
+        setAddress(accounts[0]);
+        console.log(accounts)
+      } catch (error) {
+        console.log('Error connecting...');
+      }
+      
+    } else {
+      console.log('Metamask not detected')
+    }
+  }
+
+
+
+
+
   const [clientWindowHeight, setClientWindowHeight] = useState("");
 
   const [boxShadow, setBoxShadow] = useState(0);
@@ -60,11 +91,19 @@ export default function Navbar() {
                   Create an event
                 </Link>
               </li>
+              <li>
+              </li>
             </ul>
             <div className={styles.searchBar}></div>
           </div>
           <div className={styles.connectBtn}>
-            <button>Connect wallet</button>
+
+          
+
+          
+
+            <button onClick={connect}>Connect wallet</button>
+            <h3>Wallet address: {address}</h3>
           </div>
         </div>
       </div>
