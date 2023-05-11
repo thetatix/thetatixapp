@@ -36,7 +36,7 @@ export default function Create() {
     const submitForm = async (event) => {
         event.preventDefault();
         //DETERMINAR EL SIGNER DE METAMASK
-        const contract = useContracts(signer);
+        const contract = new useContracts(signer);
         const response = contract.createEventTickets(formData.name,
             formData.eventDescription,formData.ticketsPrice,
             formData.maxTickets,formData.startDate,
