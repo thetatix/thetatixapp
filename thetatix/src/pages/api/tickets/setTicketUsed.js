@@ -1,17 +1,20 @@
 import Ticket from "@/server/models/ticket"
+import connectMongo from "@/server/mongo";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { data } = req.body;
+        await connectMongo();
+        const  data  = req.body;
+        
         await Ticket.findOneAndUpdate({
             eventContractAdress:data.ticketEventAddress,
-            ticketNumber:ticketNumber
+            ticketNumber: Number(data.ticketNumber)
         },{ 
             $set: { used: true }
         })
         const ticket = await Ticket.findOneAndUpdate({
             eventContractAdress:data.ticketEventAddress,
-            ticketNumber:ticketNumber
+            ticketNumber:Number(data.ticketNumber)
         },{ 
             usedDate: Date.now()
         }) 

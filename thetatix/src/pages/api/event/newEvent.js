@@ -1,5 +1,6 @@
 import connectMongo from '@/server/mongo';
 import Event from '@/server/models/event';
+import mongoose from 'mongoose';
 const ABI_event = require("../../../components/contractsHook/ABIticket.json");
 
 const handler = async (req, res) => {
@@ -15,6 +16,7 @@ const handler = async (req, res) => {
             const { data } = req.body;
             const contracts = new ethers.Contract(data.contractAddress,ABI_event,signer);
             const eventData = await contracts.getData();
+            const category = mongoose.Types.ObjectId(data.category) || null;
             const event = await newEvent({
                 contractAddress: data.contractAddress,
                 creator: eventData._eventOwner,
@@ -24,7 +26,8 @@ const handler = async (req, res) => {
                 eventDescription: eventData.eventDescription,
                 startDate: data.startDate,
                 endDate: data.endDate,
-                location: data.location
+                location: data.location,
+                // category: category
             })
             
             await event.save();
