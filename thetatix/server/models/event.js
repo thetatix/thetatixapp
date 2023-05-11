@@ -14,6 +14,11 @@ const eventSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
+    maxTickets:{
+        type: Number,
+        required: true,
+        default: 0
+    },
     ticketsPrice:{
         type: Number,
         required: true,
