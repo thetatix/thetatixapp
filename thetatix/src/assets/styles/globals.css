@@ -1,11 +1,14 @@
 :root {
   --pri-color: #F55858; /* buttons */
+  --pri-color-rgb: 245, 88, 88;
   --sec-color: #FFF1F1; /* inputs */
   --ter-color: #383030; /* titles */
+  --ter-color-rgb: 56, 48, 48;
   --accent-color: #FEE6E6; /* darker sec-color */
   --info-color: #A4A4A4; /* placeholders */
 
   --text-color: #000000;
+  --text-color-filter: invert(1);
   --light-text-color: #FFFFFF;
   --bg-color: #FFFFFF;
 
@@ -26,10 +29,10 @@
   /* --border-radius: 4px; */
 }
 
-::-webkit-scrollbar { width: .75rem; }
-::-webkit-scrollbar-track { background-color: var(--light-gray); }
-::-webkit-scrollbar-thumb { background-color: var(--gray); }
-::-webkit-scrollbar-thumb:hover { background-color: var(--dark-gray); }
+body::-webkit-scrollbar { width: .75rem; }
+body::-webkit-scrollbar-track { background-color: var(); }
+body::-webkit-scrollbar-thumb { background-color: var(); }
+body::-webkit-scrollbar-thumb:hover { background-color: var(); }
 
 @media (prefers-color-scheme: dark) {
   :root {

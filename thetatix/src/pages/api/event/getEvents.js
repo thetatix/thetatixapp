@@ -21,7 +21,6 @@ const handler = async (req, res) => {
       // Return the events
       res.status(200).json(events);
     }
-    // res.status(200).json(events);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Unable to fetch events." });

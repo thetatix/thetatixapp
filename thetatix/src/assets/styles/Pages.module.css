@@ -1,9 +1,18 @@
-.main { padding-top: 6rem; }
+.main { padding-top: 6rem; padding-bottom: 6rem; }
+.mainContainer {  }
+
 .header {  }
 .headerContainer {  }
 .header .content {  }
-.header h1 { color: var(--text-color); font-size: 2rem; margin-bottom: 0; line-height: 1.7; }
+.header h1 { color: var(--text-color); font-size: 2rem; margin-bottom: .5rem; line-height: 1.7; font-weight: 500; }
+.header .subtitle { color: var(--text-color); font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.2; font-weight: 400; }
 
 .section {  }
 .sectionContainer {  }
 .sectionContainer .content {  }
+.sectionContainer .column {  }
+
+/* in create events */
+.sideImgSection { height: 100%; }
+.sideImgContainer { overflow: hidden; position: relative; height: 100%; }
+.sideImgContainer img { width: 100%; height: 60%; object-fit: cover; object-position: 50% 50%; display: block; margin: 0 auto; text-align: center; min-height: 20rem; max-height: 40rem; border-radius: .5rem; }
