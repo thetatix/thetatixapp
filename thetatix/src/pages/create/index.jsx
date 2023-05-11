@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-
+import useContracts from '../../components/contractsHook/useContract'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -10,8 +10,9 @@ export default function Create() {
     const [formData, setFormData] = useState({
         contractAddress: "",
         creator: "", //adress of creator,
-        ticketsAmount: "",
+        maxTickets: 1,
         eventName: "",
+        ticketsPrice:0,
         eventDescription: "",
         startDate: "",
         endDate: "",
@@ -34,19 +35,13 @@ export default function Create() {
 
     const submitForm = async (event) => {
         event.preventDefault();
-
-        const formAction = event.target.action;
-        const formMethod = event.target.method;
-        const data = JSON.stringify({data: formData});
-
-        const response = await fetch(formAction, {
-            method: formMethod,
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: data,
-        });
-        if (response.ok) {
+        //DETERMINAR EL SIGNER DE METAMASK
+        const contract = useContracts(signer);
+        const response = contract.createEventTickets(formData.name,
+            formData.eventDescription,formData.ticketsPrice,
+            formData.maxTickets,formData.startDate,
+            formData.endDate,formData.location)
+        if (response.error == null) {
             var resJson = await response.json();
             setAlert(true);
             setFormStatus("success");
@@ -233,12 +228,12 @@ export default function Create() {
                                         </div>
                                         <div className={styleCreate.row + ' row'}>
                                             <div className={styleCreate.column + ' col-6'}>
-                                                <label htmlFor="ticketsAmount" className={styleCreate.label}>Tickets amount</label>
+                                                <label htmlFor="maxTickets" className={styleCreate.label}>Tickets amount</label>
                                                 <input
-                                                id='ticketsAmount'
+                                                id='maxTickets'
                                                 type="number"
-                                                name='ticketsAmount'
-                                                value={formData.ticketsAmount}
+                                                name='maxTickets'
+                                                value={formData.maxTickets}
                                                 onChange={handleInput}
                                                 className={styleCreate.input}
                                                 min="1"

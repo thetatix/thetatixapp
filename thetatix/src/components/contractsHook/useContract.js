@@ -24,22 +24,35 @@ class useContracts {
         return data
     }
 
-    async createEventTickets(_name,_description,_ticketPrice,_maxTickets,_eventDate){
+    async createEventTickets(_name,_description,_ticketPrice,_maxTickets,_startDate,_endDate,_location){
         try{
             const contract_uuid = uuidv4();
             // const contract_uuid = "b1b2f594-4c56-47e9-98a5-d61c6879077d";
 
             //create event at blockchain
-            const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,_eventDate,contract_uuid);
+            const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,contract_uuid);
             transaction.wait();
             this.delay(5);
             //query the address by uuid
             const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);
+            //push to the db
+            const raw_data = {
+                contractAddress:newEvent_address,
+                startDate:_startDate,
+                endDate:_endDate,
+                location:_location
+            }
+            const data = JSON.stringify({data: raw_data});
 
             //push to the database address event + data;
-            //-------------------
-            //por hacer
-            return {error:null,data:newEvent_address};   //data = address created contract
+            const event = await fetch('/api/event/newEvent',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:data
+            })
+            return {error:null,data:event};   //data = address created contract
         }catch(err){
             return {error:err,data:null}
 
