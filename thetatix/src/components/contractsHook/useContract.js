@@ -71,9 +71,20 @@ class useContracts {
             const tickets_numbers = await event_contract.getUserTickets(buyerWalletAddress);
             //convert hex array to numbers array
             const parsedNumbers = tickets_numbers.map(ticket => parseInt(ticket._hex,16));
-            //push ticket to database 
-            //-------------------
-            //por hacer
+            //add ticket to database 
+            const raw_data = {
+                userTickets: parsedNumbers,
+                owner:buyerWalletAddress
+            }
+            const data = JSON.stringify({data: raw_data});
+            const event = await fetch('/api/tickets/newTicket',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:data
+            })
+            
             return {error:null,data:parsedNumbers} //data = todos los tickets comprados del usuario que lo compro
         }catch(err){
             return {error:err,data:null}
@@ -85,7 +96,7 @@ class useContracts {
         try{
             const amount = await event_contract.amountTickets();
             await event_contract.withdrawAmount(receiver_address);
-            return {error:null,data:'succes'}
+            return {error:null,data:'succes',amount}
         }catch(err){
             return {error:err,data:null}
         }
@@ -94,22 +105,42 @@ class useContracts {
     async setTicketUsed(ticketEventAddress,ticketNumber,_usedDateString){
         const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
         try{
-           await event_contract.setTicketUsed(ticketNumber,_usedDateString);
+            //check if it was alr used 
+            const ticket = await event_contract.ticketData(ticketNumber);
+            if(ticket.setUsedAdmin===true){
+                return {error:"ticket have been already used",data:null};
+            }
+            //set it used at contract
+            await event_contract.setTicketUsed(ticketNumber,_usedDateString);
+            //set it used at database
+            const raw_data = {
+                ticketEventAddress,
+                ticketNumber,
+                usedDate:_usedDateString
+            }
+            const data = JSON.stringify({data: raw_data});
+            const event = await fetch('/api/tickets/setTicketUsed',{
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body:data
+            })
            return {error:null,data:'succes'};
         }catch(err){
             return {error:err,data:null}
         }
     }
 
-    async updateEventData(ticketEventAddress, _name, _description, _eventDate, _maxTickets, _ticketPrice){
-        const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
-        try{
-            await event_contract.updateEventData( _name, _description, _eventDate, _maxTickets, _ticketPrice);
-            return {error:null,data:'succes'};
-         }catch(err){
-            return {error:err,data:null}
-        }
-    }
+    // async updateEventData(ticketEventAddress, _name, _description, _eventDate, _maxTickets, _ticketPrice){
+    //     const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
+    //     try{
+    //         await event_contract.updateEventData( _name, _description, _eventDate, _maxTickets, _ticketPrice);
+    //         return {error:null,data:'succes'};
+    //      }catch(err){
+    //         return {error:err,data:null}
+    //     }
+    // }
 
     delay(seconds) {
         return new Promise(resolve => {
