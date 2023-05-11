@@ -16,6 +16,10 @@ const ticketSchema = new mongoose.Schema({
     used: {
         type: Boolean,
         default: false
+    },
+    usedDate:{
+        type: Date,
+        default: undefined
     }
 })
 
