@@ -24,17 +24,17 @@ export default function Create() {
     const [formStatus, setFormStatus] = useState("");
     const [formStatusMsg, setFormStatusMsg] = useState("");
 
-    const handleInput = (event) => {
-        const fieldName = event.target.name;
-        const fieldValue = event.target.value;
+    const handleInput = (e) => {
+        const fieldName = e.target.name;
+        const fieldValue = e.target.value;
         setFormData((prevState) => ({
           ...prevState,
           [fieldName]: fieldValue
         }));
     }
 
-    const submitForm = async (event) => {
-        event.preventDefault();
+    const submitForm = async (e) => {
+        e.preventDefault();
         //DETERMINAR EL SIGNER DE METAMASK
         const contract = new useContracts(signer);
         const response = contract.createEventTickets(formData.name,
@@ -53,6 +53,7 @@ export default function Create() {
             setFormStatusMsg(resJson.message);
         }
     }
+    
     const getToday = () => {
         var today = new Date();
         var dd = today.getDate();
@@ -67,8 +68,14 @@ export default function Create() {
         today = yyyy + '-' + mm + '-' + dd;
         return today;
     }
-    // document.getElementById("startDate").setAttribute("min", getToday());
-    // document.getElementById("endDate").setAttribute("min", getToday());
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        fetch("/api/category/getCategories")
+        .then((response) => response.json())
+        .then((data) => setCategories(data))
+        .catch((error) => console.error(error));
+    }, []);
+
   return (
     <>
         <Head>
@@ -77,13 +84,12 @@ export default function Create() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={styles.main}>
-            {
-                alert &&
+            {/* form status can be "success" or "error" */}
+            {alert &&
                 <div className={styles.alert + ' ' + formStatus}>
                     <p>{formStatusMsg} alerta</p>
                 </div>
             }
-            {/* form status can be "success" or "error" */}
             <div className={styles.mainContainer + ' container'}>
                 <div className={styles.content + ' row'}>
                     <div className={styles.column + ' col-7'}>
@@ -146,13 +152,14 @@ export default function Create() {
                                                 {/* no terminado */}
                                                 <select
                                                 id="category"
-                                                // type
                                                 name="category"
-                                                // value={formData.category}
-                                                // onChange={handleInput}
+                                                onChange={handleInput}
                                                 className={styleCreate.input}
                                                 >
                                                     <option value="">Select a category</option>
+                                                    {categories.map((category) => (
+                                                        <option key={category._id} value={category._id}>{category.categoryName}</option>
+                                                    ))}
                                                 </select>
                                             </div>
                                         </div>

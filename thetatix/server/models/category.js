@@ -13,7 +13,7 @@ const categorySchema = new mongoose.Schema({
     img: {
         type: Buffer
     } // temporal
-})
+}, { collection: 'categories' });
 
 const Category = mongoose.models.category || mongoose.model('category',categorySchema);
 export default Category;

@@ -17,7 +17,7 @@ const handler = async (req, res) => {
             const contracts = new ethers.Contract(data.contractAddress,ABI_event,signer);
             const eventData = await contracts.getData();
             const category = mongoose.Types.ObjectId(data.category) || null;
-            const event = await newEvent({
+            const event = await new Event({
                 contractAddress: data.contractAddress,
                 creator: eventData._eventOwner,
                 ticketsAmount: eventData.ticketCounter,
@@ -27,7 +27,7 @@ const handler = async (req, res) => {
                 startDate: data.startDate,
                 endDate: data.endDate,
                 location: data.location,
-                // category: category
+                category: category
             })
             
             await event.save();

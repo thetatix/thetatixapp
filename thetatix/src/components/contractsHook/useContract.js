@@ -96,7 +96,7 @@ class useContracts {
         try{
             const amount = await event_contract.amountTickets();
             await event_contract.withdrawAmount(receiver_address);
-            return {error:null,data:'succes',amount}
+            return {error:null,data:'success',amount}
         }catch(err){
             return {error:err,data:null}
         }
@@ -126,7 +126,7 @@ class useContracts {
                 },
                 body:data
             })
-           return {error:null,data:'succes'};
+           return {error:null,data:'success'};
         }catch(err){
             return {error:err,data:null}
         }
@@ -136,7 +136,7 @@ class useContracts {
     //     const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
     //     try{
     //         await event_contract.updateEventData( _name, _description, _eventDate, _maxTickets, _ticketPrice);
-    //         return {error:null,data:'succes'};
+    //         return {error:null,data:'success'};
     //      }catch(err){
     //         return {error:err,data:null}
     //     }

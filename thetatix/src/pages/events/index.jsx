@@ -23,15 +23,17 @@ function getRandomImage(images) {
   return images[Math.floor(Math.random() * images.length)];
 }
 
+function formatDate(rawDate) {
+  const date = new Date(rawDate);
+  const options = {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'};
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  const utcDateString = formatter.format(date);
+  const [dayOfWeek, month, dayOfMonth, year] = utcDateString.split(' ');
+  return `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
+}
+
+
 export default function Events() {
-
-  // const [randomImage, setRandomImage] = useState(null);
-  // useEffect(() => {
-  //   const image = getRandomImage(images);
-  //   setRandomImage(image);
-  // }, []);
-  
-
   const [events, setEvents] = useState([]);
   useEffect(() => {
     fetch("/api/event/getEvents")
@@ -63,9 +65,10 @@ export default function Events() {
               {/* Para pruebas: */}
               {events.length > 0 ? (
                 events.map((event) => {
+                  // console.log(event.location);
                   const randomImage = getRandomImage(images);
                   return (
-                    <Link href={`api/event/${event._id}`} className={styleCards.eventCard + ' col-4'} key={event._id}>
+                    <Link href={`api/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>
                       <div className={styleCards.event}>
                         <div className={styleCards.eventImg}>
                           <Image
@@ -77,13 +80,13 @@ export default function Events() {
                         </div>
                         <div className={styleCards.eventInfo}>
                           <div className={styleCards.eventTitle}>
-                            <h4>{event.title}</h4>
+                            <h4>{event.eventName}</h4>
                           </div>
                           <div className={styleCards.eventPrice}>
-                            <span>{event.price} USDT</span>
+                            <span>{event.ticketsPrice} USDT</span>
                           </div>
                           <div className={styleCards.eventDate}>
-                            <p>{event.date}</p>
+                            <p>{formatDate(event.startDate)}</p>
                           </div>
                           <div className={styleCards.eventAddress}>
                             <p>{event.address}</p>
@@ -98,34 +101,38 @@ export default function Events() {
                 )}
 
               {/* Correcto: */}
-              {/* {events.map((event) => (
-                <Link href={`api/event/${event._id}`} className={styleCards.eventCard + ' col-4'} key={event._id}>
-                <div className={styleCards.event}>
-                  <div className={styleCards.eventImg}>
-                    <Image
-                      src="/img/event-afterlife.png"
-                      alt="Event image"
-                      width={2400}
-                      height={1600}
-                    />
-                  </div>
-                  <div className={styleCards.eventInfo}>
-                    <div className={styleCards.eventTitle}>
-                      <h4>{event.title}</h4>
+              {/* {events.length > 0 ? (
+                events.map((event) => (
+                  <Link href={`api/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>
+                    <div className={styleCards.event}>
+                      <div className={styleCards.eventImg}>
+                        <Image
+                          src="/img/event-afterlife.png"
+                          alt="Event image"
+                          width={2400}
+                          height={1600}
+                        />
+                      </div>
+                      <div className={styleCards.eventInfo}>
+                        <div className={styleCards.eventTitle}>
+                          <h4>{event.eventName}</h4>
+                        </div>
+                        <div className={styleCards.eventPrice}>
+                          <span>{event.ticketsPrice} USDT</span>
+                        </div>
+                        <div className={styleCards.eventDate}>
+                          <p>{formatDate(event.startDate)}</p>
+                        </div>
+                        <div className={styleCards.eventAddress}>
+                          <p>{event.address}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className={styleCards.eventPrice}>
-                      <span>{event.price} USDT</span>
-                    </div>
-                    <div className={styleCards.eventDate}>
-                      <p>{event.date}</p>
-                    </div>
-                    <div className={styleCards.eventAddress}>
-                      <p>{event.address}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              ))} */}
+                  </Link>
+                ))
+              ) : (
+                <p>No events found.</p>
+              )} */}
               
               </div>
             </div>
