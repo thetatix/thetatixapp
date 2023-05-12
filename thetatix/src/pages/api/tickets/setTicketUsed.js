@@ -4,7 +4,7 @@ import connectMongo from "@/server/mongo";
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         await connectMongo();
-        const  data  = req.body;
+        const  data  = req.body.data;
         
         await Ticket.findOneAndUpdate({
             eventContractAdress:data.ticketEventAddress,
