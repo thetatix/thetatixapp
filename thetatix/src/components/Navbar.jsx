@@ -1,5 +1,5 @@
 
-'use client'
+'use client';
 
 import { useContext, useEffect, useState } from "react";
 import Image from 'next/image'
@@ -11,19 +11,18 @@ import { DataContext } from "../context/DataContext";
 
 export default function Navbar() {
   
-
-  const {address, setAddress} =  useContext(DataContext);
+  const { address, setAddress } =  useContext(DataContext);
 
   const connect = async () => {
     if(window.ethereum){
       try {
-        
-        const accounts = await window.ethereum.request({method: "eth_requestAccounts",});
-        console.log(accounts)
-        setAddress(accounts[0]);
-        console.log(accounts)
+        await window.ethereum.request({method: "eth_requestAccounts"});
+        console.log('Connected to Ethereum')
+        let account = await window.ethereum.request({ method: "eth_accounts"});
+        setAddress(account[0]);
+        console.log(address)
       } catch (error) {
-        console.log('Error connecting...');
+        console.log('Error connecting to Ethereum');
       }
       
     } else {
