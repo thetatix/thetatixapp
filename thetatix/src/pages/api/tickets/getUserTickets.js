@@ -2,7 +2,7 @@ import Ticket from "@/server/models/ticket"
 import Event from "@/server/models/event";
 import connectMongo from "@/server/mongo";
 
-
+//example: http://localhost:3000/api/tickets/getUserTickets?owner=creator1address
 export default async function handler(req, res) {
     await connectMongo();
     const { owner } = req.query;
