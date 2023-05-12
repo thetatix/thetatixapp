@@ -2,40 +2,55 @@
 'use client';
 
 import { useContext, useEffect, useState } from "react";
+import { DataContext } from "@/context/DataContext";
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Navbar.module.css'
 
-import { DataContext } from "../context/DataContext";
-
 
 export default function Navbar() {
   
-  const { address, setAddress } =  useContext(DataContext);
+  const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
 
-  const connect = async () => {
-    if(window.ethereum){
+  const connectMetamask = async () => {
+    if (window.ethereum) {
       try {
         await window.ethereum.request({method: "eth_requestAccounts"});
-        console.log('Connected to Ethereum')
+        console.log('Connected to Ethereum');
+        setIsConnected(true);
         let account = await window.ethereum.request({ method: "eth_accounts"});
         setAddress(account[0]);
-        console.log(address)
+        console.log(address);
       } catch (error) {
         console.log('Error connecting to Ethereum');
       }
-      
     } else {
-      console.log('Metamask not detected')
+      console.log('Metamask not detected');
+    }
+  }
+  const disconnectMetamask = async () => {
+    if (window.ethereum) {
+      try {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        console.log('Disconnected from Ethereum');
+        setIsConnected(false);
+        setAddress('');
+      } catch (error) {
+        console.log('Error disconnecting from Ethereum');
+      }
+    } else {
+      console.log('No Metamask detected');
+    }
+  }
+  const formatAddress = (address) => {
+    if (address.length === 42) {
+      return address.substring(0, 6) + "..." + address.substring(38);
+    } else {
+      return address;
     }
   }
 
-
-
-
-
   const [clientWindowHeight, setClientWindowHeight] = useState("");
-
   const [boxShadow, setBoxShadow] = useState(0);
 
   useEffect(() => {
@@ -93,16 +108,26 @@ export default function Navbar() {
               <li>
               </li>
             </ul>
-            <div className={styles.searchBar}></div>
+            <div className={styles.searchBar}>
+              <div class="input-group mb-3">
+                <input type="search" className="form-control" placeholder="Search for an event" aria-describedby="searchBtn" />
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+              </div>
+            </div>
           </div>
-          <div className={styles.connectBtn}>
-
-          
-
-          
-
-            <button onClick={connect}>Connect wallet</button>
-            <h3>Wallet address: {address}</h3>
+          <div className={styles.right}>
+          {isConnected ? (
+            <div className={styles.connectBtn}>
+              <button>{formatAddress(address)}</button>
+              <div className={styles.dropdown}>
+                <a href="javascript:void(0)" onClick={disconnectMetamask}>Disconnect</a>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.connectBtn}>
+              <button onClick={connectMetamask}>Connect wallet</button>
+            </div>
+          )}
           </div>
         </div>
       </div>

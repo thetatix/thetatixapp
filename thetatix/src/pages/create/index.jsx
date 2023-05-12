@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react"
+import { useContext, useState, useEffect } from "react"
 import { ethers } from "ethers"
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCreate from '@/assets/styles/Forms.module.css'
-import { useContext } from "react";
-import { DataContext } from "../context/DataContext";
+
+import { DataContext } from "@/context/DataContext";
 import useContracts from '@/components/contractsHook/useContract';
 
 export default function Create() {
