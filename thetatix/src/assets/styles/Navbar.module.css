@@ -8,18 +8,27 @@
 .logo .logoImg img { display: block; width: 100%; margin: 0 auto 0 0; }
 /** center **/
 /*** links ***/
-.center { flex: 3 0 auto; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-evenly; gap: 4rem; }
+.center { flex: 3 0 auto; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between; gap: 4rem; }
 .center ul {  display: flex; padding: 0; margin: 0; list-style: none; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-evenly; gap: 4rem; width: 50%; }
 .center ul li { flex: 1 0 auto; }
 .center ul li .navLink { color: var(--text-color); font-size: var(--font-size); font-weight: 400; line-height: 1; text-decoration: none; transition: 0.5s; }
 .center ul li .navLink:hover { color: var(--pri-color); }
 /*** searchbar ***/
-.center .searchBar { width: 50%; margin: 0 auto; border-radius: .6rem; border: none; padding: 1rem; background-color: var(--sec-color); }
+.center .searchBar { width: 50%; margin: 0 auto; }
+.center .searchBar .searchInput {  }
+.center .searchBar .input { display: block; width: auto; color: var(--text-color); line-height: 1.7; font-weight: 400; font-size: var(--font-size); background-color: var(--sec-color); border: 0; border-radius: .5rem; padding: .5rem 1rem; outline: 0; }
+.center .searchBar .input:focus { box-shadow: 0px 4px 15px rgba(var(--ter-color-rgb), 0.03); outline: 2px solid rgba(var(--pri-color-rgb), 0.1); }
+.center .searchBar .input::placeholder { color: var(--info-color); }
+.center .searchBar .searchInput button { color: var(--text-color); line-height: 1.7; font-weight: 400; font-size: var(--font-size); background-color: var(--sec-color); border: 0; border-radius: .5rem; padding: .5rem 1rem; outline: 0; }
+.center .searchBar .searchInput button img { width: 100%; height: 1.2rem; vertical-align: text-bottom; filter: var(--filter-info-color); transition: 0.5s; }
+.center .searchBar .searchInput button:focus img { filter: invert(0); }
 /** connect button **/
 .right { flex: 1 0 auto; text-align: right; }
 .connectBtn { position: relative; }
 .connectBtn button { background-color: var(--pri-color); color: var(--light-text-color); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; }
 .connectBtn:hover button { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); }
+.connectBtn button img { width: auto; height: 1.2rem; margin-left: .4rem; filter: var(--light-text-color-filter); transition: 0.2s; }
+.connectBtn:hover button img { transform: rotate(180deg); }
 .connectBtn .dropdown { display: block; min-width: unset; left: 0; right: 0; position: relative; opacity: 0; position: absolute; transition: 0.2s; z-index: 5; }
 .connectBtn:hover .dropdown { opacity: 1; }
 .connectBtn .dropdown a { color: var(--text-color); text-decoration: none; transition: 0.5s; font-size: var(--font-size); padding-right: 1rem; }

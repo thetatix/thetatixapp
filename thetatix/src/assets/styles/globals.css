@@ -6,10 +6,12 @@
   --ter-color-rgb: 56, 48, 48;
   --accent-color: #FEE6E6; /* darker sec-color */
   --info-color: #A4A4A4; /* placeholders */
+  --filter-info-color: invert(87%) sepia(0%) saturate(77%) hue-rotate(166deg) brightness(76%) contrast(89%);
 
   --text-color: #000000;
   --text-color-filter: invert(1);
   --light-text-color: #FFFFFF;
+  --light-text-color-filter: invert(100%);
   --bg-color: #FFFFFF;
 
   /* --success-color: #28a745;

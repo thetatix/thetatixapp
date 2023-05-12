@@ -50,6 +50,10 @@ export default function Navbar() {
     }
   }
 
+  const submitForm = async (e) => {
+    // e.preventDefault();
+  }
+
   const [clientWindowHeight, setClientWindowHeight] = useState("");
   const [boxShadow, setBoxShadow] = useState(0);
 
@@ -105,20 +109,33 @@ export default function Navbar() {
                   Create an event
                 </Link>
               </li>
-              <li>
-              </li>
             </ul>
             <div className={styles.searchBar}>
-              <div class="input-group mb-3">
-                <input type="search" className="form-control" placeholder="Search for an event" aria-describedby="searchBtn" />
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-              </div>
+              <form action="" onSubmit={submitForm} method="POST" className={styles.searchInput + ' input-group'}>
+                <input type="search" className={styles.input + ' form-control'} placeholder="Search for an event" aria-describedby="searchBtn" />
+                <button id="searchBtn" type="submit">
+                  <Image
+                    src="/icons/search.svg"
+                    alt="Search icon"
+                    width={40}
+                    height={40}
+                  />
+                </button>
+              </form>
             </div>
           </div>
           <div className={styles.right}>
           {isConnected ? (
             <div className={styles.connectBtn}>
-              <button>{formatAddress(address)}</button>
+              <button>
+                {formatAddress(address)}
+                <Image
+                  src="/icons/chevron.svg"
+                  alt="Chevron icon"
+                  width={40}
+                  height={40}
+                />
+              </button>
               <div className={styles.dropdown}>
                 <a href="javascript:void(0)" onClick={disconnectMetamask}>Disconnect</a>
               </div>
