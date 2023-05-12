@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { ethers } from "ethers"
 import useContracts from '../../components/contractsHook/useContract'
 import Head from 'next/head'
 import Image from 'next/image'
@@ -36,6 +37,10 @@ export default function Create() {
     const submitForm = async (e) => {
         e.preventDefault();
         //DETERMINAR EL SIGNER DE METAMASK
+        // const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        // // Prompt user for account connections
+        // await provider.send("eth_requestAccounts", []);
+        // const signer = provider.getSigner();
         const contract = new useContracts(signer);
         const response = contract.createEventTickets(formData.name,
             formData.eventDescription,formData.ticketsPrice,
