@@ -15,7 +15,7 @@ class useContracts {
         this.#signer = _signer;
         this.#ABIfactory = ABI_file_factory.abi;
         this.#ABIticket = ABI_file_ticket.abi;
-        this.#factoryContract = new ethers.Contract('0x583B2Ec235984B4256e531aA9Dca64F67dB2D799',this.#ABIfactory,_signer);
+        this.#factoryContract = new ethers.Contract('0xa0F06733BcA71A433C82d03bD57C7810391c49Cd',this.#ABIfactory,_signer);
     }   
 
     async working(){
@@ -24,15 +24,17 @@ class useContracts {
         return data
     }
 
-    async createEventTickets(_name,_description,_ticketPrice,_maxTickets,_startDate,_endDate,_location){
+    async createEventTickets(_name,_description,_ticketPrice,_maxTickets,_startDate,_endDate,_location,_creator){
+        if(_creator.length===0){
+            return {error:"please connect ur wallet",data:null};   //data = address created contract
+        }
         try{
             const contract_uuid = uuidv4();
             // const contract_uuid = "b1b2f594-4c56-47e9-98a5-d61c6879077d";
-
             //create event at blockchain
-            const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,contract_uuid);
+            const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,Date.now(),contract_uuid);
             transaction.wait();
-            this.delay(5);
+            await this.delay(15);
             //query the address by uuid
             const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);
             //push to the db
@@ -40,7 +42,8 @@ class useContracts {
                 contractAddress:newEvent_address,
                 startDate:_startDate,
                 endDate:_endDate,
-                location:_location
+                location:_location,
+                creator:_creator
             }
             const data = JSON.stringify({data: raw_data});
 

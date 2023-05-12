@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import useContracts from '../../components/contractsHook/useContract'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCreate from '@/assets/styles/Forms.module.css'
+import { useContext } from "react";
+import { DataContext } from "../context/DataContext";
+import useContracts from '@/components/contractsHook/useContract';
 
 export default function Create() {
+    const { address, setAddress } =  useContext(DataContext);
+
     const [formData, setFormData] = useState({
         contractAddress: "",
         creator: "", //adress of creator,
@@ -37,15 +41,22 @@ export default function Create() {
     const submitForm = async (e) => {
         e.preventDefault();
         //DETERMINAR EL SIGNER DE METAMASK
-        // const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        // // Prompt user for account connections
-        // await provider.send("eth_requestAccounts", []);
-        // const signer = provider.getSigner();
+        const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        // Pmetamask setup
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
         const contract = new useContracts(signer);
-        const response = contract.createEventTickets(formData.name,
-            formData.eventDescription,formData.ticketsPrice,
-            formData.maxTickets,formData.startDate,
-            formData.endDate,formData.location)
+        //create ticket
+        const response = contract.createEventTickets(
+            formData.name,
+            formData.eventDescription,
+            formData.ticketsPrice,
+            formData.maxTickets,
+            formData.startDate,
+            formData.endDate,
+            formData.location,
+            address
+        )
         if (response.error == null) {
             var resJson = await response.json();
             setAlert(true);

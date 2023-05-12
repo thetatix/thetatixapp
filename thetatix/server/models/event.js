@@ -44,9 +44,8 @@ const eventSchema = new mongoose.Schema({
         type: Buffer
     },//??temporal,
     location : {
-        type:{type:String},
-        coordinates:[Number],
-        default: {}
+        type:String,
+        default: undefined
     },
     category: {
         type: mongoose.ObjectId,
