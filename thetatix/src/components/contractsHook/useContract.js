@@ -73,6 +73,7 @@ class useContracts {
             const parsedNumbers = tickets_numbers.map(ticket => parseInt(ticket._hex,16));
             //add ticket to database 
             const raw_data = {
+                eventContractAdress:ticketEventAddress,
                 userTickets: parsedNumbers,
                 owner:buyerWalletAddress
             }
