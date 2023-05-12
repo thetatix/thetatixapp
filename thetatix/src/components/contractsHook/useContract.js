@@ -65,11 +65,14 @@ class useContracts {
     }
 
     async buyTicket(buyerWalletAddress,ticketEventAddress,price){
+        if(buyerWalletAddress.length===0){
+            return {error:"please connect ur wallet",data:null};   //data = address created contract
+        }
+        console.log('buyin ticket')
         //buy ticket on smart contract
         const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
         try{
-            await event_contract.buyTicket({value:ethers.utils.parseEther(price)});
-            // await event_contract.wait();
+            await event_contract.buyTicket({value:ethers.utils.parseEther(price.toString())});
             //get user tickets on that smart contract
             const tickets_numbers = await event_contract.getUserTickets(buyerWalletAddress);
             //convert hex array to numbers array
