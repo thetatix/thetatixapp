@@ -55,8 +55,11 @@ class useContracts {
                     'Content-Type': 'application/json',
                 },
                 body:data
-            })
-            return {error:null,data:event};   //data = address created contract
+            });
+            // const eventData = await event.json();
+            // console.log("Event: " + eventData);
+
+            return { error: null, data: event, message: "Event created successfully." };   //data = address created contract
         }catch(err){
             console.log(err);
             return {error:err,data:null, message: "There was an error creating your event."}
