@@ -32,9 +32,9 @@
 }
 
 body::-webkit-scrollbar { width: .75rem; }
-body::-webkit-scrollbar-track { background-color: var(); }
-body::-webkit-scrollbar-thumb { background-color: var(); }
-body::-webkit-scrollbar-thumb:hover { background-color: var(); }
+body::-webkit-scrollbar-track { background-color: var(--sec-color); }
+body::-webkit-scrollbar-thumb { background-color: var(--accent-color); }
+body::-webkit-scrollbar-thumb:hover { background-color: var(--pri-color); }
 
 @media (prefers-color-scheme: dark) {
   :root {

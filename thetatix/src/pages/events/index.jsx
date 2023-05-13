@@ -35,10 +35,15 @@ function formatDate(rawDate) {
 
 export default function Events() {
   const [events, setEvents] = useState([]);
+  const [categories, setCategories] = useState([]);
   useEffect(() => {
     fetch("/api/event/getEvents")
       .then((response) => response.json())
       .then((data) => setEvents(data))
+      .catch((error) => console.error(error));
+    fetch("/api/category/getCategories")
+      .then((response) => response.json())
+      .then((data) => setCategories(data))
       .catch((error) => console.error(error));
   }, []);
 
@@ -60,11 +65,26 @@ export default function Events() {
             </div>
           </header>
           {/* categories */}
-          <section className={styles.section}></section>
+          <section className={styles.section}>
+            <div className={styles.sectionContainer + ' container'}>
+              <h2>Categories</h2>
+              <div className={styleCards.contentCategoryCards + ' row'}>
+                {categories.length > 0 ? (
+                  categories.map((category) => (
+                    <Link href={`api/category/${category._id}`} className={styleCards.categoryCard + ' col-4'} key={category._id}>
+                      <div>
+                        <p key={category._id}>{category.categoryName}</p>
+                      </div>
+                    </Link>
+                  ))
+                ) : null}
+              </div>
+            </div>
+          </section>
           {/* events */}
           <section className={styles.section}>
             <div className={styles.sectionContainer + ' container'}>
-              <div className={styleCards.contentCards + ' row'}>
+              <div className={styleCards.contentEventCards + ' row'}>
               {/* Para pruebas: */}
               {events.length > 0 ? (
                 events.map((event) => {
