@@ -4,7 +4,7 @@
 .header {  }
 .headerContainer {  }
 .header .content {  }
-.header h1 { color: var(--text-color); font-size: 2rem; margin-bottom: .5rem; line-height: 1.7; font-weight: 500; }
+.header h1 { color: var(--text-color); font-size: 1.6rem; margin-bottom: .5rem; line-height: 1.7; font-weight: 500; }
 .header .subtitle { color: var(--text-color); font-size: 1.1rem; margin-bottom: 2rem; line-height: 1.2; font-weight: 400; }
 
 .section {  }

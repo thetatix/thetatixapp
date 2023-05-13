@@ -59,13 +59,15 @@ export default function Events() {
               </div>
             </div>
           </header>
+          {/* categories */}
+          <section className={styles.section}></section>
+          {/* events */}
           <section className={styles.section}>
             <div className={styles.sectionContainer + ' container'}>
               <div className={styleCards.contentCards + ' row'}>
               {/* Para pruebas: */}
               {events.length > 0 ? (
                 events.map((event) => {
-                  // console.log(event.location);
                   const randomImage = getRandomImage(images);
                   return (
                     <Link href={`api/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>

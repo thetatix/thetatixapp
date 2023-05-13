@@ -47,7 +47,7 @@ export default function Create() {
         const signer = provider.getSigner();
         const contract = new useContracts(signer);
         //create ticket
-        const response = contract.createEventTickets(
+        const response = await contract.createEventTickets(
             formData.name,
             formData.eventDescription,
             formData.ticketsPrice,
@@ -58,15 +58,13 @@ export default function Create() {
             address
         )
         if (response.error == null) {
-            var resJson = await response.json();
             setAlert(true);
             setFormStatus("success");
-            setFormStatusMsg(resJson.message);
+            setFormStatusMsg(response.message);
         } else {
-            var resJson = await response.json();
             setAlert(true);
             setFormStatus("error");
-            setFormStatusMsg(resJson.message);
+            setFormStatusMsg(response.message);
         }
     }
     

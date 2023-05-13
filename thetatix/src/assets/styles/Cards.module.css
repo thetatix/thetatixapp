@@ -1,4 +1,7 @@
 .contentCards { display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: flex-start; }
+/* categories cards */
+
+/* events cards */
 .eventCard { text-decoration: none; color: var(--text-color); padding-bottom: .8rem; padding-top: .8rem; }
 .eventCard .event { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; height: 100%; }
 .eventCard .eventImg { flex: 65% 2; border-radius: .5rem; overflow: hidden; position: relative; }

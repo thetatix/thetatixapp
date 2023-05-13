@@ -26,7 +26,7 @@ class useContracts {
 
     async createEventTickets(_name,_description,_ticketPrice,_maxTickets,_startDate,_endDate,_location,_creator){
         if(_creator.length===0){
-            return {error:"please connect ur wallet",data:null};   //data = address created contract
+            return { error:"please connect ur wallet",data:null, message: "Please connect your wallet."};   //data = address created contract
         }
         try{
             const contract_uuid = uuidv4();
@@ -46,6 +46,7 @@ class useContracts {
                 creator:_creator
             }
             const data = JSON.stringify({data: raw_data});
+            console.log(data);
 
             //push to the database address event + data;
             const event = await fetch('/api/event/newEvent',{
@@ -57,7 +58,8 @@ class useContracts {
             })
             return {error:null,data:event};   //data = address created contract
         }catch(err){
-            return {error:err,data:null}
+            console.log(err);
+            return {error:err,data:null, message: "There was an error creating your event."}
 
         }
         
@@ -153,7 +155,7 @@ class useContracts {
         return new Promise(resolve => {
           setTimeout(resolve, seconds * 1000);
         });
-      }
+    }
 }
 
 export default useContracts;

@@ -16,7 +16,7 @@ const handler = async (req, res) => {
             const provider = new ethers.providers.JsonRpcProvider(rpc_url);
             const wallet = new ethers.Wallet(private_key, provider);
             const signer = wallet.connect(provider);
-            const  data  = req.body;
+            const data  = req.body;
             //query from smart contract the data preventing scams
             //la data la recive en un array en vez de objeto nose porque
             const contracts = new ethers.Contract(data.data.contractAddress,ABI_event.abi,signer);
@@ -40,11 +40,12 @@ const handler = async (req, res) => {
                     eventDescription: eventData[1],
                     startDate: data.data.startDate,
                     endDate: data.data.endDate,
-                    location: data.data.location
-                    // category: category
+                    location: data.data.location,
+                    category: data.category
                 })
+                console.log(event);
             
-                res.status(201).json({ message:'Event created successfully.',data:event })
+                res.status(201).json({ message:'Event created successfully.', data: event })
 
             }catch(err){
                 console.log(err)
