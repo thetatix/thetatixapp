@@ -19,11 +19,10 @@ export default function Home() {
       <main className={styles.main}>
         <header className={styles.header}>
           <div className={styles.headerContainer + ' container'}>
-            <div className={styles.squareLeft}></div>
-            <div className={styles.squareRight}></div>
             <div className={styles.content + ' row'}>
               <div className={styles.column + ' col'}>
-                <h1>The Web3 ticketing and events platform</h1>
+                <p className={styles.title}>The Web3 <br></br> ticketing and <br></br> events platform</p>
+                <div className={styles.squareLeft}></div>
               </div>
               <div className={styles.column + ' col'}>
                 <Link href="/" className={styles.eventCard}>
@@ -46,6 +45,7 @@ export default function Home() {
                     </p>
                   </div>
                 </Link>
+                <div className={styles.squareRight}></div>
               </div>
             </div>
           </div>

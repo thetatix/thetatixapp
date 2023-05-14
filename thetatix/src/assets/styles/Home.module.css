@@ -1,13 +1,14 @@
 
-.main { padding-top: 6rem; padding-bottom: 6rem; min-height: 100vh; }
+.main { padding-top: 6rem; padding-bottom: 6rem; min-height: 100vh; font-family: 'Biotif', sans-serif; }
 
 .header { min-height: 100vh; }
 .headerContainer {  }
-.squareLeft {  }
-.squareRight {  }
+.squareLeft { background-color: #FEE6E6; width: 500px; height: 75px; position: absolute; top: 66%; left: 0; transform: translateY(-50%); z-index: -1; margin-left: -100px;}
+.squareRight { background-color: var(--pri-color); width: 150px; height: 75px; position: absolute; top: 25%; right: 0; transform: translateY(-50%); z-index: -1; }
 .header .content {  }
 .header .content .column {  }
-.header .content .column:nth-child(1) {  }
+.header .content .column:nth-child(1) { display: flex; align-items: center; position: relative; }
+.header .content .column:nth-child(1) .title { font-size: var(--font-size-xl); font-family: 'Biotif', sans-serif; font-weight: 500; }
 .header .content .column:nth-child(2) {  }
 .header .content .column h1 {  }
 
@@ -21,3 +22,22 @@
 .eventCard .event p { transition: 0.5s; font-weight: 400; margin-top: 1rem; margin-bottom: 0; font-size: var(--font-size); }
 
 .section {  }
+
+/* `xxl` applies to x-large devices (large desktops, less than 1400px) */
+@media (max-width: 1399.98px) {}
+
+/* `xl` applies to large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {}
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {}
+
+/* `md` applies to small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+.header .content { flex-direction: column; }
+.squareLeft { height: 60px; width: 300px; top: 75%;}
+.squareRight { top: 70%;}
+}
+
+/* `sm` applies to x-small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {}

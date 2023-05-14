@@ -1,3 +1,16 @@
+@font-face {
+  font-family: 'Biotif';
+  src: url('../../pages/fonts/Biotif-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Biotif';
+  src: url('../../pages/fonts/Biotif-Medium.ttf');
+  font-weight: 500;
+  font-style: normal;
+}
+
 :root {
   --pri-color: #F55858; /* buttons */
   --pri-color-rgb: 245, 88, 88;
@@ -20,6 +33,7 @@
 
   --font-family: Arial, sans-serif;
   --font-size: .95rem;
+  --font-size-xl: 3.8rem;
 
   --mw-xxl: 1399.98px;
   --mw-xl: 1199.98px;
@@ -66,16 +80,21 @@ body { color: var(--text-color); background: var(--bg-color); }
 
 
 /* `xxl` applies to x-large devices (large desktops, less than 1400px) */
-@media (max-width: var(--mw-xxl)) {}
+@media (max-width: 1399.98px) {}
 
 /* `xl` applies to large devices (desktops, less than 1200px) */
-@media (max-width: var(--mw-xl)) {}
+@media (max-width: 1199.98px) {}
 
 /* `lg` applies to medium devices (tablets, less than 992px) */
-@media (max-width: var(--mw-lg)) {}
+@media (max-width: 991.98px) {}
 
 /* `md` applies to small devices (landscape phones, less than 768px) */
-@media (max-width: var(--mw-md)) {}
+@media (max-width: 767.98px) {
+  :root {
+    --font-size-xl: 2.5rem;
+  }
+  
+}
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
-@media (max-width: var(--mw-sm)) {}
+@media (max-width: 575.98px) {}
