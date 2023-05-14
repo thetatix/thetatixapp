@@ -9,6 +9,69 @@ import styles from '@/assets/styles/Navbar.module.css'
 
 
 export default function Navbar() {
+
+  const [error, setError] = useState();
+
+  const networks = {
+    thetatesnet: {
+      chainId: `0x${Number(365).toString(16)}`,
+      chainName: "Theta Testnet",
+      nativeCurrency: {
+        name: "TFUEL",
+        symbol: "TFUEL",
+        decimals: 18
+      },
+      rpcUrls: ["https://eth-rpc-api-testnet.thetatoken.org/rpc"],
+      blockExplorerUrls: ["https://testnet-explorer.thetatoken.org/"]
+    },
+    theta: {
+      chainId: `0x${Number(361).toString(16)}`,
+      chainName: "Theta Mainnet",
+      nativeCurrency: {
+        name: "TFUEL",
+        symbol: "TFUEL",
+        decimals: 18
+      },
+      rpcUrls: ["https://eth-rpc-api.thetatoken.org/rpc"],
+      blockExplorerUrls: ["https://explorer.thetatoken.org/"]
+    }
+  }
+
+  const changeNetwork = async ({ networkName, setError }) => {
+    try {
+      if (!window.ethereum) throw new Error("No crypto wallet found");
+      await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            ...networks[networkName]
+          }
+        ]
+      });
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleNetworkSwitch = async (networkName) => {
+    setError();
+    await changeNetwork({ networkName, setError });
+  };
+
+  const networkChanged = (chainId) => {
+    console.log({ chainId });
+  }
+
+  useEffect(() => {
+    window.ethereum.on("chainChanged", networkChanged);
+
+    return () => {
+      window.ethereum.removeListener("chainChanged", networkChanged);
+    };
+  }, []);
+
+
+
   
   const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
 
@@ -47,6 +110,27 @@ export default function Navbar() {
       return address.substring(0, 6) + "..." + address.substring(38);
     } else {
       return address;
+    }
+  }
+
+  const switchNetwork = async () => {
+    try {
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{
+          chainId: `0x${Number(365).toString(16)}`,
+          chainName: "Theta Testnet",
+          nativeCurrency: {
+            name: "TFUEL",
+            symbol: "TFUEL",
+            decimals: 18
+          },
+          rpcUrls: ["https://eth-rpc-api-testnet.thetatoken.org/rpc"],
+          blockExplorerUrls: ["https://testnet-explorer.thetatoken.org/"]
+        }],
+      });
+    } catch (addError) {
+      console.log(addError);
     }
   }
 
@@ -108,6 +192,9 @@ export default function Navbar() {
                 <Link href="/create" className={styles.navLink}>
                   Create an event
                 </Link>
+              </li>
+              <li>
+                <button onClick={() => handleNetworkSwitch("theta")}>Theta</button>
               </li>
             </ul>
             <div className={styles.searchBar}>
