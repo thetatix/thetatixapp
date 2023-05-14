@@ -1,6 +1,6 @@
 /* navbar */
 .nav { background-color: var(--bg-color); display: block; width: 100%; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); position: fixed; top: 0; left: 0; right: 0; z-index: 4; transition: 0.8s; }
-.navbarContainer { position: relative; padding-top: 1.2rem; padding-bottom: 1.2rem; }
+.navbarContainer { position: relative; padding-top: 1.2rem; padding-bottom: 1.2rem; font-family: 'Biotif', sans-serif; }
 .content { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; align-content: center; }
 /** logo **/
 .logo { flex: 1 0 auto; }

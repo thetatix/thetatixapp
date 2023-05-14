@@ -48,6 +48,10 @@ export default function Navbar() {
           }
         ]
       });
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: networks[networkName].chainId }]
+      });
     } catch (err) {
       setError(err.message);
     }
@@ -84,6 +88,7 @@ export default function Navbar() {
         let account = await window.ethereum.request({ method: "eth_accounts"});
         setAddress(account[0]);
         console.log(address);
+        await handleNetworkSwitch("theta");
       } catch (error) {
         console.log('Error connecting to Ethereum');
       }
@@ -168,7 +173,7 @@ export default function Navbar() {
           <div className={styles.logo}>
             <Link href="/" className={styles.logoImg}>
               <Image
-                src="/next.svg"
+                src="/img/Thetatix-b.svg"
                 alt="Thetatix Logo"
                 width={180}
                 height={37}
