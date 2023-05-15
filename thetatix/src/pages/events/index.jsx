@@ -19,6 +19,15 @@ const images = [
   { id: 10, img: "event-rm.png" },
 ];
 
+const imagesCat = [
+  { id: 1, img: "category-comedy.png" },
+  { id: 2, img: "category-gaming.png" },
+  { id: 3, img: "category-music.png" },
+  { id: 4, img: "category-soccer.png" },
+  { id: 5, img: "category-theatre.png" },
+  { id: 6, img: "category-web3.png" },
+];
+
 function getRandomImage(images) {
   return images[Math.floor(Math.random() * images.length)];
 }
@@ -71,7 +80,7 @@ export default function Events() {
               <div className={styleCards.contentCategoryCards}>
                 {categories.length > 0 ? (
                   categories.map((category) => {
-                    const randomImage = getRandomImage(images);
+                    const randomImage = getRandomImage(imagesCat);
                     return (
                       <Link href={`api/category/${category._id}`} className={styleCards.categoryCard} key={category._id}>
                         <div className={styleCards.category}>
