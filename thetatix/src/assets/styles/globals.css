@@ -40,6 +40,15 @@
   --mw-lg: 991.98px;
   --mw-md: 767.98px;
   --mw-sm: 575.98px;
+
+
+
+  --catOpacity-from: .2;
+  --catOpacity-to: .5;
+  --catGap: 2rem;
+  --catSize: 22%;
+  --catFontSize-from: 1.1rem;
+  --catFontSize-to: 1.2rem;
   
   /* --line-height: 1.5; */
   /* --border-radius: 4px; */

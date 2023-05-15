@@ -198,9 +198,9 @@ export default function Navbar() {
                   Create an event
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <button onClick={() => handleNetworkSwitch("theta")}>Theta</button>
-              </li>
+              </li> */}
             </ul>
             <div className={styles.searchBar}>
               <form action="" onSubmit={submitForm} method="POST" className={styles.searchInput + ' input-group'}>
