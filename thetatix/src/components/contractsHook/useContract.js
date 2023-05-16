@@ -55,7 +55,6 @@ class useContracts {
                 category: _category
             }
             const data = JSON.stringify({ contractData: raw_data });
-
             //push to the database address event + data;
             const event = await fetch('/api/event/newEvent', {
                 method: 'POST',
@@ -64,10 +63,13 @@ class useContracts {
                 },
                 body: data
             });
+            if (event.status == 413) {
+               return { error: event.statusText, data: data, message: "Image exceeds 1MB limit." };
+            }
             return { error: null, data: event, message: "Event created successfully." };   //data = address created contract
         }catch(err){
             console.log(err);
-            return {error:err,data:null, message: "There was an error creating your event."}
+            return {error: err, data: null, message: "There was an error creating your event."}
 
         }
         

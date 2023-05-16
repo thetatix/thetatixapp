@@ -52,8 +52,8 @@ const handler = async (req, res) => {
                 res.status(201).json({ message:'Event created successfully.', data: event })
 
             }catch(err){
-                console.log(err)
-                res.status(201).json({ message:'error', data:err })
+                console.log(err);
+                res.status(201).json({ message:'error', data:err });
 
             }
             

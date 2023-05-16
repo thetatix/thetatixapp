@@ -241,33 +241,6 @@ export default function Create() {
                                                 />
                                             </div>
                                         </div>
-                                        {/* no hay time en el scheme */}
-                                        {/* <div className={styleCreate.row + ' row'}>
-                                            <div className={styleCreate.column + ' col-6'}>
-                                                <label htmlFor="startTime" className={styleCreate.label}>Start time</label>
-                                                <input
-                                                id='startTime'
-                                                type="time"
-                                                name='startTime'
-                                                value={formData.startTime}
-                                                onChange={handleInput}
-                                                className={styleCreate.input}
-                                                required
-                                                />
-                                            </div>
-                                            <div className={styleCreate.column + ' col-6'}>
-                                                <label htmlFor="endingTime" className={styleCreate.label}>Ending time</label>
-                                                <input
-                                                id='endingTime'
-                                                type="time"
-                                                name='endingTime'
-                                                value={formData.endingTime}
-                                                onChange={handleInput}
-                                                className={styleCreate.input}
-                                                required
-                                                />
-                                            </div>
-                                        </div> */}
                                         <div className={styleCreate.row + ' row'}>
                                             <div className={styleCreate.column + ' col-6'}>
                                                 <label htmlFor="maxTickets" className={styleCreate.label}>Tickets amount</label>
