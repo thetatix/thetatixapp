@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react"
 import { ethers } from "ethers"
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/link'
+// import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCreate from '@/assets/styles/Forms.module.css'
 
@@ -13,11 +13,11 @@ export default function Create() {
     const { address, setAddress } =  useContext(DataContext);
 
     const [formData, setFormData] = useState({
-        contractAddress: "",
-        creator: "", //adress of creator,
+        // contractAddress: "",
+        // creator: "", //adress of creator,
         maxTickets: 1,
         eventName: "",
-        ticketsPrice:0,
+        ticketsPrice: 0,
         eventDescription: "",
         startDate: "",
         endDate: "",
@@ -38,24 +38,47 @@ export default function Create() {
         }));
     }
 
+    const handleFileInput = (e) => {
+        const file = e.target.files[0];
+        // console.log(file);
+        const reader = new FileReader();
+        // console.log(reader);
+        reader.onloadend = () => {
+            setFormData((prevState) => ({
+                ...prevState,
+                img: reader.result,
+            }));
+        };
+        // console.log(formData.img);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
+
     const submitForm = async (e) => {
         e.preventDefault();
         //DETERMINAR EL SIGNER DE METAMASK
+
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+
         // Pmetamask setup
+        
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const contract = new useContracts(signer);
+
         //create ticket
         const response = await contract.createEventTickets(
-            formData.name,
-            formData.eventDescription,
-            formData.ticketsPrice,
+            address,
             formData.maxTickets,
+            formData.eventName,
+            formData.ticketsPrice,
+            formData.eventDescription,
             formData.startDate,
+            formData.img,
             formData.endDate,
             formData.location,
-            address
+            formData.category
         )
         if (response.error == null) {
             setAlert(true);
@@ -149,13 +172,12 @@ export default function Create() {
                                         <div className={styleCreate.row + ' row'}>
                                             <div className={styleCreate.column + ' col-12'}>
                                                 <label htmlFor="img" className={styleCreate.label}>Event image</label>
-                                                {/* no terminado */}
                                                 <input
                                                 id="img"
                                                 type="file"
+                                                accept="image/*"
                                                 name="img"
-                                                value={formData.img}
-                                                onChange={handleInput}
+                                                onChange={handleFileInput}
                                                 className={styleCreate.input}
                                                 />
                                             </div>
@@ -163,7 +185,6 @@ export default function Create() {
                                         <div className={styleCreate.row + ' row'}>
                                             <div className={styleCreate.column + ' col-12'}>
                                                 <label htmlFor="category" className={styleCreate.label}>Category</label>
-                                                {/* no terminado */}
                                                 <select
                                                 id="category"
                                                 name="category"
@@ -183,7 +204,7 @@ export default function Create() {
                                                 <input
                                                 id='location'
                                                 // no terminado
-                                                // type="location"
+                                                type="text"
                                                 name='location'
                                                 value={formData.location}
                                                 onChange={handleInput}
@@ -197,7 +218,7 @@ export default function Create() {
                                                 <label htmlFor="startDate" className={styleCreate.label}>Start date</label>
                                                 <input
                                                 id='startDate'
-                                                type="date"
+                                                type="datetime-local"
                                                 name='startDate'
                                                 value={formData.startDate}
                                                 onChange={handleInput}
@@ -210,7 +231,7 @@ export default function Create() {
                                                 <label htmlFor="endDate" className={styleCreate.label}>End date</label>
                                                 <input
                                                 id='endDate'
-                                                type="date"
+                                                type="datetime-local"
                                                 name='endDate'
                                                 value={formData.endDate}
                                                 onChange={handleInput}
@@ -221,7 +242,7 @@ export default function Create() {
                                             </div>
                                         </div>
                                         {/* no hay time en el scheme */}
-                                        <div className={styleCreate.row + ' row'}>
+                                        {/* <div className={styleCreate.row + ' row'}>
                                             <div className={styleCreate.column + ' col-6'}>
                                                 <label htmlFor="startTime" className={styleCreate.label}>Start time</label>
                                                 <input
@@ -246,7 +267,7 @@ export default function Create() {
                                                 required
                                                 />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className={styleCreate.row + ' row'}>
                                             <div className={styleCreate.column + ' col-6'}>
                                                 <label htmlFor="maxTickets" className={styleCreate.label}>Tickets amount</label>
@@ -290,7 +311,7 @@ export default function Create() {
                         <section className={styles.sideImgSection}>
                             <div className={styles.sideImgContainer}>
                                 <Image
-                                    src="/img/wallpaper-3.png"
+                                    src={formData.img !== "" ? formData.img : "/img/wallpaper-3.png"}
                                     alt="Event image"
                                     width={2400}
                                     height={1600}

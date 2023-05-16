@@ -24,41 +24,46 @@ class useContracts {
         return data
     }
 
-    async createEventTickets(_name,_description,_ticketPrice,_maxTickets,_startDate,_endDate,_location,_creator){
+    async createEventTickets(_creator, _maxTickets, _name, _ticketPrice, _description, _startDate, _img, _endDate, _location, _category) {
         if(_creator.length===0){
-            return { error:"please connect ur wallet",data:null, message: "Please connect your wallet."};   //data = address created contract
+            return { error: "Wallet not connected.", data: null, message: "Please connect your wallet." };   //data = address created contract
         }
         try{
-            const contract_uuid = uuidv4();
-            // const contract_uuid = "b1b2f594-4c56-47e9-98a5-d61c6879077d";
+            // const contract_uuid = uuidv4();
+
             //create event at blockchain
-            const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,Date.now(),contract_uuid);
-            transaction.wait();
-            await this.delay(15);
+            // const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,Date.now(),contract_uuid);
+            // transaction.wait();
+            // await this.delay(15);
+
             //query the address by uuid
-            const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);
+            // const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);
+
             //push to the db
             const raw_data = {
-                contractAddress:newEvent_address,
-                startDate:_startDate,
-                endDate:_endDate,
-                location:_location,
-                creator:_creator
+                contractAddress: "newEvent_address_1",
+                creator: _creator,
+                ticketsAmount: 0,
+                maxTickets: _maxTickets,
+                ticketsPrice: _ticketPrice,
+                eventName: _name,
+                eventDescription: _description,
+                startDate: _startDate,
+                endDate: _endDate,
+                img: _img,
+                location: _location,
+                category: _category
             }
-            const data = JSON.stringify({data: raw_data});
-            console.log(data);
+            const data = JSON.stringify({ contractData: raw_data });
 
             //push to the database address event + data;
-            const event = await fetch('/api/event/newEvent',{
-                method:'POST',
+            const event = await fetch('/api/event/newEvent', {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body:data
+                body: data
             });
-            // const eventData = await event.json();
-            // console.log("Event: " + eventData);
-
             return { error: null, data: event, message: "Event created successfully." };   //data = address created contract
         }catch(err){
             console.log(err);
