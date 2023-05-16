@@ -26,7 +26,7 @@ class useContracts {
 
     async createEventTickets(_creator, _maxTickets, _name, _ticketPrice, _description, _startDate, _img, _endDate, _location, _category) {
         if(_creator.length===0){
-            return { error: "Wallet not connected.", data: null, message: "Please connect your wallet." };   //data = address created contract
+            return { error: "Wallet not connected.", data: null, status: "warning", message: "Wallet not connected." };   //data = address created contract
         }
         try{
             // const contract_uuid = uuidv4();
@@ -64,12 +64,12 @@ class useContracts {
                 body: data
             });
             if (event.status == 413) {
-               return { error: event.statusText, data: data, message: "Image exceeds 1MB limit." };
+               return { error: event.statusText, data: null, status: "danger", message: "Image exceeds 1MB limit." };
             }
-            return { error: null, data: event, message: "Event created successfully." };   //data = address created contract
+            return { error: null, data: event, status: "success", message: "Event created successfully." };   //data = address created contract
         }catch(err){
             console.log(err);
-            return {error: err, data: null, message: "There was an error creating your event."}
+            return {error: err, data: null, status: "danger", message: "There was an error creating your event."}
 
         }
         

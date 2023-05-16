@@ -16,3 +16,16 @@
 .sideImgSection { height: 100%; }
 .sideImgContainer { overflow: hidden; position: relative; height: 100%; }
 .sideImgContainer img { width: 100%; height: 60%; object-fit: cover; object-position: 50% 50%; display: block; margin: 0 auto; text-align: center; min-height: 20rem; max-height: 40rem; border-radius: .5rem; }
+
+
+.alert { background-color: var(--bg-color); border: 1px solid var(--text-color); position: fixed; z-index: 4; border-radius: .5rem; bottom: 1rem; left: 1rem; padding: .5rem; }
+.alert.success { background-color: var(--success-color); border: 1px solid var(--success-color-border); }
+.alert.danger { background-color: var(--danger-color); border: 1px solid var(--danger-color-border); }
+.alert.warning { background-color: var(--warning-color); border: 1px solid var(--warning-color-border); }
+.alert.info { background-color: var(--info-color); border: 1px solid var(--info-color-border); }
+
+.alertContent { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: .5rem; }
+.alertIcon { height: 1.4rem; width: auto; }
+.alertMessage { font-size: var(--font-size); font-weight: 400; color: var(--text-color); line-height: 1.2; margin-bottom: 0; max-width: 75%; }
+.alertCloseBtn { background: none; border: 0; outline: none; position: relative; }
+.alertCloseBtn img { height: 1.4rem; width: auto; vertical-align: bottom; }

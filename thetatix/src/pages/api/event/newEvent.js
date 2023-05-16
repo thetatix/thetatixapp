@@ -49,20 +49,20 @@ const handler = async (req, res) => {
                     category: mongoCategory
                 })
             
-                res.status(201).json({ message:'Event created successfully.', data: event })
+                res.status(201).json({ error: null, data: event, status: "success", message:'Event created successfully.' })
 
             }catch(err){
                 console.log(err);
-                res.status(201).json({ message:'error', data:err });
+                res.status(500).json({ error: err, data: null, status: "danger", message:'Error pushing event to database' });
 
             }
             
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Unable to create event.' });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: err, data: null, status: "danger", message: 'Unable to create event.' });
         }
     } else {
-        res.status(405).json({ message: 'Method not allowed.' });
+        res.status(405).json({ error: "Method not allowed", data: null, status: "danger", message: 'Method not allowed.' });
     }
 }
 

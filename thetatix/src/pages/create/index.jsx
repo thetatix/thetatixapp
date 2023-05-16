@@ -82,11 +82,11 @@ export default function Create() {
         )
         if (response.error == null) {
             setAlert(true);
-            setFormStatus("success");
+            setFormStatus(response.status);
             setFormStatusMsg(response.message);
         } else {
             setAlert(true);
-            setFormStatus("error");
+            setFormStatus(response.status);
             setFormStatusMsg(response.message);
         }
     }
@@ -121,10 +121,28 @@ export default function Create() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={styles.main}>
-            {/* form status can be "success" or "error" */}
             {alert &&
                 <div className={styles.alert + ' ' + formStatus}>
-                    <p>{formStatusMsg} alerta</p>
+                    <div className="container">
+                        <div className={styles.alertContent}>
+                            <Image
+                                src={"/icons/" + formStatus + ".svg"}
+                                alt="Alert icon"
+                                width={24}
+                                height={24}
+                                className={styles.alertIcon}
+                            />
+                            <p className={styles.alertMessage}>{formStatusMsg}</p>
+                            <button className={styles.alertCloseBtn}>
+                                <Image
+                                    src="/icons/close.svg"
+                                    alt="Close alert icon"
+                                    width={24}
+                                    height={24}
+                                />
+                            </button>
+                        </div>
+                    </div>
                 </div>
             }
             <div className={styles.mainContainer + ' container'}>

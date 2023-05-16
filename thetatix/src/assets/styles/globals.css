@@ -27,9 +27,14 @@
   --light-text-color-filter: invert(100%);
   --bg-color: #FFFFFF;
 
-  /* --success-color: #28a745;
-  --warning-color: #ffc107;
-  --error-color: #dc3545; */
+  --danger-color: #FFD7D7;
+  --danger-color-border: #ED555F;
+  --success-color: #ECF7EF;
+  --success-color-border: #7CBD8E;
+  --warning-color: #FFFAE9;
+  --warning-color-border: #EDB955;
+  --info-color: #E8EFF9;
+  --info-color-border: #7684CB;
 
   --font-family: Arial, sans-serif;
   --font-size: .95rem;
@@ -81,6 +86,11 @@ body::-webkit-scrollbar-thumb:hover { background-color: var(--pri-color); }
   ::-webkit-scrollbar-thumb:hover { background-color: var(--dark-gray); }
   html { color-scheme: dark; }
 }
+
+.success { background-color: var(--success-color)!important; border: 1px solid var(--success-color-border)!important; }
+.danger { background-color: var(--danger-color)!important; border: 1px solid var(--danger-color-border)!important; }
+.warning { background-color: var(--warning-color)!important; border: 1px solid var(--warning-color-border)!important; }
+.info { background-color: var(--info-color)!important; border: 1px solid var(--info-color-border)!important; }
 
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
