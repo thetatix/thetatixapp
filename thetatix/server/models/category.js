@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
-    //completar
+    categoryNumber: {
+        type: Number,
+        required: true
+    },
     categoryName: {
         type:String,
         required: true
-    },
-    categoryDescription: {
-        type: String,
-        required: false
     },
     img: {
         type: Buffer

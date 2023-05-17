@@ -11,7 +11,7 @@ const handler = async (req, res) => {
     // connect to MongoDB
     await connectMongo();
     // find all events and return them
-    const categories = await Category.find().exec();
+    const categories = await Category.find().sort({categoryNumber: 1}).exec();
     if (categories.length === 0) {
       // Handle case where no events were found
       // For example, return an error message

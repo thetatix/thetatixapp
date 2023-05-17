@@ -14,13 +14,12 @@ const handler = async (req, res) => {
             // const signer = wallet.connect(provider);
 
             const { data } = req.body;
-            console.log(data);
             // const contracts = new ethers.Contract(data.contractAddress,ABI_event,signer);
             // const eventData = await contracts.getData();
             
             const category = await new Category({
+                categoryNumber: data.categoryNumber,
                 categoryName: data.categoryName,
-                categoryDescription: data.categoryDescription,
                 img: data.img
             })
             

@@ -24,12 +24,6 @@ export default function CategoryPage() {
         return '/'; // or any default image URL you want to use
     }
     var img = Buffer.from(buffer, 'base64').toString('ascii');
-    // Solo para prubeas, borrar lo siguiente al terminar
-    var ok = img[0] + img[1] + img[2] + img[3];
-    if (ok != "data") {
-      img = "/img/" + img;
-    }
-    // borrar hasta aqui
     return img;
   }
 
@@ -52,16 +46,6 @@ export default function CategoryPage() {
         .then((data) => setCategory(data[0]))
         .catch((error) => console.error(error));
     };
-
-    // const fetchCategory = async () => {
-    //     try {
-    //         const response = await fetch(`/api/category/getCategory?categoryId=${categoryId}`);
-    //         const data = await response.json();
-    //         setCategory(data.category);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // };
 
     if (categoryId) {
         fetchCategory();

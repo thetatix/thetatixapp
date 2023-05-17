@@ -6,19 +6,6 @@ import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
-const imagesCat = [
-  { id: 1, img: "category-comedy.png" },
-  { id: 2, img: "category-gaming.png" },
-  { id: 3, img: "category-music.png" },
-  { id: 4, img: "category-soccer.png" },
-  { id: 5, img: "category-theatre.png" },
-  { id: 6, img: "category-web3.png" },
-];
-
-function getRandomImage(images) {
-  return images[Math.floor(Math.random() * images.length)];
-}
-
 function formatDate(rawDate) {
   const date = new Date(rawDate);
   const options = {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'};
@@ -34,12 +21,6 @@ function bufferToImg(buffer) {
       return '/'; // or any default image URL you want to use
   }
   var img = Buffer.from(buffer, 'base64').toString('ascii');
-  // Solo para prubeas, borrar lo siguiente al terminar
-  var ok = img[0] + img[1] + img[2] + img[3];
-  if (ok != "data") {
-    img = "/img/" + img;
-  }
-  // borrar hasta aqui
   return img;
 }
 
@@ -105,7 +86,6 @@ export default function Events() {
           <section className={styles.section}>
             <div className={styles.sectionContainer + ' container'}>
               <div className={styleCards.contentEventCards + ' row'}>
-              {/* Correcto: */}
               {events.length > 0 ? (
                 events.map((event) => {
                   return (
