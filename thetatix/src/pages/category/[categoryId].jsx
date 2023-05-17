@@ -63,20 +63,24 @@ export default function CategoryPage() {
         <main className={styles.main}>
             <header className={styles.header}>
                 <div className={styles.headerContainer + ' container'}>
-                <div className={styles.content + ' row'}>
-                    <div className='col-12'>
-                        <Image
-                            src={bufferToImg(category.img)}
-                            alt="Category image"
-                            width={2400}
-                            height={1600}
-                        />
+                    <div className={styles.content + ' row'}>
+                        <div className='col-12'>
+                            <div className={styles.categoryImg}>
+                                <Image
+                                    src={bufferToImg(category.img)}
+                                    alt="Category image"
+                                    width={2400}
+                                    height={1600}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <p className={styles.breadcrumbs}>
+                                <a href="/events">Events</a> / <a href={"/category/" + categoryId}>{category.categoryName}</a>
+                            </p>
+                            <h1>{category.categoryName}</h1>
+                        </div>
                     </div>
-                    <div className="col-12">
-                        <h1>Category: {categoryId}</h1>
-                        <h1>Name: {category.categoryName}</h1>
-                    </div>
-                </div>
                 </div>
             </header>
             {/* events */}
@@ -117,7 +121,11 @@ export default function CategoryPage() {
                             )
                         })
                     ) : (
-                    <p>Loading events...</p>
+                        events.length === 0 ? (
+                            <p>No events found</p>
+                        ) : (
+                            <p>Loading events...</p>
+                        )
                     )}
                     
                     </div>

@@ -133,7 +133,7 @@ export default function Create() {
                                 className={styles.alertIcon}
                             />
                             <p className={styles.alertMessage}>{formStatusMsg}</p>
-                            <button className={styles.alertCloseBtn}>
+                            <button className={styles.alertCloseBtn} onClick={() => setAlert(false)}>
                                 <Image
                                     src="/icons/close.svg"
                                     alt="Close alert icon"

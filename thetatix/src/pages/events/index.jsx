@@ -89,7 +89,7 @@ export default function Events() {
               {events.length > 0 ? (
                 events.map((event) => {
                   return (
-                    <Link href={`api/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>
+                    <Link href={`/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>
                       <div className={styleCards.event}>
                         <div className={styleCards.eventImg}>
                           <Image
@@ -119,7 +119,11 @@ export default function Events() {
                   )
                 })
               ) : (
-                <p>Loading events...</p>
+                events.length === 0 ? (
+                  <p>No events found</p>
+                ) : (
+                  <p>Loading events...</p>
+                )
               )}
               
               </div>

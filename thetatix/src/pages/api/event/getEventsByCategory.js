@@ -11,11 +11,17 @@ const handler = async (req, res) => {
 
             // Find events by category
             const events = await Event.find({ category: categoryId });
-
-            res.status(200).json({ events });
+            if (events.length === 0) {
+              // Handle case where no events were found
+              // For example, return an error message
+              res.status(404).json({ error: "No events in this category", events: {length: 0}, data: null, status: "warning", message: "No events found." });
+            } else {
+              // Return the events
+              res.status(200).json({events});
+            }
           } catch (err) {
             console.error(err);
-            res.status(500).json({ message: 'Error retrieving events.' });
+            res.status(500).json({ message: 'Error retrieving events.', events: {} });
           }
     } else {
         res.status(405).json({ message: 'Method not allowed.' });

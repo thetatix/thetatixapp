@@ -16,7 +16,7 @@ const handler = async (req, res) => {
     if (events.length === 0) {
       // Handle case where no events were found
       // For example, return an error message
-      res.status(404).json({ error: "No events in database", events: {}, data: null, status: "warning", message: "No events found." });
+      res.status(404).json({ error: "No events in database", events: {length: 0}, data: null, status: "warning", message: "No events found." });
     } else {
       // Return the events
       res.status(200).json({events});

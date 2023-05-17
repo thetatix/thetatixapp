@@ -67,11 +67,12 @@ export default function Navbar() {
   }
 
   useEffect(() => {
-    window.ethereum.on("chainChanged", networkChanged);
-
-    return () => {
-      window.ethereum.removeListener("chainChanged", networkChanged);
-    };
+    if (typeof window.ethereum !== 'undefined') {
+      window.ethereum.on("chainChanged", networkChanged);
+      return () => {
+        window.ethereum.removeListener("chainChanged", networkChanged);
+      };
+    }
   }, []);
 
 
