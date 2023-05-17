@@ -21,7 +21,7 @@ const handler = async (req, res) => {
             const category = await new Category({
                 categoryName: data.categoryName,
                 categoryDescription: data.categoryDescription,
-                img: "category-musical.png"
+                img: data.img
             })
             
             await category.save();

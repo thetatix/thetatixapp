@@ -29,7 +29,17 @@ function formatDate(rawDate) {
 }
 
 function bufferToImg(buffer) {
-  const img = Buffer.from(buffer, 'base64').toString('ascii');
+  if (!buffer) {
+      console.log('Buffer is undefined or empty.');
+      return '/'; // or any default image URL you want to use
+  }
+  var img = Buffer.from(buffer, 'base64').toString('ascii');
+  // Solo para prubeas, borrar lo siguiente al terminar
+  var ok = img[0] + img[1] + img[2] + img[3];
+  if (ok != "data") {
+    img = "/img/" + img;
+  }
+  // borrar hasta aqui
   return img;
 }
 
@@ -40,7 +50,7 @@ export default function Events() {
   useEffect(() => {
     fetch("/api/event/getEvents")
       .then((response) => response.json())
-      .then((data) => setEvents(data))
+      .then((data) => setEvents(data.events))
       .catch((error) => console.error(error));
     fetch("/api/category/getCategories")
       .then((response) => response.json())
@@ -71,13 +81,11 @@ export default function Events() {
               <div className={styles.sectionContainer + ' container'}>
                 <h2 className={styles.subtitle}>Categories</h2>
                 <div className={styleCards.contentCategoryCards}>
-                  {categories.map((category) => {
-                      const randomImage = getRandomImage(imagesCat);
-                      return (
-                        <Link href={`api/category/${category._id}`} className={styleCards.categoryCard} key={category._id}>
+                  {categories.map((category) => (
+                        <Link href={`/category/${category._id}`} className={styleCards.categoryCard} key={category._id}>
                           <div className={styleCards.category}>
                             <Image
-                              src={'/img/' + randomImage.img}
+                              src={bufferToImg(category.img)}
                               alt="Category image"
                               className={styleCards.categoryImg}
                               width={1800}
@@ -87,8 +95,8 @@ export default function Events() {
                             <p className={styleCards.categoryName} key={category._id}>{category.categoryName}</p>
                           </div>
                         </Link>
-                      );
-                    })}
+                      )
+                    )}
                 </div>
               </div>
             </section>

@@ -19,10 +19,10 @@
 
 
 .alert { background-color: var(--bg-color); border: 1px solid var(--text-color); position: fixed; z-index: 4; border-radius: .5rem; bottom: 1rem; left: 1rem; padding: .5rem; }
-.alert.success { background-color: var(--success-color); border: 1px solid var(--success-color-border); }
+/* .alert.success { background-color: var(--success-color); border: 1px solid var(--success-color-border); }
 .alert.danger { background-color: var(--danger-color); border: 1px solid var(--danger-color-border); }
 .alert.warning { background-color: var(--warning-color); border: 1px solid var(--warning-color-border); }
-.alert.info { background-color: var(--info-color); border: 1px solid var(--info-color-border); }
+.alert.info { background-color: var(--info-color); border: 1px solid var(--info-color-border); } */
 
 .alertContent { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: .5rem; }
 .alertIcon { height: 1.4rem; width: auto; }
