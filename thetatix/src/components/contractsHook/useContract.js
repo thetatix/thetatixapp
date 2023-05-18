@@ -29,19 +29,19 @@ class useContracts {
             return { error: "Wallet not connected.", data: null, status: "warning", message: "Wallet not connected." };   //data = address created contract
         }
         try{
-            // const contract_uuid = uuidv4();
+            const contract_uuid = uuidv4();
 
             //create event at blockchain
-            // const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,Date.now(),contract_uuid);
-            // transaction.wait();
-            // await this.delay(15);
+            const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,Date.now(),contract_uuid);
+            transaction.wait();
+            await this.delay(15);
 
             //query the address by uuid
-            // const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);
+            const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);
 
             //push to the db
             const raw_data = {
-                contractAddress: "newEvent_address_1",
+                contractAddress: newEvent_address,
                 creator: _creator,
                 ticketsAmount: 0,
                 maxTickets: _maxTickets,

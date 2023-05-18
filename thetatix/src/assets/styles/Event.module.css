@@ -1,0 +1,25 @@
+.event { display: flex; }
+
+.eventImg {  }
+.eventImg img { width: 100%; height: auto; }
+
+.eventInfo {  }
+.title {  }
+.title h1 {  }
+
+.date {  }
+.date h2 {  }
+.date p {  }
+.location {  }
+.location h2 {  }
+.location p {  }
+
+.description {  }
+.description p {  }
+
+.tickets {  }
+.tickets p {  }
+
+.price {  }
+.price span {  }
+.mint {  }

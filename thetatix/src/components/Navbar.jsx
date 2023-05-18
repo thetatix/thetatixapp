@@ -13,7 +13,7 @@ export default function Navbar() {
   const [error, setError] = useState();
 
   const networks = {
-    thetatesnet: {
+    thetatestnet: {
       chainId: `0x${Number(365).toString(16)}`,
       chainName: "Theta Testnet",
       nativeCurrency: {
@@ -89,7 +89,7 @@ export default function Navbar() {
         let account = await window.ethereum.request({ method: "eth_accounts"});
         setAddress(account[0]);
         console.log(address);
-        await handleNetworkSwitch("theta");
+        await handleNetworkSwitch("thetatestnet");
       } catch (error) {
         console.log('Error connecting to Ethereum');
       }
