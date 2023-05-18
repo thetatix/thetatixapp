@@ -107,7 +107,7 @@ export default function CategoryPage() {
                                             <h4>{event.eventName}</h4>
                                         </div>
                                         <div className={styleCards.eventPrice}>
-                                            <span>{event.ticketsPrice} USDT</span>
+                                            <span>{event.ticketsPrice / 1000000} TFUEL</span>
                                         </div>
                                         <div className={styleCards.eventDate}>
                                             <p>{formatDate(event.startDate)}</p>

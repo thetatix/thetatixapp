@@ -230,7 +230,25 @@ export default function Navbar() {
                 />
               </button>
               <div className={styles.dropdown}>
-                <a href="javascript:void(0)" onClick={disconnectMetamask}>Disconnect</a>
+                <Link href="/dashboard" className={styles.dropdownLink}>
+                  <Image
+                    src="/icons/account.svg"
+                    alt="Account icon"
+                    width={40}
+                    height={40}
+                  />
+                  My events
+                </Link>
+                <br />
+                <Link href="#" onClick={disconnectMetamask} className={styles.dropdownLink}>
+                  <Image
+                    src="/icons/logout.svg"
+                    alt="Logout icon"
+                    width={40}
+                    height={40}
+                  />
+                  Disconnect
+                </Link>
               </div>
             </div>
           ) : (

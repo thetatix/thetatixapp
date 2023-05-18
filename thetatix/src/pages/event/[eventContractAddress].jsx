@@ -103,16 +103,12 @@ export default function EventPage() {
                                 </div>
                                 <div className={styleEvent.tickets}>
                                     <p>
-                                        Remaining tickets: 
-                                        <br />
-                                        Tickets: {event.ticketsAmount}
-                                        <br />
-                                        Max: {event.maxTickets}
+                                        Remaining tickets: <span className='ps-2'>{event.maxTickets - event.ticketsAmount}/{event.maxTickets}</span>
                                     </p>
                                 </div>
                                 <div className={styleEvent.price}>
                                     <span>
-                                        {event.ticketsPrice} USDT
+                                        {event.ticketsPrice / 1000000} TFUEL
                                     </span>
                                 </div>
                                 <div className={styleEvent.mint}>

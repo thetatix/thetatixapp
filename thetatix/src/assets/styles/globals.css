@@ -13,6 +13,7 @@
 
 :root {
   --pri-color: #F55858; /* buttons */
+  --pri-color-filter: invert(45%) sepia(80%) saturate(1838%) hue-rotate(327deg) brightness(97%) contrast(97%);
   --pri-color-rgb: 245, 88, 88;
   --sec-color: #FFF1F1; /* inputs */
   --ter-color: #383030; /* titles */
