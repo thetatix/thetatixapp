@@ -91,7 +91,7 @@ export default function CategoryPage() {
                     {events.length > 0 ? (
                         events.map((event) => {
                             return (
-                            <Link href={`api/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>
+                            <Link href={`/event/${event.contractAddress}`} className={styleCards.eventCard + ' col-4'} key={event.contractAddress}>
                                 <div className={styleCards.event}>
                                     <div className={styleCards.eventImg}>
                                         <Image
