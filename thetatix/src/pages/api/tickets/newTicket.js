@@ -1,6 +1,6 @@
 import Ticket from "@/server/models/ticket"
 import connectMongo from "@/server/mongo";
-
+import Event from "@/server/models/event";
 export default async function handler(req, res) {
     if (req.method === 'POST') {
         await connectMongo();
@@ -28,11 +28,20 @@ export default async function handler(req, res) {
             if(existing_tickets.length>0){
                 return
             }
+            console.log('test1',{contractAddress:data.eventContractAdress})
+
             //create ticket
             await Ticket.create({
                 eventContractAdress:data.eventContractAdress,
                 owner: data.owner,
                 ticketNumber
+            })
+            console.log({contractAddress:data.eventContractAdress})
+            //add money to ticket
+            await Event.updateOne({
+                contractAddress:data.eventContractAdress,
+            },{
+                $inc: { ticketsAmount: 1 } 
             })
         }
         res.status(200).json({ status:'success', message: 'Ticket bought successfully.' })
