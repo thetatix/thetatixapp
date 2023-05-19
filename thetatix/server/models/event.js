@@ -51,6 +51,30 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.ObjectId,
         ref: 'category',
         default: undefined
+    },
+    isOnlineEventStream:{//es event online o presencial
+        type:Boolean,
+        default:false
+    },
+    stream_key:{//private key para hacer stream
+        type:String,
+        default:''
+    },
+    stream_id:{//stream id 
+        type:String,
+        default:''
+    },
+    stream_server:{//servidor del stream de theta
+        type:String,
+        default:'rtmp://live5in.thetavideoapi.com/live'
+    },
+    stream_status:{//activo o inactivo
+        type:String,
+        default:'off'//off || on
+    },
+    stream_playback_url:{//url del stream
+        type:String,
+        default:''
     }
 
     
