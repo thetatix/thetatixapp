@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const ABI_file_factory = require('./ABIfactory.json');
 const ABI_file_ticket = require('./ABIticket.json');
@@ -24,11 +25,42 @@ class useContracts {
         return data
     }
 
-    async createEventTickets(_creator, _maxTickets, _name, _ticketPrice, _description, _startDate, _img, _endDate, _location, _category) {
+    async createEventTickets(_creator, _maxTickets, _name, _ticketPrice, _description, _startDate, _img, _endDate, _location, _category,_eventtype,_api_key,_api_secret) {
         if(_creator.length===0){
             return { error: "Wallet not connected.", data: null, status: "warning", message: "Wallet not connected." };   //data = address created contract
         }
         try{
+            let streamid = "";
+            let stream_key = "";
+            let stream_server = "";
+            let isOnlineEventStream = false;
+
+            if(_eventtype == "online"){
+                //create stream with private keys
+                let created_stream;
+                isOnlineEventStream = true;
+                try{
+                    created_stream = await axios({
+                        method: "POST",
+                        url: "https://api.thetavideoapi.com/stream",
+                        headers: {
+                        "x-tva-sa-id": _api_key,
+                        "x-tva-sa-secret": _api_secret,
+                        },
+                        body:{
+                            name:`thetatix ${_name}`, resolutions:["160p","240p","360p","720p","source"], source_resolution:"720p", "fps":60
+                        }
+                        
+                    });
+                }catch(err){
+                    return { error: err, data: null, status: "danger", message: "invalid api or secret key, also u may have exceed 3 streams per thetavideoapi private keys" };
+                }
+                //define needed properties to sotre on backend
+                streamid = created_stream.data.body.id;
+                stream_key = created_stream.data.body.backup_stream_key;
+                stream_server = created_stream.data.body.backup_stream_server
+            }
+            //create smart contract
             const contract_uuid = uuidv4();
 
             //create event at blockchain
@@ -52,7 +84,11 @@ class useContracts {
                 endDate: _endDate,
                 img: _img,
                 location: _location,
-                category: _category
+                category: _category,
+                streamid,
+                stream_key,
+                stream_server,
+                isOnlineEventStream
             }
             const data = JSON.stringify({ contractData: raw_data });
             //push to the database address event + data;
