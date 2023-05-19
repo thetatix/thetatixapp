@@ -35,7 +35,8 @@ export default async function handler(req, res) {
                 ticketNumber
             })
         }
-        
+        res.status(200).json({ status:'success', message: 'Ticket bought successfully.' })
+    } else {
+        res.status(405).json({ status: 'danger', message: 'Method not allowed.' });
     }
-    res.status(200).json({data:'succes'})
 }

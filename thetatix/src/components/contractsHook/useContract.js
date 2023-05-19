@@ -140,9 +140,9 @@ class useContracts {
                 body:data
             })
             
-            return {error:null,data:parsedNumbers} //data = todos los tickets comprados del usuario que lo compro
+            return {error:null,data:parsedNumbers, status: 'success', message: 'Ticket bought successfully.'} //data = todos los tickets comprados del usuario que lo compro
         }catch(err){
-            return {error:err,data:null}
+            return {error:err,data:null, status: 'danger', message: 'Error while buying ticket.'}
         }
     }
 

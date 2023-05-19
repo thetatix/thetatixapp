@@ -54,7 +54,7 @@ export default function Dashboard() {
                                         eventStartDate={event.startDate}
                                         eventLocation={event.location}
                                         eventImg={event.img.data}
-                                        eventHref={`/event`}
+                                        eventHref={`/dashboard`}
                                         eventContractAddress={event.contractAddress}
                                         key={event.contractAddress}
                                     />

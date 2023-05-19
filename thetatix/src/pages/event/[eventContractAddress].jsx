@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
+import { ethers } from "ethers"
+
 import { DataContext } from "@/context/DataContext";
+import useContracts from '@/components/contractsHook/useContract';
 
 import Head from 'next/head'
 import Image from 'next/image'
@@ -9,6 +12,36 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleEvent from '@/assets/styles/Event.module.css'
 
 export default function EventPage() {
+    const [alert, setAlert] = useState(false);
+    const [formStatus, setFormStatus] = useState("");
+    const [formStatusMsg, setFormStatusMsg] = useState("");
+    const submitForm = async (e) => {
+        console.log('Form submitted');
+        e.preventDefault();
+        //DETERMINAR EL SIGNER DE METAMASK
+        console.log('Metamask thing');
+        const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        console.log('Metamask setup');
+        // Pmetamask setup
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const contract = new useContracts(signer);
+
+        console.log('Contract buyTicket()');
+        const eventTicketsPrice = event.ticketsPrice / 1000000;
+        //create ticket
+        const response = await contract.buyTicket(
+            address,
+            event.contractAddress,
+            eventTicketsPrice
+        )
+        console.log('Responded');
+        console.log(response);
+        setAlert(true);
+        setFormStatus(response.status);
+        setFormStatusMsg(response.message);
+    }
+    
     function formatDate(rawDate) {
         const date = new Date(rawDate);
         const options = {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'};
@@ -61,6 +94,30 @@ export default function EventPage() {
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={styles.main}>
+            {alert &&
+                <div className={styles.alert + ' ' + formStatus}>
+                    <div className="container">
+                        <div className={styles.alertContent}>
+                            <Image
+                                src={"/icons/" + formStatus + ".svg"}
+                                alt="Alert icon"
+                                width={24}
+                                height={24}
+                                className={styles.alertIcon}
+                            />
+                            <p className={styles.alertMessage}>{formStatusMsg}</p>
+                            <button className={styles.alertCloseBtn} onClick={() => setAlert(false)}>
+                                <Image
+                                    src="/icons/close.svg"
+                                    alt="Close alert icon"
+                                    width={24}
+                                    height={24}
+                                />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
             <header className={styles.header}>
                 <div className={styles.headerContainer + ' container'}>
                     <div className={styles.content + ' row'}>
@@ -75,7 +132,7 @@ export default function EventPage() {
             <section className={styles.section}>
                 <div className={styles.sectionContainer + ' container'}>
                     <div className={styles.content}>
-                        <div className={styleEvent.event}>
+                        <form action="/api/tickets/newTicket.js" onSubmit={submitForm} method="POST" className={styleEvent.event}>
                             <div className={styleEvent.eventImg}>
                                 <Image
                                     src={bufferToImg(event.img)}
@@ -114,14 +171,23 @@ export default function EventPage() {
                                     </span>
                                 </div>
                                 <div className={styleEvent.mint}>
+                                    <small className='d-block mb-3 text-start'>
+                                        <strong>Ya se mintea el NFT y se agrega a la blockchain, PERO:</strong>
+                                        <br />
+                                        No se modifica el "ticketsAmount" de la categoria.
+                                        <br />
+                                        No se agrega el ticket a la base de datos.
+                                        <br />
+                                        Cuidado al darle "Buy 1 ticket"
+                                    </small>
                                     {isConnected ? (
-                                        <button className={styleEvent.mintBtn}>Buy 1 ticket</button>
+                                        <button type='submit' className={styleEvent.mintBtn}>Buy 1 ticket</button>
                                     ) : (
                                         <button className={styleEvent.mintBtn} disabled>Wallet not connected</button>
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </section>
