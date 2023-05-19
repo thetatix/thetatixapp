@@ -13,15 +13,15 @@ const handler = async (req, res) => {
                 res.status(404).json({ message: 'Event not found.', data: null,error: true });
             } else {
                 //check event is online event
-                console.log(event)
-                //check event started
-
+                if(event.isOnlineEventStream===false){
+                    res.status(404).json({ message: 'Event its not online', data: null,error: true });
+                }
                 //return event address
                 res.status(200).json({ message:'', data: event , error: false});
             }
         } catch (err) {
             console.error(err);
-            res.status(500).json({ message: 'Unable to fetch event.' });
+            res.status(500).json({ message: 'Unable to fetch event.',data: null,error: true });
         }
     } else {
         res.status(405).json({ message: 'Method not allowed.', data: null });

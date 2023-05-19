@@ -8,15 +8,21 @@ export default function OnlineEventStream() {
     const [userHaveTicket, setUserHaveTicket] = useState(false);
     const [eventData, setEventData] = useState({});
     const { address, setAddress } = useContext(DataContext);
-
+    const [error,setError] = useState('');
     //eventAddress url
     const router = useRouter();
     const { eventAddress } = router.query;
 
     async function initialSetup() {
         //get the stream_playback_url
-        const data_event = await fetch(`/api/event/getStreamUrl?eventContractAddress=${eventAddress}`)
-        setEventData(data_event);
+        const data_event_json = await fetch(`/api/event/getStreamUrl?eventContractAddress=${eventAddress}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        const {data:data_event} = await data_event_json.json();
+        setEventData({ ...data_event });
     }
 
     async function checkUserHaveTicket() {
@@ -51,17 +57,30 @@ export default function OnlineEventStream() {
             initialSetup();
         }
     }, [eventAddress, userHaveTicket])
-
     return (<div style={{ paddingTop: "10rem" }}>
+        {/* check user wallet connected */}
         {address
             ?
             <>
                 {
+                    // check user bought ticket
                     userHaveTicket
                         ?
-                        <div>
-                            watching the stream
-                        </div>
+                        <>
+                            {
+                                //check streamer started the stream
+                                eventData.stream_playback_url?.length > 0
+                                    ?
+                                    <div>
+                                       <div>name: {eventData.eventName}</div> 
+                                       <div>description: {eventData.eventDescription}</div>
+                                       <div>ticcketsamount: {eventData.ticketsAmount}</div>
+                                    </div>
+                                    :
+                                    <>event managers have to start the event yet</>
+                            }
+                        </>
+
                         :
                         <div>
                             you dont have not bought a tikcet for watch the event, please buy one, but 1 ticket btn
