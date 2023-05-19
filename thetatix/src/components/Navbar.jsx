@@ -237,7 +237,7 @@ export default function Navbar() {
                     width={40}
                     height={40}
                   />
-                  My events
+                  My created events
                 </Link>
                 <br />
                 <Link href="#" onClick={disconnectMetamask} className={styles.dropdownLink}>

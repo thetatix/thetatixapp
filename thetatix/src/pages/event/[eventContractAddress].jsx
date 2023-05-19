@@ -64,7 +64,7 @@ export default function EventPage() {
                     <div className={styles.content + ' row'}>
                         <div className='col-12'>
                             <p className={styles.breadcrumbs}>
-                                <a href="/events">Events</a> / <a href={"/category/" + event.category}>{category.categoryName}</a> / <a href={"/event/" + event.contractAddress}>{event.eventName}</a>
+                                <Link href="/events">Events</Link> / <Link href={"/category/" + event.category}>{category.categoryName}</Link> / <Link href={"/event/" + event.contractAddress}>{event.eventName}</Link>
                             </p>
                         </div>
                     </div>
