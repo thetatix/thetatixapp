@@ -187,6 +187,14 @@ class useContracts {
         }
     }
 
+    async checkUserOwnNftTicket(onlineEventAddress,userWalletAddress){
+        console.log('addressEvent',onlineEventAddress)
+        console.log(this.#signer)
+        const event_contract = new ethers.Contract(onlineEventAddress,this.#ABIticket,this.#signer);
+        const userNftBalance = await event_contract.balanceOf(userWalletAddress);
+        return userNftBalance;
+    }
+
     // async updateEventData(ticketEventAddress, _name, _description, _eventDate, _maxTickets, _ticketPrice){
     //     const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
     //     try{
