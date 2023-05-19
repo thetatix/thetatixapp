@@ -34,7 +34,9 @@ export default function CategoryPage() {
         const eventsResponse = await fetch(`/api/event/getEventsByCategory?categoryId=${categoryId}`);
         const eventsData = await eventsResponse.json();
         setEvents(eventsData.events);
-        if (categoryResponse.ok && eventsResponse.ok) {
+        console.log(categoryResponse.status);
+        console.log(eventsResponse.status);
+        if (categoryResponse.ok) {
             setLoading(false);
         } else {
             setLoading(true);
