@@ -19,3 +19,7 @@
 .price:hover span { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--accent-color); }
 
 .mint { text-align: right; }
+.mintBtn { background-color: var(--pri-color); color: var(--light-text-color); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; }
+.mintBtn:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); }
+.mintBtn[disabled] { background-color: var(--ter-color); opacity: .8; }
+.mintBtn[disabled]:hover { box-shadow: none; }

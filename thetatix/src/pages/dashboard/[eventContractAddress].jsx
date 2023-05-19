@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
-import { DataContext } from "@/context/DataContext";
+import { useEffect, useState } from 'react';
 
 import Head from 'next/head'
 import Image from 'next/image'
@@ -28,7 +27,6 @@ export default function EventPage() {
     }
   const router = useRouter();
   const { eventContractAddress } = router.query;
-  const { address, setAddress, isConnected, setIsConnected } = useContext(DataContext);
   const [event, setEvent] = useState({});
   const [category, setCategory] = useState({});
 
@@ -114,11 +112,7 @@ export default function EventPage() {
                                     </span>
                                 </div>
                                 <div className={styleEvent.mint}>
-                                    {isConnected ? (
-                                        <button className={styleEvent.mintBtn}>Buy 1 ticket</button>
-                                    ) : (
-                                        <button className={styleEvent.mintBtn} disabled>Wallet not connected</button>
-                                    )}
+                                    Mint
                                 </div>
                             </div>
                         </div>
