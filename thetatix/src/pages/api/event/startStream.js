@@ -1,8 +1,8 @@
 import connectMongo from '@/server/mongo';
 import Event from '@/server/models/event';
-
+import axios from 'axios';
 const handler = async (req, res) => {
-    if (req.method === 'GET') {
+    if (req.method === 'POST') {
         try {
             const { eventContractAddress } = req.query;
             await connectMongo();
@@ -10,7 +10,7 @@ const handler = async (req, res) => {
             const event = await Event.findOne({ contractAddress: eventContractAddress });
             //check event exists
             if (!event) {
-                res.status(404).json({ message: 'Event not found.', data: null,error: true });
+                return res.status(404).json({ message: 'Event not found.', data: null,error: true });
             } else {
                 //check event is online event
                 if(event.isOnlineEventStream===false){
@@ -25,20 +25,22 @@ const handler = async (req, res) => {
                         headers: {
                         "x-tva-sa-id": "srvacc_t0zg8xkd49pinx8tfdac2w4w0",
                         "x-tva-sa-secret": "pu6aam24dacwpuag2kzbxigcxmu8gvvv",
-                        },
-                        body:{
-                            name:`thetatix ${_name}`, resolutions:["160p","240p","360p","720p","source"], source_resolution:"720p", "fps":60
                         }
-                        
                     });
                     event_data = event_data_raw.data.body;
                 }catch(err){
                     return { error: err, data: null, status: "danger", message: "invalid api or secret key, also u may have exceed 3 streams per thetavideoapi private keys" };
                 }
-                console.log('---event data',event_data)
-                // const playback_url = event_data;
+                const playback_url = event_data.playback_url;
+
+                //set playback url
+                await Event.updateOne({
+                    contractAddress: eventContractAddress 
+                },{
+                    stream_playback_url:playback_url
+                });
                 //return playback url if event its on
-                res.status(200).json({ message:'', data: event , error: false});
+                res.status(200).json({ message:'', data: playback_url , error: false});
             }
         } catch (err) {
             console.error(err);
