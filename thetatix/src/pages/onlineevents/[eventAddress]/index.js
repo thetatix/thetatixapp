@@ -63,6 +63,14 @@ export default function OnlineEventStream() {
         {address
             ?
             <>
+                {/* add this code to tickets managment after */}
+                <div onClick={async()=>{
+                    const data = await fetch(`/api/event/startStream?eventContractAddress=${eventAddress}`,{
+                        method:'POST'
+                    })
+                    const parsed_data = await data.json();
+                    console.log(parsed_data)
+                }}>stream start</div>
                 {
                     // check user bought ticket
                     userHaveTicket
