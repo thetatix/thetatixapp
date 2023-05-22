@@ -1,11 +1,24 @@
 /* navbar */
+.nav.light { background-color: var(--white);}
+.nav.light .logo .logoImg img { filter: invert(28%) sepia(30%) saturate(3804%) hue-rotate(222deg) brightness(91%) contrast(96%) }
+.nav.light .center ul li .navLink { color: var(--black);}
+.nav.light .center .searchBar .input { background-color: var(--light-sec-color); }
+.nav.light .center .searchBar .searchInput button { background-color: var(--light-sec-color);}
+.nav.light .right .mode { background-color: var(--light-sec-color);}
+.nav.light .connectBtn .dropdown { background-color: var(--light-bg-color); border: 1px solid var(--light-sec-color); }
+.nav.light .dropdownLink { color: var(--light-text-color);}
+.nav.light .dropdownLink img { filter: invert(0%);}
+.nav.light .dropdownLink:hover { color: var(--pri-color);}
+.nav.light .dropdownLink:hover img { filter: var(--pri-color-filter); }
+.nav.light .center .searchBar .input { color: var(--light-text-color);}
+
 .nav { background-color: var(--bg-color); display: block; width: 100%; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); position: fixed; top: 0; left: 0; right: 0; z-index: 4; transition: 0.8s; }
 .navbarContainer { position: relative; padding-top: 0.7rem; padding-bottom: 0.7rem; font-family: 'Biotif', sans-serif; }
 .content { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center; align-content: center; }
 /** logo **/
 .logo { flex: 1 0 auto; }
 .logo .logoImg { display: block; width: 90%; max-width: 8rem; }
-.logo .logoImg img { display: block; width: 100%; height: auto; margin: 0 auto 0 0; }
+.logo .logoImg img { display: block; width: 100%; height: auto; margin: 0 auto 0 0; filter: invert(98%) sepia(99%) saturate(0%) hue-rotate(189deg) brightness(110%) contrast(101%); }
 /** center **/
 /*** links ***/
 .center { flex: 3 0 auto; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between; gap: 4rem; }
@@ -18,14 +31,18 @@
 .center .searchBar .searchInput {  }
 .center .searchBar .input { display: block; width: auto; color: var(--text-color); line-height: 1.7; font-weight: 400; font-size: var(--font-size); background-color: var(--sec-color); border: 0; border-radius: .5rem; padding: .5rem 1rem; outline: 0; }
 .center .searchBar .input:focus { box-shadow: 0px 4px 15px rgba(var(--ter-color-rgb), 0.03); outline: 2px solid rgba(var(--pri-color-rgb), 0.1); }
-.center .searchBar .input::placeholder { color: var(--info-color); }
+.center .searchBar .input::placeholder { color: var(--placeholder-color); }
+/* .input-group { width: 90%!important;} */
 .center .searchBar .searchInput button { color: var(--text-color); line-height: 1.7; font-weight: 400; font-size: var(--font-size); background-color: var(--sec-color); border: 0; border-radius: .5rem; padding: .5rem 1rem; outline: 0; }
 .center .searchBar .searchInput button img { width: 100%; height: 1.2rem; vertical-align: text-bottom; filter: var(--filter-info-color); transition: 0.5s; }
 .center .searchBar .searchInput button:focus img { filter: invert(0); }
 /** connect button **/
-.right { flex: 1 0 auto; text-align: right; }
+.right { flex: 1 0 auto; text-align: right; display: inline-flex; align-items: center;}
+.right .mode { background-color: var(--sec-color); height: auto; padding: .55rem; border-radius: .5rem; cursor: pointer;}
+.right .mode:hover { background-color: var(--sec-color-hover); }
+.right .mode img { filter: var(--filter-info-color); }
 .connectBtn { position: relative; }
-.connectBtn button { background-color: var(--pri-color); color: var(--light-text-color); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; }
+.connectBtn button { background-color: var(--pri-color); color: var(--text-color); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; margin-bottom: .5rem; margin-top: .5rem; }
 .connectBtn:hover button { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); }
 .connectBtn button img { width: auto; height: 1.2rem; margin-left: .4rem; filter: var(--light-text-color-filter); transition: 0.2s; transform: rotate(180deg); }
 .connectBtn:hover button img { transform: rotate(0deg); }
@@ -33,5 +50,5 @@
 .connectBtn:hover .dropdown { opacity: 1; }
 .dropdownLink { color: var(--text-color); text-decoration: none; transition: 0.2s; font-size: var(--font-size); }
 .dropdownLink:hover { color: var(--pri-color); text-decoration: none; }
-.dropdownLink img { width: auto; height: .8rem; vertical-align: text-top; margin-right: .4rem; transition: 0.2s; }
+.dropdownLink img { width: auto; height: .8rem; vertical-align: text-top; margin-right: .4rem; transition: 0.2s; filter: var(--white-color-filter); }
 .dropdownLink:hover img { filter: var(--pri-color-filter); }

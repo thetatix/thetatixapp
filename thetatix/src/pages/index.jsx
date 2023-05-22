@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
+import { DataContext } from '@/context/DataContext'
+import { useContext, useEffect, useState } from "react";
 
 import styles from '@/assets/styles/Home.module.css'
 // import { getAllUsers } from '@/server/users'
@@ -9,6 +11,17 @@ import styles from '@/assets/styles/Home.module.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const { isLightMode, setIsLightMode } = useContext(DataContext);
+
+  const handleLightModeToggle = () => {
+    setIsLightMode(!isLightMode);
+  }
+
+  const bodyStyles = {
+    backgroundColor: isLightMode ? 'red' : 'initial'
+  };
+
   return (
     <>
       <Head>
@@ -16,13 +29,24 @@ export default function Home() {
         <meta name="description" content="Thetatix web app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className={`${styles.main} ${isLightMode ? styles.light: ''}`}>
         <header className={styles.header}>
           <div className={styles.headerContainer + ' container'}>
             <div className={styles.content + ' row'}>
               <div className={styles.column + ' col'}>
                 <p className={styles.title}>The Web3 <br></br> ticketing and <br></br> events platform</p>
-                <div className={styles.squareLeft}></div>
+                <div className={styles.subtitleContainer}>
+                  <p className={styles.subtitle}>Powered by Theta Network</p>
+                  <Image
+                    src="/icons/full-theta-icon.svg"
+                    alt="Theta icon"
+                    width={34}
+                    height={34}
+                  />
+                </div>
+                
+                
+                {/* <div className={styles.squareLeft}></div> */}
               </div>
               <div className={styles.column + ' col'}>
                 <Link href="/" className={styles.eventCard}>
@@ -45,115 +69,16 @@ export default function Home() {
                     </p>
                   </div>
                 </Link>
-                <div className={styles.squareRight}></div>
+                {/* <div className={styles.squareRight}></div> */}
+                {/* <div className={styles.blurRight}></div> */}
+                <img className={styles.blurRight} src="img/right-blur.png" alt="" />
               </div>
             </div>
           </div>
         </header>
         <section className={styles.section}></section>
         
-        {/* <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div> */}
+        
       </main>
     </>
   );

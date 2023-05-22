@@ -10,6 +10,21 @@ import styles from '@/assets/styles/Navbar.module.css'
 
 export default function Navbar() {
 
+  const { isLightMode, setIsLightMode } = useContext(DataContext);
+
+  const handleLightModeToggle = () => {
+    const body = document.querySelector('body');
+    if (isLightMode == false){
+      setIsLightMode(!isLightMode);
+      console.log(body);
+      body.classList.add('light');
+    } else {
+      setIsLightMode(!isLightMode);
+      console.log(body);
+      body.classList.remove('light');
+    }
+  }
+
   const [error, setError] = useState();
 
   const networks = {
@@ -168,7 +183,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className={styles.nav} style={{boxShadow: `0px 4px 15px rgb(0 0 0 / ${boxShadow})`,}}>
+    <nav className={`${styles.nav} ${isLightMode ? styles.light: ''}`} style={{boxShadow: `0px 4px 15px rgb(0 0 0 / ${boxShadow})`,}}>
       <div className={styles.navbarContainer + ' container'}>
         <div className={styles.content}>
           <div className={styles.logo}>
@@ -218,6 +233,14 @@ export default function Navbar() {
             </div>
           </div>
           <div className={styles.right}>
+            <div className={styles.mode} onClick={handleLightModeToggle}>
+                <Image
+                  src="/icons/sun.svg"
+                  alt="Sun icon"
+                  width={20}
+                  height={20}
+                />
+            </div>
           {isConnected ? (
             <div className={styles.connectBtn}>
               <button>
