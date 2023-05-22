@@ -33,6 +33,6 @@ h2.subtitle { color: var(--text-color); font-size: 1.1rem; margin-bottom: 1.2rem
 
 .alertContent { display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; align-items: center; gap: .5rem; }
 .alertIcon { height: 1.4rem; width: auto; }
-.alertMessage { font-size: var(--font-size); font-weight: 400; color: var(--text-color); line-height: 1.2; margin-bottom: 0; max-width: 75%; }
+.alertMessage { font-size: var(--font-size); font-weight: 400; color: var(--black); line-height: 1.2; margin-bottom: 0; max-width: 75%; }
 .alertCloseBtn { background: none; border: 0; outline: none; position: relative; }
 .alertCloseBtn img { height: 1.4rem; width: auto; vertical-align: bottom; }

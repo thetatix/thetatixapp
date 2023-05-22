@@ -10,6 +10,25 @@ import styles from '@/assets/styles/Navbar.module.css'
 
 export default function Navbar() {
 
+  const { theme, setTheme } = useContext(DataContext);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    changeTheme(savedTheme);
+  }, []);
+
+  const changeTheme = (newTheme) => {
+    setTheme(newTheme);
+    document.documentElement.className = (newTheme);
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    document.documentElement.className = (newTheme);
+  };
+  // const setTheme = theme => document.documentElement.className = theme;
+
   const [error, setError] = useState();
 
   const networks = {
@@ -157,7 +176,7 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    if (clientWindowHeight > 10) {
+    if (clientWindowHeight > 5) {
       let boxShadowVar = 0.03;
       setBoxShadow(boxShadowVar);
     } else {
@@ -218,6 +237,9 @@ export default function Navbar() {
             </div>
           </div>
           <div className={styles.right}>
+            <button className={styles.themeBtn} onClick={toggleTheme}>
+              {theme === 'dark' ? 'Light' : 'Dark'} Mode
+            </button>
           {isConnected ? (
             <div className={styles.connectBtn}>
               <button>

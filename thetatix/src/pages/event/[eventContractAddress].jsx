@@ -41,6 +41,14 @@ export default function EventPage() {
         setFormStatus(response.status);
         setFormStatusMsg(response.message);
     }
+
+    const formatAddress = (address) => {
+        if (address.length === 42) {
+          return address.substring(0, 6) + "..." + address.substring(38);
+        } else {
+          return address;
+        }
+      }
     
     function formatDate(rawDate) {
         const date = new Date(rawDate);
@@ -59,32 +67,44 @@ export default function EventPage() {
         var img = Buffer.from(buffer, 'base64').toString('ascii');
         return img;
     }
-  const router = useRouter();
-  const { eventContractAddress } = router.query;
-  const { address, setAddress, isConnected, setIsConnected } = useContext(DataContext);
-  const [event, setEvent] = useState({});
-  const [category, setCategory] = useState({});
+    const router = useRouter();
+    const { eventContractAddress } = router.query;
+    const { address, setAddress, isConnected, setIsConnected } = useContext(DataContext);
+    const [event, setEvent] = useState({});
+    const [category, setCategory] = useState({});
 
-  useEffect(() => {
-    if (eventContractAddress) {
-        fetch(`/api/event/getEvent?eventContractAddress=${eventContractAddress}`)
-        .then((response) => response.json())
-        .then((data) => {
-            setEvent(data.event);
-            return fetch(`/api/category/getCategory?categoryId=${data.event.category}`);
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            setCategory(data[0]);
-        })
-        .catch((error) => console.error(error));
+    useEffect(() => {
+        if (eventContractAddress) {
+            fetch(`/api/event/getEvent?eventContractAddress=${eventContractAddress}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setEvent(data.event);
+                return fetch(`/api/category/getCategory?categoryId=${data.event.category}`);
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                setCategory(data[0]);
+            })
+            .catch((error) => console.error(error));
+        }
+    }, [eventContractAddress]);
+    
+
+    if (!event) {
+        return <p>Loading event...</p>;
     }
-  }, [eventContractAddress]);
-  
 
-  if (!event) {
-    return <p>Loading event...</p>;
-  }
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text)
+        // .then(() => {
+        //     console.log('Text copied to clipboard:', text);
+        //     // You can show a success message or perform any other actions here
+        // })
+        // .catch((error) => {
+        //     console.error('Error copying text to clipboard:', error);
+        //     // You can show an error message or perform any other error handling here
+        // });
+    };
 
   return (
     <>
@@ -144,6 +164,14 @@ export default function EventPage() {
                             <div className={styleEvent.eventInfo}>
                                 <div className={styleEvent.title}>
                                     <h1>{event.eventName}</h1>
+                                </div>
+                                <div className={styleEvent.creator}>
+                                    <h2>Created by</h2>
+                                    <span onClick={() => copyToClipboard(event.creator)}>{formatAddress(event.creator)}</span>
+                                </div>
+                                <div className={styleEvent.contractAddress}>
+                                    <h2>Event address</h2>
+                                    <span onClick={() => copyToClipboard(event.contractAddress)}>{formatAddress(event.contractAddress)}</span>
                                 </div>
                                 <div className={styleEvent.date}>
                                     <h2>Date and time</h2>

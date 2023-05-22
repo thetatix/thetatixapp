@@ -3,7 +3,7 @@
 
 .header { min-height: 100vh; }
 .headerContainer {  }
-.squareLeft { background-color: #FEE6E6; width: 500px; height: 75px; position: absolute; top: 66%; left: 0; transform: translateY(-50%); z-index: -1; margin-left: -100px;}
+.squareLeft { background-color: var(--accent-color); width: 500px; height: 75px; position: absolute; top: 66%; left: 0; transform: translateY(-50%); z-index: -1; margin-left: -100px;}
 .squareRight { background-color: var(--pri-color); width: 150px; height: 75px; position: absolute; top: 25%; right: 0; transform: translateY(-50%); z-index: -1; }
 .header .content {  }
 .header .content .column {  }
