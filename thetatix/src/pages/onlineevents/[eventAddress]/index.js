@@ -4,6 +4,8 @@ import useContracts from "@/components/contractsHook/useContract";
 import { DataContext } from "@/context/DataContext";
 import { ethers } from "ethers";
 import VideoPlayer from "@/components/VideoPlayerHLS";
+import dynamic from 'next/dynamic'
+const AblyChatComponent = dynamic(() => import('../../../components/AppChatComponent'), { ssr: false });
 
 export default function OnlineEventStream() {
     const [userHaveTicket, setUserHaveTicket] = useState(false);
@@ -85,6 +87,7 @@ export default function OnlineEventStream() {
                                        <div>description: {eventData.eventDescription}</div>
                                        <div>ticcketsamount: {eventData.ticketsAmount}</div>
                                        <VideoPlayer src={eventData.stream_playback_url}/>
+                                       <AblyChatComponent eventAddress={eventAddress} />
                                     </div>
                                     :
                                     <>event managers have to start the event yet</>
