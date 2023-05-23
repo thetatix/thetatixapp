@@ -66,7 +66,7 @@ class useContracts {
             //create event at blockchain
             const transaction = await this.#factoryContract.createEvent(_name,_description,_ticketPrice,_maxTickets,Date.now(),contract_uuid);
             transaction.wait();
-            await this.delay(15);
+            await this.delay(30);
 
             //query the address by uuid
             const newEvent_address = await this.#factoryContract.getAddressFromUuid(contract_uuid);

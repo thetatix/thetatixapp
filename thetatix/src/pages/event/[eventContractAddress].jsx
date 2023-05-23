@@ -43,7 +43,7 @@ export default function EventPage() {
     }
 
     const formatAddress = (address) => {
-        if (address.length === 42) {
+        if (address?.length === 42) {
           return address.substring(0, 6) + "..." + address.substring(38);
         } else {
           return address;
@@ -199,7 +199,7 @@ export default function EventPage() {
                                     </span>
                                 </div>
                                 <div className={styleEvent.mint}>
-                                    <small className='d-block mb-3 text-start'>
+                                    {/* <small className='d-block mb-3 text-start'>
                                         <strong>Ya se mintea el NFT y se agrega a la blockchain, PERO:</strong>
                                         <br />
                                         No se modifica el "ticketsAmount" de la categoria.
@@ -207,7 +207,7 @@ export default function EventPage() {
                                         No se agrega el ticket a la base de datos.
                                         <br />
                                         Cuidado al darle "Buy 1 ticket"
-                                    </small>
+                                    </small> */}
                                     {isConnected ? (
                                         <button type='submit' className={styleEvent.mintBtn}>Buy 1 ticket</button>
                                     ) : (
