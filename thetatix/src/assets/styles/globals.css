@@ -23,7 +23,7 @@
 
     --sec-color: #1D1F2D; /* inputs */
 
-    --ter-color: #444AC6; /* titles */
+    --ter-color: #1D1F2D; /* titles */
     --ter-color-rgb: 56, 48, 48;
 
     --accent-color: #1B1C2C; /* darker sec-color */
@@ -43,21 +43,22 @@
     --price-color: #FFFFFF;
     --price-bg: #292B3E;
     --date-color: #FFFFFF;
+    --title-color: var(--pri-color);
 
     
     /* --event-date-color: #ffffff; */
   }
   :root.light {
-    --pri-color: #F55858; /* buttons */
-    --pri-color-filter: invert(45%) sepia(80%) saturate(1838%) hue-rotate(327deg) brightness(97%) contrast(97%);
-    --pri-color-rgb: 245, 88, 88;
+    --pri-color: #444AC6; /* buttons */
+    --pri-color-filter: invert(28%) sepia(30%) saturate(3804%) hue-rotate(222deg) brightness(91%) contrast(96%);
+    --pri-color-rgb: 68, 74, 198;
 
-    --sec-color: #FFF1F1; /* inputs */
+    --sec-color: #F1F2FF; /* inputs */
 
-    --ter-color: #383030; /* titles */
-    --ter-color-rgb: 56, 48, 48;
+    --ter-color: #1D1F2D; /* titles */
+    --ter-color-rgb: 29, 31, 45;
 
-    --accent-color: #FEE6E6; /* darker sec-color */
+    --accent-color: #E3E4FA; /* darker sec-color */
 
     --info-color: #A4A4A4; /* placeholders */
     --filter-info-color: invert(87%) sepia(0%) saturate(77%) hue-rotate(166deg) brightness(76%) contrast(89%);
@@ -73,6 +74,7 @@
     --price-color: var(--pri-color);
     --price-bg: var(--sec-color);
     --date-color: var(--pri-color);
+    --title-color: var(--ter-color);
   }
 
 :root {

@@ -19,7 +19,7 @@
 .eventCard:hover .eventImg img { transform: scale(1.08); }
 .eventCard .eventInfo { flex: 35% 1 0; padding: .9rem .5rem; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; align-content: flex-start; }
 .eventCard .eventTitle { flex: 1 0 50%; }
-.eventCard .eventTitle h4 { color: var(--ter-color); transition: 0.5s; font-size: 1.2rem; font-weight: 500; margin-bottom: .7rem; line-height: 1; }
+.eventCard .eventTitle h4 { color: var(--title-color); transition: 0.5s; font-size: 1.2rem; font-weight: 500; margin-bottom: .7rem; line-height: 1; }
 .eventCard:hover .eventTitle h4 { color: var(--pri-color); }
 .eventCard .eventPrice { flex: 1 0 50%; text-align: right; }
 .eventCard .eventPrice span { color: var(--price-color); transition: 0.5s; font-size: var(--font-size); background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; }
