@@ -167,11 +167,15 @@ export default function EventPage() {
                                 </div>
                                 <div className={styleEvent.creator}>
                                     <h2>Created by</h2>
-                                    <span onClick={() => copyToClipboard(event.creator)}>{formatAddress(event.creator)}</span>
+                                    <span onClick={() => copyToClipboard(event.creator)}>
+                                        <abbr title={event.creator}>{formatAddress(event.creator)}</abbr>
+                                    </span>
                                 </div>
                                 <div className={styleEvent.contractAddress}>
                                     <h2>Event address</h2>
-                                    <span onClick={() => copyToClipboard(event.contractAddress)}>{formatAddress(event.contractAddress)}</span>
+                                    <span onClick={() => copyToClipboard(event.contractAddress)}>
+                                        <abbr title={event.contractAddress}>{formatAddress(event.contractAddress)}</abbr>
+                                    </span>
                                 </div>
                                 <div className={styleEvent.date}>
                                     <h2>Date and time</h2>

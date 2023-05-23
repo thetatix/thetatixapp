@@ -86,15 +86,9 @@ export default function Create() {
             formData.api_key,
             formData.api_secret
         )
-        if (response.error == null) {
-            setAlert(true);
-            setFormStatus(response.status);
-            setFormStatusMsg(response.message);
-        } else {
-            setAlert(true);
-            setFormStatus(response.status);
-            setFormStatusMsg(response.message);
-        }
+        setAlert(true);
+        setFormStatus(response.status);
+        setFormStatusMsg(response.message);
     }
 
     const getToday = () => {

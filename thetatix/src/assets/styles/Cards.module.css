@@ -30,3 +30,7 @@
 .eventCard .eventAddress p { color: var(--text-color); }
 .eventCard p { transition: 0.5s; font-size: var(--font-size); font-weight: 400; margin-bottom: .7rem; line-height: 1; }
 .eventCard:hover p { color: var(--pri-color); }
+
+.contentTicketCards {  }
+.ticketCard {  }
+.ticketCard .ticket {  }

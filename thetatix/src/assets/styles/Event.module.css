@@ -12,6 +12,7 @@
 :is(.date, .location, .creator, .contractAddress) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
 :is(.date, .location, .creator, .contractAddress) span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; cursor: pointer; }
 :is(.date, .location, .creator, .contractAddress) span:hover { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--accent-color); }
+:is(.date, .location, .creator, .contractAddress) span abbr { text-decoration: none; cursor: pointer; }
 
 .description, .tickets { width: 100%; flex: 1 0 100%; max-width: 100%; }
 :is(.description, .tickets) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
