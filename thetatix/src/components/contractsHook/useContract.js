@@ -16,7 +16,7 @@ class useContracts {
         this.#signer = _signer;
         this.#ABIfactory = ABI_file_factory.abi;
         this.#ABIticket = ABI_file_ticket.abi;
-        this.#factoryContract = new ethers.Contract('0xa0F06733BcA71A433C82d03bD57C7810391c49Cd',this.#ABIfactory,_signer);
+        this.#factoryContract = new ethers.Contract('0x464610006e627B14cA808b1BF1456308Eda2Ed7A',this.#ABIfactory,_signer);
     }   
 
     async working(){
