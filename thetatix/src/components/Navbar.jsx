@@ -237,9 +237,17 @@ export default function Navbar() {
             </div>
           </div>
           <div className={styles.right}>
-            <button className={styles.themeBtn} onClick={toggleTheme}>
-              {theme === 'dark' ? 'Light' : 'Dark'} Mode
-            </button>
+            <div className={styles.themeBtn}>
+              <button onClick={toggleTheme}>
+                <Image
+                  src={"/icons/" + (theme === 'dark' ? 'light' : 'dark') + "-theme.svg"}
+                  alt="Theme icon"
+                  width={32}
+                  height={32}
+                  priority
+                />
+              </button>
+            </div>
           {isConnected ? (
             <div className={styles.connectBtn}>
               <button>
