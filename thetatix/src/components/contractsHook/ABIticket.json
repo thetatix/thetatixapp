@@ -253,6 +253,19 @@
             "type": "function"
         },
         {
+            "inputs": [],
+            "name": "factoryContractAddr",
+            "outputs": [
+                {
+                    "internalType": "address",
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -725,7 +738,7 @@
             "inputs": [
                 {
                     "internalType": "address payable",
-                    "name": "_to",
+                    "name": "",
                     "type": "address"
                 }
             ],
