@@ -31,6 +31,41 @@
 .eventCard p { transition: 0.5s; font-size: var(--font-size); font-weight: 400; margin-bottom: .7rem; line-height: 1; }
 .eventCard:hover p { color: var(--pri-color); }
 
+/* tickets cards */
 .contentTicketCards {  }
 .ticketCard {  }
-.ticketCard .ticket {  }
+.ticketCard .ticket { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; position: relative; padding-top: 3rem; }
+.ticketImg { width: 100%; flex: 1 0 22%; max-width: 22%; overflow: hidden; padding-right: .5rem; }
+.ticketImg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 1rem; }
+.ticketInfo { width: 100%; flex: 1 0 78%; max-width: 78%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; }
+
+
+
+/* .event { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; position: relative; padding-top: 3rem; }
+
+.eventImg { width: 100%; flex: 1 0 22%; max-width: 22%; overflow: hidden; padding-right: .5rem; }
+.eventImg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 1rem; }
+
+.eventInfo { width: 100%; flex: 1 0 78%; max-width: 78%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; }
+.title { width: 100%; flex: 1 0 100%; max-width: 100%; }
+.title h1 { margin-bottom: 0; font-weight: 500; font-size: 1.6rem; border-bottom: 1px solid #E4E4E4; padding-bottom: 1rem; padding-top: .1rem; line-height: 1; }
+
+.date, .location, .creator, .contractAddress { width: 100%; flex: 1 0 50%; max-width: 50%; }
+:is(.date, .location, .creator, .contractAddress) h2 { margin-bottom: 0; font-weight: 500; font-size: 1.1rem; padding-bottom: .2rem; padding-top: 1rem; line-height: 1.5; }
+:is(.date, .location, .creator, .contractAddress) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
+:is(.date, .location, .creator, .contractAddress) span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; cursor: pointer; }
+:is(.date, .location, .creator, .contractAddress) span:hover { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--accent-color); }
+:is(.date, .location, .creator, .contractAddress) span abbr { text-decoration: none; cursor: pointer; }
+
+.description, .tickets { width: 100%; flex: 1 0 100%; max-width: 100%; }
+:is(.description, .tickets) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
+
+.price, .mint { width: 100%; flex: 1 0 50%; max-width: 50%; padding-bottom: 1.2rem; border-bottom: 1px solid #E4E4E4; }
+.price span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; }
+.price:hover span { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--accent-color); }
+
+.mint { text-align: right; }
+.mintBtn { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; }
+.mintBtn:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); }
+.mintBtn[disabled] { background-color: var(--ter-color); opacity: .8; }
+.mintBtn[disabled]:hover { box-shadow: none; } */

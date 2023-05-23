@@ -2,24 +2,32 @@ import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@/context/DataContext";
 
 import Head from 'next/head'
-import EventCard from '@/components/EventCard'
+import Image from 'next/image'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
 export default function MyTickets() {
-  const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
-  const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    Promise.all([
-        fetch(`/api/tickets/getUserTickets?owner=` + address)
-            .then((response) => response.json())
-            .then((data) => setTickets(data.tickets))
-    ])
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-  }, [address]);
+    function bufferToImg(buffer) {
+        if (!buffer) {
+            console.log('Buffer is undefined or empty.');
+            return '/'; // or any default image URL you want to use
+        }
+        var img = Buffer.from(buffer, 'base64').toString('ascii');
+        return img;
+    }
+    const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
+    const [tickets, setTickets] = useState([]);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setLoading(true);
+        Promise.all([
+            fetch(`/api/tickets/getUserTickets?owner=` + address)
+                .then((response) => response.json())
+                .then((data) => setTickets(data.tickets))
+        ])
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
+    }, [address]);
 
   return (
     <>
@@ -48,11 +56,17 @@ export default function MyTickets() {
                         <p>Loading tickets...</p>
                     ) : (tickets && tickets.length > 0 ? (
                             tickets.map((ticket) => {
-                                console.log(ticket.eventTrait);
                                 return (
                                     <div className={styleCards.ticketCard + ' col-12 my-5'}>
                                         <div className={styleCards.ticket}>
-                                            <div className={styleCards.ticketImg}></div>
+                                            <div className={styleCards.ticketImg}>
+                                                <Image
+                                                    src={bufferToImg(ticket.eventTrait.img)}
+                                                    alt="Event image"
+                                                    width={2400}
+                                                    height={1600}
+                                                />
+                                            </div>
                                             <div className={styleCards.ticketInfo}>
                                                 <div className={styleCards.ticketHeader}>
                                                     ticket
