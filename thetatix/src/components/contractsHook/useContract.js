@@ -120,7 +120,10 @@ class useContracts {
         //buy ticket on smart contract
         const event_contract = new ethers.Contract(ticketEventAddress,this.#ABIticket,this.#signer);
         try{
-            await event_contract.buyTicket({value:ethers.utils.parseEther(price.toString())});
+            const transaction = await event_contract.buyTicket({value:ethers.utils.parseEther(price.toString())});
+            transaction.wait();
+            await this.delay(10);
+
             //get user tickets on that smart contract
             const tickets_numbers = await event_contract.getUserTickets(buyerWalletAddress);
             //convert hex array to numbers array
