@@ -1,0 +1,61 @@
+import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
+
+import { DataContext } from "@/context/DataContext";
+
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from '@/assets/styles/Pages.module.css'
+import styleEvent from '@/assets/styles/Event.module.css'
+
+export default function TicketPage() {
+  const [ticket, setTicket] = useState({});
+  const router = useRouter();
+  const { eventContractAddress, ticketNumber } = router.query;
+  const { address } = useContext(DataContext);
+
+  useEffect(() => {
+    if (eventContractAddress && ticketNumber) {
+      // Fetch ticket details using eventContractAddress and ticketNumber
+      fetch(`/api/tickets/getTicket?eventContractAddress=${eventContractAddress}&ticketNumber=${ticketNumber}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setTicket(data.ticket);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [eventContractAddress, ticketNumber]);
+
+  if (!ticket) {
+    return <p>Loading ticket...</p>;
+  }
+
+  return (
+    <>
+      <Head>
+        <title>Ticket {ticket.ticketNumber}</title>
+        <meta name="description" content="Ticket details" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className={styles.main}>
+        <section className={styles.section}>
+          <div className={styles.sectionContainer + ' container'}>
+            <div className={styles.content}>
+              
+              <div className={styleEvent.ticket}>
+                <div className={styleEvent.ticketInfo}>
+                  <h1>Ticket {ticket.ticketNumber}</h1>
+                  <p>Owner: {ticket.owner}</p>
+                  <p>Event Contract Address: {ticket.eventContractAddress}</p>
+                  <p>Used: {ticket.used ? 'Yes' : 'No'}</p>
+                  {ticket.used && <p>Used Date: {ticket.usedDate}</p>}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}

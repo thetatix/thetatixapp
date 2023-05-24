@@ -23,10 +23,10 @@
 
     --sec-color: #1D1F2D; /* inputs */
 
-    --ter-color: #1D1F2D; /* titles */
+    --ter-color: #1B1C2C; /* titles */
     --ter-color-rgb: 56, 48, 48;
 
-    --accent-color: #1B1C2C; /* darker sec-color */
+    --accent-color: #292B3E; /* darker sec-color */
 
     --info-color: #4C5065; /* placeholders */
     --filter-info-color: invert(30%) sepia(5%) saturate(2025%) hue-rotate(193deg) brightness(96%) contrast(86%);
@@ -41,9 +41,11 @@
     --bg-color: #16161C;
 
     --price-color: #FFFFFF;
-    --price-bg: #292B3E;
+    --price-bg: var(--accent-color);
+    --price-bg-to: var(--sec-color);
     --date-color: #FFFFFF;
     --title-color: var(--pri-color);
+    --underline: #E4E4E4;
 
     
     /* --event-date-color: #ffffff; */
@@ -73,8 +75,10 @@
 
     --price-color: var(--pri-color);
     --price-bg: var(--sec-color);
+    --price-bg-to: var(--accent-color);
     --date-color: var(--pri-color);
     --title-color: var(--ter-color);
+    --underline: #E4E4E4;
   }
 
 :root {

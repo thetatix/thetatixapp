@@ -3,6 +3,7 @@ import { DataContext } from "@/context/DataContext";
 
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
@@ -57,7 +58,7 @@ export default function MyTickets() {
                     ) : (tickets && tickets.length > 0 ? (
                             tickets.map((ticket) => {
                                 return (
-                                    <div className={styleCards.ticketCard + ' col-12 my-5'}>
+                                    <div className={styleCards.ticketCard + ' col-12'}>
                                         <div className={styleCards.ticket}>
                                             <div className={styleCards.ticketImg}>
                                                 <Image
@@ -68,22 +69,34 @@ export default function MyTickets() {
                                                 />
                                             </div>
                                             <div className={styleCards.ticketInfo}>
-                                                <div className={styleCards.ticketHeader}>
-                                                    ticket
-                                                    <h1>{ticket.eventTrait.eventName}</h1>
+                                                <div className={styleCards.ticketTitle}>
+                                                    <h1>
+                                                        <Link href={'/event/' + ticket.eventTrait.contractAddress} target="_blank">{ticket.eventTrait.eventName}</Link>
+                                                        <Image
+                                                            src="/icons/external-link.svg"
+                                                            alt="External link icon"
+                                                            width={32}
+                                                            height={32}
+                                                        />
+                                                    </h1>
+                                                </div>
+                                                <div className={styleCards.ticketId}>
+                                                    <h2>Ticket ID</h2>
                                                     <p>{ticket.ticketNumber}</p>
                                                 </div>
                                                 <div className={styleCards.ticketDate}>
-                                                    <p>{ticket.eventTrait.startDate}</p>
-                                                    <p>{ticket.eventTrait.endDate}</p>
+                                                    <h2>Date and time</h2>
+                                                    <p>Starts {ticket.eventTrait.startDate}</p>
+                                                    <p>Ends {ticket.eventTrait.endDate}</p>
                                                 </div>
                                                 <div className={styleCards.ticketLocation}>
-                                                    <p>{ticket.eventContractAdress}</p>
-                                                    <p>{ticket.user}</p>
+                                                    <h2>Location</h2>
+                                                    <p>{ticket.eventTrait.location}</p>
                                                 </div>
-                                                <div className={styleCards.ticketBottom}>
-                                                    <p>{ticket.usedDate}</p>
-                                                    <p>{ticket.eventTrait.eventName}</p>
+                                                <div className={styleCards.ticketLink}>
+                                                    <Link href={"/event/" + ticket.eventTrait.contractAddress + "/" + ticket.ticketNumber}>
+                                                        Show ticket
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </div>
