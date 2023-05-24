@@ -19,7 +19,6 @@ export default function EventPage() {
       
     function bufferToImg(buffer) {
         if (!buffer) {
-            console.log('Buffer is undefined or empty.');
             return '/'; // or any default image URL you want to use
         }
         var img = Buffer.from(buffer, 'base64').toString('ascii');

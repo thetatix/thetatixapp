@@ -41,8 +41,10 @@
 .ticketTitle { width: 100%; flex: 1 0 100%; max-width: 100%; }
 .ticketTitle h1 { margin-bottom: 0; font-weight: 500; font-size: 1.4rem; border-bottom: 1px solid var(--underline); padding-bottom: 1rem; padding-top: .1rem; line-height: 1; }
 .ticketTitle h1 a { color: var(--text-color); text-decoration: none; }
-.ticketTitle h1 a:hover { color: var(--pri-color); text-decoration: underline; }
-.ticketTitle h1 a:hover + img { filter: var(--pri-color-filter); }
+.ticketTitle h1 a:hover { text-decoration: underline; }
+.ticketTitle h1 a:hover + img {  }
+/* .ticketTitle h1 a:hover { color: var(--pri-color); text-decoration: underline; }
+.ticketTitle h1 a:hover + img { filter: var(--pri-color-filter); } */
 .ticketTitle h1 img { height: 1.2rem; width: auto; margin-left: .5rem; vertical-align: baseline; filter: var(--text-color-filter); }
 
 .ticketId, .ticketDate, .ticketLocation { width: 100%; flex: 1 0 calc(100% / 3); max-width: calc(100% / 3); }
