@@ -1,0 +1,9 @@
+.ticketsContent {  }
+
+.tickets { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
+
+/* .ticketsHeader { display: flex; } */
+.ticket { display: flex; }
+.ticketCol { width: 100%; flex: 1 0 20%; max-width: 20%; }
+.ticketCol h3 {  }
+.ticketCol img { width: 100%; height: auto; }

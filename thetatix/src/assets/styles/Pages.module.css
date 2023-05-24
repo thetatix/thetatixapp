@@ -5,6 +5,10 @@
 .headerContainer {  }
 .header .content {  }
 .header h1 { color: var(--text-color); font-size: 1.6rem; margin-bottom: .5rem; line-height: 1.7; font-weight: 500; }
+.header h1 a { color: var(--text-color); text-decoration: none; }
+.header h1 a:hover { text-decoration: underline; }
+.header h1 a img { height: 1.2rem; width: auto; margin-left: .5rem; vertical-align: baseline; filter: var(--text-color-filter); }
+
 h2.subtitle { color: var(--text-color); font-size: 1.1rem; margin-bottom: 1.2rem; line-height: 1.2; font-weight: 500; }
 
 .categoryImg { display: block; width: 100%; margin: 0 auto; height: 100%; position: relative; padding-top: 10%; }
