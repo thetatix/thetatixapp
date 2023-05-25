@@ -284,6 +284,7 @@ export default function Create() {
                                                         onChange={handleInput}
                                                         className={styleCreate.input}
                                                         min="0"
+                                                        step=".01"
                                                         required
                                                     />
                                                 </div>

@@ -59,6 +59,14 @@ export default function EventPage() {
         return `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
     }
 
+    function formatDescription(rawDescription) {
+        if (!rawDescription) {
+            return rawDescription;
+        }
+        const description = rawDescription.replace('/n', ' ');
+        return description;
+    }
+
     function formatDateTime(rawDateTime) {
         try {
             const dateTime = new Date(rawDateTime);
@@ -215,7 +223,7 @@ export default function EventPage() {
                                     <p>{event.location}</p>
                                 </div>
                                 <div className={styleEvent.description}>
-                                    <p>{event.eventDescription}</p>
+                                    <p>{formatDescription(event.eventDescription)}</p>
                                 </div>
                                 <div className={styleEvent.tickets}>
                                     <p>

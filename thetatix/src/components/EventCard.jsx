@@ -39,7 +39,7 @@ export default function EventCard({ eventName, eventTicketsPrice, eventStartDate
                     <div className={styles.eventPrice}>
                         <span>{eventTicketsPrice / 1000000} TFUEL</span>
                     </div>
-                    <div  className={styles.eventInfo}>
+                    <div className={styles.eventInfo}>
                         OFFLINE EVENT
                     </div>
                     <div className={styles.eventDate}>
