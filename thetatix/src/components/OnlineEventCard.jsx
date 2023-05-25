@@ -19,7 +19,7 @@ function bufferToImg(buffer) {
     return img;
 }
 
-export default function EventCard({ eventName, eventTicketsPrice, eventStartDate, eventLocation, eventImg, eventHref, eventContractAddress }) {
+export default function OnlineEventCardCreatorOnly({ eventName, eventTicketsPrice, eventStartDate, eventLocation, eventImg, eventHref, eventContractAddress,stream_key,stream_server,stream_playback_url }) {
     return (
         <Link href={eventHref + '/' + eventContractAddress} className={styles.eventCard + ' col-4'} key={eventContractAddress}>
             <div className={styles.event}>
@@ -39,18 +39,30 @@ export default function EventCard({ eventName, eventTicketsPrice, eventStartDate
                     <div className={styles.eventPrice}>
                         <span>{eventTicketsPrice / 1000000} TFUEL</span>
                     </div>
-                    <div  className={styles.eventInfo}>
-                        OFFLINE EVENT
+                    <div className={styles.eventInfo}>
+                        ONLINE EVENT
                     </div>
                     <div className={styles.eventDate}>
                         <p>{formatDate(eventStartDate)}</p>
                     </div>
-                    
                     <div className={styles.eventAddress}>
                         <p>{eventLocation}</p>
                     </div>
                     <div>
-                        click to set tickets used
+                        <div>
+                            stream key:{stream_key}{/*  {stream_key.substring(0, 6)}...{stream_key.substring(stream_key.length-6,stream_key.length)} */}
+                        </div>
+                        <div>
+                            stream server: {stream_server}
+                        </div>
+                        <div>
+                            {stream_playback_url.length>0 ? <div>
+                                touch here for start the stream
+                            </div> : <div>
+                                started stream, url of stream: {window.location.href}/onlineevents/{eventContractAddress}
+                                </div>}
+                            
+                        </div>
                     </div>
                 </div>
             </div>
