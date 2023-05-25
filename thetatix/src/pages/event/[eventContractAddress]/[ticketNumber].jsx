@@ -13,8 +13,10 @@ export default function TicketPage() {
   const router = useRouter();
   const { eventContractAddress, ticketNumber } = router.query;
   const { address } = useContext(DataContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (eventContractAddress && ticketNumber) {
       // Fetch ticket details using eventContractAddress and ticketNumber
       fetch(`/api/tickets/getTicket?eventContractAddress=${eventContractAddress}&ticketNumber=${ticketNumber}`)
@@ -22,18 +24,19 @@ export default function TicketPage() {
         .then((data) => {
           setTicket(data.ticket);
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error(error))
+        .finally(() => setLoading(false));
     }
   }, [eventContractAddress, ticketNumber]);
-
-  if (!ticket) {
-    return <p>Loading ticket...</p>;
-  }
 
   return (
     <>
       <Head>
-        <title>Ticket {ticket.ticketNumber}</title>
+        {loading ? (
+          <title>Ticket</title>
+        ) : (
+          <title>Ticket {ticket.ticketNumber}</title>
+        )}
         <meta name="description" content="Ticket details" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -41,17 +44,19 @@ export default function TicketPage() {
         <section className={styles.section}>
           <div className={styles.sectionContainer + ' container'}>
             <div className={styles.content}>
-              
-              <div className={styleEvent.ticket}>
-                <div className={styleEvent.ticketInfo}>
-                  <h1>Ticket {ticket.ticketNumber}</h1>
-                  <p>Owner: {ticket.owner}</p>
-                  <p>Event Contract Address: {ticket.eventContractAddress}</p>
-                  <p>Used: {ticket.used ? 'Yes' : 'No'}</p>
-                  {ticket.used && <p>Used Date: {ticket.usedDate}</p>}
+              {loading ? (
+                <p>Loading ticket...</p>
+              ) : (
+                <div className={styleEvent.ticket}>
+                  <div className={styleEvent.ticketInfo}>
+                    <h1>Ticket {ticket.ticketNumber}</h1>
+                    <p>Owner: {ticket.owner}</p>
+                    <p>Event Contract Address: {ticket.eventContractAdress}</p>
+                    <p>Used: {ticket.used ? 'Yes' : 'No'}</p>
+                    {ticket.used && <p>Used Date: {ticket.usedDate}</p>}
+                  </div>
                 </div>
-              </div>
-              
+              )}
             </div>
           </div>
         </section>

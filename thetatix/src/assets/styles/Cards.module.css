@@ -14,10 +14,10 @@
 .contentEventCards { padding-top: calc(var(--catGap) / 2); display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: flex-start; }
 .eventCard { text-decoration: none; color: var(--text-color); padding-bottom: .8rem; padding-top: .8rem; }
 .eventCard .event { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; height: 100%; }
-.eventCard .eventImg { flex: 65% 2; border-radius: .5rem; overflow: hidden; position: relative; padding-top: 56.25%; }
+.eventCard .eventImg { height: 100%; flex: 60% 2; max-height: 60%; border-radius: .5rem; overflow: hidden; position: relative; padding-top: 56.25%; }
 .eventCard .eventImg img { width: 100%; height: 100%; transition: 0.5s; object-fit: cover; object-position: 50% 50%; position: absolute; top: 0; bottom: 0; }
 .eventCard:hover .eventImg img { transform: scale(1.08); }
-.eventCard .eventInfo { flex: 35% 1 0; padding: .9rem 0; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; align-content: flex-start; }
+.eventCard .eventInfo { height: 100%; flex: 40% 1 0; max-height: 40%; padding: .9rem 0; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; align-content: flex-start; }
 .eventCard .eventTitle { flex: 1 0 50%; }
 .eventCard .eventTitle h4 { color: var(--title-color); transition: 0.5s; font-size: 1.2rem; font-weight: 500; margin-bottom: .7rem; line-height: 1; }
 .eventCard:hover .eventTitle h4 { color: var(--pri-color); }
@@ -35,9 +35,9 @@
 .contentTicketCards { gap: 3rem; }
 .ticketCard {  }
 .ticketCard .ticket { background-color: var(--sec-color); border-radius: .5rem; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; position: relative; padding: 1rem; border: 1px solid var(--accent-color); }
-.ticketImg { width: 100%; flex: 1 0 22%; max-width: 22%; overflow: hidden; padding-right: .5rem; }
-.ticketImg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 1rem; }
-.ticketInfo { width: 100%; flex: 1 0 78%; max-width: 78%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; align-content: flex-start; }
+.ticketImg { width: 100%; flex: 1 0 22%; max-width: 22%; overflow: hidden; position: relative; }
+.ticketImg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 1rem; position: absolute; top: 0; right: 0; bottom: 0; left: 0; }
+.ticketInfo { width: 100%; flex: 1 0 78%; max-width: 78%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1.5rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; align-content: flex-start; }
 .ticketTitle { width: 100%; flex: 1 0 100%; max-width: 100%; }
 .ticketTitle h1 { margin-bottom: 0; font-weight: 500; font-size: 1.4rem; border-bottom: 1px solid var(--underline); padding-bottom: 1rem; padding-top: .1rem; line-height: 1; }
 .ticketTitle h1 a { color: var(--text-color); text-decoration: none; }
