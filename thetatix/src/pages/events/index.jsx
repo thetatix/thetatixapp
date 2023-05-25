@@ -93,6 +93,7 @@ export default function Events() {
                         eventImg={event.img.data}
                         eventHref={`/event`}
                         eventContractAddress={event.contractAddress}
+                        eventIsOnline={event.isOnlineEventStream}
                         key={event.contractAddress}
                       />
                     )

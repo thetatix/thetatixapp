@@ -19,7 +19,7 @@ function bufferToImg(buffer) {
     return img;
 }
 
-export default function EventCard({ eventName, eventTicketsPrice, eventStartDate, eventLocation, eventImg, eventHref, eventContractAddress }) {
+export default function EventCard({ eventName, eventTicketsPrice, eventStartDate, eventLocation, eventImg, eventHref, eventContractAddress, eventIsOnline }) {
     return (
         <Link href={eventHref + '/' + eventContractAddress} className={styles.eventCard + ' col-4'} key={eventContractAddress}>
             <div className={styles.event}>
@@ -39,8 +39,12 @@ export default function EventCard({ eventName, eventTicketsPrice, eventStartDate
                     <div className={styles.eventPrice}>
                         <span>{eventTicketsPrice / 1000000} TFUEL</span>
                     </div>
-                    <div className={styles.eventInfo}>
-                        OFFLINE EVENT
+                    <div className={styles.eventText}>
+                        {eventIsOnline ? (
+                            <p>Online event</p>
+                        ) : (
+                            <p>IRL event</p>
+                        )}
                     </div>
                     <div className={styles.eventDate}>
                         <p>{formatDate(eventStartDate)}</p>
