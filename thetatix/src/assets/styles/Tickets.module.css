@@ -3,16 +3,21 @@
 .headerImg .headerImgContainer img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: .5rem; }
 .headerInfo { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; }
 .headerTitle { width: 100%; flex: 1 0 100%; max-width: 100%; border-bottom: 1px solid #E4E4E4; }
+.headerTitle h1 { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between; }
+.startStream { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .5rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); float: right; }
+.startStream:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); border: 1px solid var(--accent-color); }
 
-.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn { width: 100%; flex: 1 0 25%; max-width: 25%; }
-.headerFundsBtn { display: flex; align-items: flex-end; justify-content: flex-end; }
+.headerContractAddress, .headerEarnings, .headerTicketsNumber { width: 100%; flex: 1 0 30%; max-width: 30%; }
 :is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) h2 { margin-bottom: 0; font-weight: 500; font-size: 1.1rem; padding-bottom: .2rem; padding-top: 1rem; line-height: 1.5; }
 :is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
-:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; cursor: pointer; }
-:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span:hover { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--price-bg-to); }
-:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span abbr { text-decoration: none; cursor: pointer; }
-:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) button { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); margin-top: 40%; }
-:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) button:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); border: 1px solid var(--accent-color); }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn, .headerStreamKey) span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; cursor: pointer; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn, .headerStreamKey) span:hover { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--price-bg-to); }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn, .headerStreamKey) span abbr { text-decoration: none; cursor: pointer; }
+
+.headerFundsBtn, .headerStreamKey { width: 100%; flex: 1 0 100%; max-width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.headerFundsBtn { flex-direction: row-reverse; padding-top: .5rem; }
+:is(.headerFundsBtn, .headerStreamKey) button { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); }
+:is(.headerFundsBtn, .headerStreamKey) button:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); border: 1px solid var(--accent-color); }
 
 .ticketsContent { padding-top: 2rem; }
 

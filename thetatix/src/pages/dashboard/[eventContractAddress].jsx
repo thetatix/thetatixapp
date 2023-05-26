@@ -31,9 +31,13 @@ export default function EventPage() {
     const formatAddress = (address) => {
         if (address?.length === 42) {
           return address.substring(0, 6) + "..." + address.substring(38);
-        } else {
-          return address;
         }
+        return address;
+    }
+
+    const formatStreamKey = (key) => {
+        const keyLength = key.length;
+        return key.substring(0, 6) + "..." + key.substring(keyLength - 4, keyLength);
     }
 
     const copyToClipboard = (text) => {
@@ -155,6 +159,9 @@ export default function EventPage() {
                                             height={32}
                                         />
                                     </Link>
+                                    {event.isOnlineEventStream ? (
+                                        <button className={styleTickets.startStream}>Start stream</button>
+                                    ) : null}
                                 </h1>
                             </div>
                             {event.creator === address ? (
@@ -175,8 +182,20 @@ export default function EventPage() {
                                             {event.maxTickets - event.ticketsAmount} / {event.maxTickets}
                                         </p>
                                     </div>
+                                    {event.isOnlineEventStream ? (
+                                        <div className={styleTickets.headerStreamKey}>
+                                            <span onClick={() => copyToClipboard(event.stream_key)}>
+                                                <abbr title={event.stream_key}>Stream key: {formatStreamKey(event.stream_key)}</abbr>
+                                            </span>
+                                        </div>
+                                    ) : null}
                                     <div className={styleTickets.headerFundsBtn}>
                                         <button>Withdraw funds</button>
+                                        {event.isOnlineEventStream ? (
+                                            <span onClick={() => copyToClipboard(event.stream_server)}>
+                                                <abbr title={event.stream_server}>Stream server: {event.stream_server}</abbr>
+                                            </span>
+                                        ) : null}
                                     </div>
                                 </>
                             ) : (
