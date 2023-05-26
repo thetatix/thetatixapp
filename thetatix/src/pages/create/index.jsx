@@ -218,19 +218,37 @@ export default function Create() {
                                             </div>
                                             <div className={styleCreate.row + ' row'}>
                                                 <div className={styleCreate.column + ' col-12'}>
-                                                    <label htmlFor="location" className={styleCreate.label}>Location</label>
-                                                    <input
-                                                        id='location'
-                                                        // no terminado
-                                                        type="text"
-                                                        name='location'
-                                                        value={formData.location}
+                                                    <label htmlFor="eventtype" className={styleCreate.label}>Event type</label>
+                                                    <select
+                                                        id="eventtype"
+                                                        name="eventtype"
                                                         onChange={handleInput}
                                                         className={styleCreate.input}
-                                                        required
-                                                    />
+                                                    >
+                                                        <option value={''}> Select an event type</option>
+                                                        <option value={'online'}>Online event (stream)</option>
+                                                        <option value={'offline'}>In person event</option>
+
+                                                    </select>
                                                 </div>
                                             </div>
+                                            {formData.eventtype === 'offline' ? (
+                                                <div className={styleCreate.row + ' row'}>
+                                                    <div className={styleCreate.column + ' col-12'}>
+                                                        <label htmlFor="location" className={styleCreate.label}>Location</label>
+                                                        <input
+                                                            id='location'
+                                                            type="text"
+                                                            name='location'
+                                                            placeholder="Enter your city"
+                                                            value={formData.location}
+                                                            onChange={handleInput}
+                                                            className={styleCreate.input}
+                                                            required
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ) : null}
                                             <div className={styleCreate.row + ' row'}>
                                                 <div className={styleCreate.column + ' col-6'}>
                                                     <label htmlFor="startDate" className={styleCreate.label}>Start date</label>
@@ -287,22 +305,6 @@ export default function Create() {
                                                         step=".01"
                                                         required
                                                     />
-                                                </div>
-                                            </div>
-                                            <div className={styleCreate.row + ' row'}>
-                                                <div className={styleCreate.column + ' col-12'}>
-                                                    <label htmlFor="eventtype" className={styleCreate.label}>event type</label>
-                                                    <select
-                                                        id="eventtype"
-                                                        name="eventtype"
-                                                        onChange={handleInput}
-                                                        className={styleCreate.input}
-                                                    >
-                                                        <option value={''}> Select an event type</option>
-                                                        <option value={'online'}> online event (stream)</option>
-                                                        <option value={'offline'}> presential event</option>
-
-                                                    </select>
                                                 </div>
                                             </div>
                                             {formData.eventtype === 'online'

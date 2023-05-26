@@ -43,18 +43,14 @@ export default function EventCard({ eventName, eventTicketsPrice, eventStartDate
                         {eventIsOnline ? (
                             <p>Online event</p>
                         ) : (
-                            <p>IRL event</p>
+                            <p>In person event</p>
                         )}
                     </div>
                     <div className={styles.eventDate}>
                         <p>{formatDate(eventStartDate)}</p>
                     </div>
-                    
                     <div className={styles.eventAddress}>
                         <p>{eventLocation}</p>
-                    </div>
-                    <div>
-                        click to set tickets used
                     </div>
                 </div>
             </div>
