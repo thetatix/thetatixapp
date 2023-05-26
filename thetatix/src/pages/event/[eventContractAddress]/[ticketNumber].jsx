@@ -53,7 +53,7 @@ export default function TicketPage() {
                     <p>Owner: {ticket.owner}</p>
                     <p>Event Contract Address: {ticket.eventContractAdress}</p>
                     <p>Used: {ticket.user ? 'Yes' : 'No'}</p>
-                    {ticket.used && <p>Used Date: {ticket.usedDate}</p>}
+                    {ticket.user && <p>Used Date: {ticket.usedDate}</p>}
                   </div>
                 </div>
               )}
