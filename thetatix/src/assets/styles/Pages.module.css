@@ -40,3 +40,11 @@ h2.subtitle { color: var(--text-color); font-size: 1.1rem; margin-bottom: 1.2rem
 .alertMessage { font-size: var(--font-size); font-weight: 400; color: var(--black); line-height: 1.2; margin-bottom: 0; max-width: 75%; }
 .alertCloseBtn { background: none; border: 0; outline: none; position: relative; }
 .alertCloseBtn img { height: 1.4rem; width: auto; vertical-align: bottom; }
+
+
+.tooltip { display: inline-block; position: relative; }
+.tooltipIcon { margin-left: .5rem; z-index: 1; }
+.tooltipIcon:hover + .tooltipBody { display: inline-block; opacity: 1; }
+.tooltipIcon img { width: auto; height: var(--font-size); vertical-align: middle; filter: var(--text-color-filter); }
+.tooltipBody { z-index: 2; position: absolute; width: 14rem; height: auto; background: var(--bg-color); padding: .8rem 1.5rem 1rem 1.5rem; border: 1px solid #ECECEC; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.06); border-radius: .75rem; top: 0; right: 0; left: calc(100% + 1rem); display: none; opacity: 0; }
+.tooltipBody p { margin-bottom: 0; font-size: .8rem; }

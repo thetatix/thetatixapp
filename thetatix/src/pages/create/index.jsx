@@ -226,9 +226,8 @@ export default function Create() {
                                                         className={styleCreate.input}
                                                     >
                                                         <option value={''}> Select an event type</option>
-                                                        <option value={'online'}>Online event (stream)</option>
                                                         <option value={'offline'}>In person event</option>
-
+                                                        <option value={'online'}>Online event (stream)</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -249,6 +248,85 @@ export default function Create() {
                                                     </div>
                                                 </div>
                                             ) : null}
+                                            {formData.eventtype === 'online'
+                                                ?
+                                                <>
+                                                    <div className={styleCreate.row + ' row'}>
+                                                        <div className={styleCreate.column + ' col-12'}>
+                                                            <label htmlFor="api_key" className={styleCreate.label}>
+                                                                API KEY (from thetavideoapi.com)
+                                                                <div className={styles.tooltip}>
+                                                                    <div className={styles.tooltipIcon}>
+                                                                        <Image
+                                                                            src="/icons/help-circle.svg"
+                                                                            alt="Help icon"
+                                                                            width={24}
+                                                                            height={24}
+                                                                        />
+                                                                    </div>
+                                                                    <div className={styles.tooltipBody}>
+                                                                        <p>
+                                                                            1.- Create an account on thetavideoapi.com
+                                                                            <br />
+                                                                            2.- Create an app 
+                                                                            <br />
+                                                                            3.- Get the API_KEY of the app and paste it here
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <input
+                                                                id='api_key'
+                                                                type="text"
+                                                                name='api_key'
+                                                                value={formData.api_key}
+                                                                onChange={handleInput}
+                                                                className={styleCreate.input}
+                                                                placeholder="Ex. srvacc_xxxxxxxxxxxxxxxxxxxxxxxxx"
+                                                                required
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className={styleCreate.row + ' row'}>
+                                                        <div className={styleCreate.column + ' col-12'}>
+                                                            <label htmlFor="api_secret" className={styleCreate.label}>
+                                                                API SECRET (from thetavideoapi.com)
+                                                                <div className={styles.tooltip}>
+                                                                    <div className={styles.tooltipIcon}>
+                                                                        <Image
+                                                                            src="/icons/help-circle.svg"
+                                                                            alt="Help icon"
+                                                                            width={24}
+                                                                            height={24}
+                                                                        />
+                                                                    </div>
+                                                                    <div className={styles.tooltipBody}>
+                                                                        <p>
+                                                                            1.- Create an account on thetavideoapi.com
+                                                                            <br />
+                                                                            2.- Create an app
+                                                                            <br />
+                                                                            3.- Get the SECRETAPI_KEY of the app and paste it here
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </label>
+                                                            <input
+                                                                id='api_secret'
+                                                                type="text"
+                                                                name='api_secret'
+                                                                value={formData.api_secret}
+                                                                onChange={handleInput}
+                                                                className={styleCreate.input}
+                                                                placeholder="Ex. 37zdaeb0c8kw3aphua76x9bee5tmxvjt"
+                                                                required
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </>
+                                                :
+                                                <></>
+                                            }
                                             <div className={styleCreate.row + ' row'}>
                                                 <div className={styleCreate.column + ' col-6'}>
                                                     <label htmlFor="startDate" className={styleCreate.label}>Start date</label>
@@ -307,43 +385,6 @@ export default function Create() {
                                                     />
                                                 </div>
                                             </div>
-                                            {formData.eventtype === 'online'
-                                                ?
-                                                <>
-                                                    <div className={styleCreate.row + ' row'}>
-                                                        <div className={styleCreate.column + ' col-12'}>
-                                                            <label htmlFor="api_key" className={styleCreate.label}>API KEY (from thetavideoapi.com)</label>
-                                                            <input
-                                                                id='api_key'
-                                                                type="text"
-                                                                name='api_key'
-                                                                value={formData.api_key}
-                                                                onChange={handleInput}
-                                                                className={styleCreate.input}
-                                                                placeholder="you can get one on thetavideoapi.com"
-                                                                required
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                    <div className={styleCreate.row + ' row'}>
-                                                        <div className={styleCreate.column + ' col-12'}>
-                                                            <label htmlFor="api_secret" className={styleCreate.label}>API SECRET (from thetavideoapi.com)</label>
-                                                            <input
-                                                                id='api_secret'
-                                                                type="text"
-                                                                name='api_secret'
-                                                                value={formData.api_secret}
-                                                                onChange={handleInput}
-                                                                className={styleCreate.input}
-                                                                placeholder="Web3 in person hackathon..."
-                                                                required
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </>
-                                                :
-                                                <></>
-                                            }
                                             <div className={styleCreate.row + ' row'}>
                                                 <div className={styleCreate.column + ' col-12'}>
                                                     <button type="submit" className={styleCreate.submit}>Create event</button>
