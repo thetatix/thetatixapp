@@ -5,7 +5,7 @@
 .headerTitle { width: 100%; flex: 1 0 100%; max-width: 100%; border-bottom: 1px solid #E4E4E4; }
 
 .headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn { width: 100%; flex: 1 0 25%; max-width: 25%; }
-.headerFundsBtn { display: flex; align-items: flex-end; justify-content: end; }
+.headerFundsBtn { display: flex; align-items: flex-end; justify-content: flex-end; }
 :is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) h2 { margin-bottom: 0; font-weight: 500; font-size: 1.1rem; padding-bottom: .2rem; padding-top: 1rem; line-height: 1.5; }
 :is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
 :is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; cursor: pointer; }
