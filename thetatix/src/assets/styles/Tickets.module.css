@@ -1,9 +1,33 @@
-.ticketsContent {  }
+.headerImg { overflow: hidden; position: relative; }
+.headerImg .headerImgContainer { width: 100%; position: relative; height: 100%; }
+.headerImg .headerImgContainer img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; position: absolute; top: 0; right: 0; bottom: 0; left: 0; border-radius: .5rem; }
+.headerInfo { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; }
+.headerTitle { width: 100%; flex: 1 0 100%; max-width: 100%; border-bottom: 1px solid #E4E4E4; }
+
+.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn { width: 100%; flex: 1 0 25%; max-width: 25%; }
+.headerFundsBtn { display: flex; align-items: flex-end; justify-content: end; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) h2 { margin-bottom: 0; font-weight: 500; font-size: 1.1rem; padding-bottom: .2rem; padding-top: 1rem; line-height: 1.5; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) p { margin-bottom: 0; line-height: 1.7; padding-bottom: .9rem; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span { color: var(--price-color); transition: 0.5s; background-color: var(--price-bg); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; cursor: pointer; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span:hover { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--price-bg-to); }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) span abbr { text-decoration: none; cursor: pointer; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) button { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); margin-top: 40%; }
+:is(.headerContractAddress, .headerEarnings, .headerTicketsNumber, .headerFundsBtn) button:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); border: 1px solid var(--accent-color); }
+
+.ticketsContent { padding-top: 2rem; }
 
 .tickets { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
 
-/* .ticketsHeader { display: flex; } */
-.ticket { display: flex; }
-.ticketCol { width: 100%; flex: 1 0 20%; max-width: 20%; }
-.ticketCol h3 {  }
-.ticketCol img { width: 100%; height: auto; }
+.ticket { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: flex-start; background-color: var(--sec-color); margin-top: 1rem; border-radius: .5rem; padding: .75rem 2rem; }
+.ticketNumber { width: 100%; flex: 1 0 15%; max-width: 15%; }
+.ticketOwner { width: 100%; flex: 1 0 70%; max-width: 70%; }
+.ticketAction { width: 100%; flex: 1 0 15%; max-width: 15%; text-align: right; }
+:is(.ticketNumber, .ticketOwner, .ticketAction) h3 { margin-bottom: .5rem; font-weight: 500; font-size: 1.1rem; line-height: 1.5; }
+:is(.ticketNumber, .ticketOwner, .ticketAction) p { margin-bottom: 0; line-height: 1.2; font-weight: 400; font-size: var(--font-size); }
+:is(.ticketNumber, .ticketOwner, .ticketAction) button { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); }
+:is(.ticketNumber, .ticketOwner, .ticketAction) button:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); border: 1px solid var(--accent-color); }
+:is(.ticketNumber, .ticketOwner, .ticketAction) button[disabled] { background-color: var(--ter-color); opacity: .8; border: 1px solid var(--ter-color); }
+:is(.ticketNumber, .ticketOwner, .ticketAction) button[disabled]:hover { box-shadow: none; }
+
+.ticketHead { display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; border-bottom: 1px solid #E4E4E4; }
+.ticketHead .ticketAction { text-align: center; }

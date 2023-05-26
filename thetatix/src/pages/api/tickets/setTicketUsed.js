@@ -20,36 +20,14 @@ const handler = async (req, res) => {
             },{ 
                 usedDate: Date.now()
             }) 
-            res.status(200).json({data:'succes',ticket})
+            res.status(200).json({ status:'success', message: "Registered entrant successfully.", ticket })
         } catch(err) {
             console.error(err);
-            res.status(500).json({ message: "Unable to fetch tickets." });
+            res.status(500).json({ ticket: { status: 'danger', message: "Unable to fetch tickets." } });
         }
     } else {
-        res.status(405).json({ message: 'Method not allowed.' });
+        res.status(405).json({ ticket: { status: 'danger', message: 'Method not allowed.' } });
     }
 }
 
 export default handler;
-
-// export default async function handler(req, res) {
-//     if (req.method === 'PUT') {
-//         await connectMongo();
-//         const  data  = req.body.data;
-        
-//         await Ticket.findOneAndUpdate({
-//             eventContractAdress:data.ticketEventAddress,
-//             ticketNumber: Number(data.ticketNumber)
-//         },{ 
-//             $set: { used: true }
-//         })
-//         const ticket = await Ticket.findOneAndUpdate({
-//             eventContractAdress:data.ticketEventAddress,
-//             ticketNumber:Number(data.ticketNumber)
-//         },{ 
-//             usedDate: Date.now()
-//         }) 
-//         res.status(200).json({data:'succes',ticket})
-//     }
-   
-// }
