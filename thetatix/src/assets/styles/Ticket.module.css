@@ -1,7 +1,7 @@
 .ticket { background-color: var(--sec-color); border-radius: .5rem; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; position: relative; padding: 1rem; border: 1px solid var(--accent-color);}
 
 .eventImg { width: 100%; flex: 1 0 22%; max-width: 22%; overflow: hidden; padding-right: .5rem; }
-.eventImg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: 1rem; }
+.eventImg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; border-radius: .5rem; }
 
 .ticketInfo { width: 100%; flex: 1 0 78%; max-width: 78%; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: stretch; position: relative; padding-left: 1rem; color: var(--text-color); font-size: var(--font-size); line-height: 1; font-weight: 400; }
 .title { width: 100%; flex: 1 0 100%; max-width: 100%; }

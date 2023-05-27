@@ -100,43 +100,41 @@ export default function TicketPage() {
                 <div className={styleEvent.ticket}>
                   <div className={styleEvent.eventImg}>
                       <Image
-                          src={'/img/wallpaper-3.png'}
+                          src={bufferToImg(ticket.eventTrait.img)}
                           alt="Event image"
                           width={2400}
                           height={1600}/>
                   </div>
                   <div className={styleEvent.ticketInfo}>
                     <div className={styleEvent.title}>
-                      <h1>Ticket {ticket.ticketNumber}</h1>
+                      <h1>Ticket: {ticket.ticketNumber}</h1>
                     </div>
                     <div className={styleEvent.creator}>
                         <h2>Owned by</h2>
-                        <span onClick={() => copyToClipboard(ticket.creator)}> {/* Ese ticket.creator no se si esta bien */}
-                            <abbr title={ticket.creator}>{formatAddress(ticket.owner)}</abbr> {/* Ese ticket.creator en title no se si esta bien */}
+                        <span onClick={() => copyToClipboard(ticket.owner)}>
+                            <abbr title={ticket.owner}>{formatAddress(ticket.owner)}</abbr>
                         </span>
                     </div>
                     <div className={styleEvent.contractAddress}>
-                        <h2>Event Contact Address</h2>
-                        <span onClick={() => copyToClipboard(ticket.contractAddress)}> {/* Ese ticket.contractAddress no se si esta bien */}
-                            <abbr title={ticket.contractAddress}>{formatAddress(ticket.eventContractAdress)}</abbr> {/* Ese ticket.contractAddress no se si esta bien */}
+                        <h2>Ticket address</h2>
+                        <span onClick={() => copyToClipboard(ticket.eventContractAdress)}>
+                            <abbr title={ticket.eventContractAdress}>{formatAddress(ticket.eventContractAdress)}</abbr>
                         </span>
                     </div>
                     <div className={styleEvent.date}>
                         <h2>Date and time</h2>
                         <p>
-                            Starts {formatDateTime(ticket.startDate)} {/* Aqui poner event en lugar de ticket */}
+                            Starts {formatDateTime(ticket.eventTrait.startDate)}
                             <br />
-                            Ends {formatDateTime(ticket.endDate)} {/* Aqui poner event en lugar de ticket */}
+                            Ends {formatDateTime(ticket.eventTrait.endDate)}
                         </p>
                     </div>
                     <div className={styleEvent.location}>
                         <h2>Location</h2>
-                        <p>{ticket.location}</p> {/* aqui poner event en lugar de ticket */}
-                        <p>Paseo de la Reforma 56, México</p> {/* placeholder */}
+                        <p>{ticket.eventTrait.location}</p>
                     </div>
                     <div className={styleEvent.description}>
-                        <p>{formatDescription(ticket.eventDescription)}</p>
-                        <p>Community-driven event that brings together developers, designers, and entrepreneurs to explore the latest trends and innovations in the Ethereum ecosystem. The event features a series of talks, workshops, and hackathons that aim to promote collaboration and innovation in the Ethereum community</p>
+                        <p>{formatDescription(ticket.eventTrait.eventDescription)}</p>
                     </div>
 
                     <div className={styleEvent.ticketLink}>
