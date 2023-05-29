@@ -15,8 +15,8 @@
 .eventCard .title h4 { color: var(--title-color); transition: 0.5s; font-size: 1.2rem; font-weight: 500; margin-bottom: .7rem; line-height: 1; }
 .eventCard:hover .title h4 { color: var(--pri-color); }
 .eventCard .action { flex: 1 0 50%; text-align: right; }
-.eventCard .action button { color: var(--white); transition: 0.5s; font-size: var(--font-size); background-color: var(--pri-color); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; border: 1px solid var(--pri-color); }
-.eventCard:hover .action button { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--ter-color); border: 1px solid var(--accent-color); }
+.eventCard .action span { color: var(--white); transition: 0.5s; font-size: var(--font-size); background-color: var(--pri-color); line-height: 1; padding: .5rem .9rem; display: inline-block; border-radius: 10rem; border: 1px solid var(--pri-color); }
+.eventCard:hover .action span { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--ter-color); border: 1px solid var(--accent-color); }
 /* .eventCard p { transition: 0.5s; font-size: var(--font-size); font-weight: 400; margin-bottom: .7rem; line-height: 1; }
 .eventCard:hover p { color: var(--pri-color); } */
 

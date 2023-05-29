@@ -40,7 +40,7 @@ export default function DashboardCard({ num, headTitle, events }) {
                                     <h4>{event.eventName}</h4>
                                 </div>
                                 <div className={styles.action}>
-                                    <button>Registrer entrants</button>
+                                    <span>Registrer entrants</span>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@ export default function DashboardCard({ num, headTitle, events }) {
                                             <h4>{event.eventName}</h4>
                                         </div>
                                         <div className={styles.action}>
-                                            <button>Registrer entrants</button>
+                                            <span>Registrer entrants</span>
                                         </div>
                                     </div>
                                 </div>
