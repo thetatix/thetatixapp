@@ -1,12 +1,12 @@
 @font-face {
   font-family: 'Biotif';
-  src: url('/assets/fonts/Biotif-Regular.ttf');
+  src: url('../fonts/Biotif-Regular.ttf');
   font-weight: 400;
   font-style: normal;
 }
 @font-face {
   font-family: 'Biotif';
-  src: url('/assets/fonts/Biotif-Medium.ttf');
+  src: url('../fonts/Biotif-Medium.ttf');
   font-weight: 500;
   font-style: normal;
 }

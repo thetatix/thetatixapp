@@ -82,7 +82,7 @@ export default function Search() {
                                     eventStartDate={event.startDate}
                                     eventLocation={event.location}
                                     eventImg={event.img.data}
-                                    eventHref={`/dashboard`}
+                                    eventHref={`/event`}
                                     eventContractAddress={event.contractAddress}
                                     key={event.contractAddress}
                                     stream_key={event.stream_key}
