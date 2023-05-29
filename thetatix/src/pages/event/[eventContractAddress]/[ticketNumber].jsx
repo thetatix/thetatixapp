@@ -13,57 +13,8 @@ export default function TicketPage() {
   const [ticket, setTicket] = useState({});
   const router = useRouter();
   const { eventContractAddress, ticketNumber } = router.query;
-  const { address } = useContext(DataContext);
+  const { address, bufferToImg, copyToClipboard, formatAddress, formatDateTime, formatDescription } = useContext(DataContext);
   const [loading, setLoading] = useState(true);
-
-  function bufferToImg(buffer) {
-    if (!buffer) {
-        return '/'; // or any default image URL you want to use
-    }
-    var img = Buffer.from(buffer, 'base64').toString('ascii');
-    return img;
-    }
-
-  const formatAddress = (address) => {
-      if (address?.length === 42) {
-        return address.substring(0, 6) + "..." + address.substring(38);
-      } else {
-        return address;
-      }
-  }
-
-  function formatDateTime(rawDateTime) {
-      try {
-          const dateTime = new Date(rawDateTime);
-          const options = {
-          weekday: 'short',
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: 'numeric',
-          hour12: true,
-          timeZone: 'UTC'
-          };
-          const formatter = new Intl.DateTimeFormat('en-US', options);
-          const utcDateTimeString = formatter.format(dateTime);
-          const [dayOfWeek, month, dayOfMonth, time, timePeriod] = utcDateTimeString.split(' ');
-          const [hour, minute] = time.split(':');
-          const period = timePeriod == "PM" ? 'p.m.' : 'a.m.';
-          const formattedHour = hour % 12 || 12;
-      
-          return `${dayOfWeek} ${month} ${dayOfMonth} at ${formattedHour}:${minute} ${period}`;
-      } catch(err) {
-          return "Loading date...";
-      }
-  }
-
-  function formatDescription(rawDescription) {
-      if (!rawDescription) {
-          return rawDescription;
-      }
-      const description = rawDescription.replace('/n', ' ');
-      return description;
-  }
 
   useEffect(() => {
     setLoading(true);

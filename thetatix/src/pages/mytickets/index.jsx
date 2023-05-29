@@ -8,41 +8,7 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
 export default function MyTickets() {
-    function bufferToImg(buffer) {
-        if (!buffer) {
-            console.log('Buffer is undefined or empty.');
-            return '/'; // or any default image URL you want to use
-        }
-        var img = Buffer.from(buffer, 'base64').toString('ascii');
-        return img;
-    }
-
-    function formatDateTime(rawDateTime) {
-        try {
-            const dateTime = new Date(rawDateTime);
-            const options = {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-            timeZone: 'UTC'
-            };
-            const formatter = new Intl.DateTimeFormat('en-US', options);
-            const utcDateTimeString = formatter.format(dateTime);
-            const [dayOfWeek, month, dayOfMonth, time, timePeriod] = utcDateTimeString.split(' ');
-            const [hour, minute] = time.split(':');
-            const period = timePeriod == "PM" ? 'p.m.' : 'a.m.';
-            const formattedHour = hour % 12 || 12;
-        
-            return `${dayOfWeek} ${month} ${dayOfMonth} at ${formattedHour}:${minute} ${period}`;
-        } catch(err) {
-            return "Loading date...";
-        }
-    }
-
-    const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
+    const { address, formatDateTime, bufferToImg } =  useContext(DataContext);
     const [tickets, setTickets] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {

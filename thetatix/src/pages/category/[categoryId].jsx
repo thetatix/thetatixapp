@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from "react";
+import { DataContext } from "@/context/DataContext";
 
 import Head from 'next/head'
 import Image from 'next/image'
@@ -10,18 +11,9 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
 export default function CategoryPage() {
-  
-  function bufferToImg(buffer) {
-    if (!buffer) {
-        console.log('Buffer is undefined or empty.');
-        return '/'; // or any default image URL you want to use
-    }
-    var img = Buffer.from(buffer, 'base64').toString('ascii');
-    return img;
-  }
-
   const router = useRouter();
   const { categoryId } = router.query;
+  const { bufferToImg } =  useContext(DataContext);
   const [events, setEvents] = useState([]);
   const [category, setCategory] = useState({});
   const [loading, setLoading] = useState(true);

@@ -41,68 +41,11 @@ export default function EventPage() {
         setFormStatus(response.status);
         setFormStatusMsg(response.message);
     }
-
-    const formatAddress = (address) => {
-        if (address?.length === 42) {
-          return address.substring(0, 6) + "..." + address.substring(38);
-        } else {
-          return address;
-        }
-      }
-    
-    function formatDate(rawDate) {
-        const date = new Date(rawDate);
-        const options = {weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'};
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        const utcDateString = formatter.format(date);
-        const [dayOfWeek, month, dayOfMonth, year] = utcDateString.split(' ');
-        return `${dayOfWeek} ${month} ${dayOfMonth} ${year}`;
-    }
-
-    function formatDescription(rawDescription) {
-        if (!rawDescription) {
-            return rawDescription;
-        }
-        const description = rawDescription.replace('/n', ' ');
-        return description;
-    }
-
-    function formatDateTime(rawDateTime) {
-        try {
-            const dateTime = new Date(rawDateTime);
-            const options = {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true,
-            timeZone: 'UTC'
-            };
-            const formatter = new Intl.DateTimeFormat('en-US', options);
-            const utcDateTimeString = formatter.format(dateTime);
-            const [dayOfWeek, month, dayOfMonth, time, timePeriod] = utcDateTimeString.split(' ');
-            const [hour, minute] = time.split(':');
-            const period = timePeriod == "PM" ? 'p.m.' : 'a.m.';
-            const formattedHour = hour % 12 || 12;
-        
-            return `${dayOfWeek} ${month} ${dayOfMonth} at ${formattedHour}:${minute} ${period}`;
-        } catch(err) {
-            return "Loading date...";
-        }
-      }
       
       
-    function bufferToImg(buffer) {
-        if (!buffer) {
-            return '/'; // or any default image URL you want to use
-        }
-        var img = Buffer.from(buffer, 'base64').toString('ascii');
-        return img;
-    }
     const router = useRouter();
     const { eventContractAddress } = router.query;
-    const { address, setAddress, isConnected, setIsConnected } = useContext(DataContext);
+    const { address, isConnected, copyToClipboard, bufferToImg, formatDateTime, formatDescription, formatAddress } = useContext(DataContext);
     const [event, setEvent] = useState({});
     const [category, setCategory] = useState({});
 
@@ -126,18 +69,6 @@ export default function EventPage() {
     if (!event) {
         return <p>Loading event...</p>;
     }
-
-    const copyToClipboard = (text) => {
-        navigator.clipboard.writeText(text)
-        // .then(() => {
-        //     console.log('Text copied to clipboard:', text);
-        //     // You can show a success message or perform any other actions here
-        // })
-        // .catch((error) => {
-        //     console.error('Error copying text to clipboard:', error);
-        //     // You can show an error message or perform any other error handling here
-        // });
-    };
 
   return (
     <>

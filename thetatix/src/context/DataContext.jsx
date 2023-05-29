@@ -19,6 +19,51 @@ function bufferToImg(buffer) {
     return img;
 }
 
+const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+}
+
+const formatAddress = (address) => {
+    if (address?.length === 42) {
+      return address.substring(0, 6) + "..." + address.substring(38);
+    } else {
+      return address;
+    }
+}
+
+function formatDateTime(rawDateTime) {
+    try {
+        const dateTime = new Date(rawDateTime);
+        const options = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        timeZone: 'UTC'
+        };
+        const formatter = new Intl.DateTimeFormat('en-US', options);
+        const utcDateTimeString = formatter.format(dateTime);
+        const [dayOfWeek, month, dayOfMonth, time, timePeriod] = utcDateTimeString.split(' ');
+        const [hour, minute] = time.split(':');
+        const period = timePeriod == "PM" ? 'p.m.' : 'a.m.';
+        const formattedHour = hour % 12 || 12;
+    
+        return `${dayOfWeek} ${month} ${dayOfMonth} at ${formattedHour}:${minute} ${period}`;
+    } catch(err) {
+        return "Loading date...";
+    }
+}
+
+function formatDescription(rawDescription) {
+    if (!rawDescription) {
+        return rawDescription;
+    }
+    const description = rawDescription.replace('/n', ' ');
+    return description;
+}
+
 export const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
@@ -42,7 +87,7 @@ export const DataProvider = ({ children }) => {
     };
 
 return(
-    <DataContext.Provider value={{ address, setAddress, isConnected, setIsConnected, theme, setTheme: updateTheme, bufferToImg, formatDate }}>
+    <DataContext.Provider value={{ address, setAddress, isConnected, setIsConnected, theme, setTheme: updateTheme, bufferToImg, formatDate, copyToClipboard, formatAddress, formatDateTime, formatDescription }}>
         {children}
     </DataContext.Provider>
 );
