@@ -159,7 +159,7 @@ export default function EventPage() {
                                             height={32}
                                         />
                                     </Link>
-                                    {event.isOnlineEventStream ? (
+                                    {event.isOnlineEventStream && event.creator === address ? (
                                         <button className={styleTickets.startStream}>Start stream</button>
                                     ) : null}
                                 </h1>
