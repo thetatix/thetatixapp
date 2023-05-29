@@ -5,6 +5,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import EventCard from '@/components/EventCard'
+import OnlineEventCard from "@/components/OnlineEventCard";
 import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
@@ -101,19 +102,37 @@ export default function CategoryPage() {
                                 <p>Events loading...</p>
                             ) : (events.length > 0 ? (
                                     events.map((event) => {
-                                        return (
-                                            <EventCard
-                                                eventName={event.eventName}
-                                                eventTicketsPrice={event.ticketsPrice}
-                                                eventStartDate={event.startDate}
-                                                eventLocation={event.location}
-                                                eventImg={event.img.data}
-                                                eventHref={`/event`}
-                                                eventContractAddress={event.contractAddress}
-                                                key={event.contractAddress}
+                                        if (event.isOnlineEventStream) {
+                                          return (
+                                            <OnlineEventCard
+                                              eventName={event.eventName}
+                                              eventTicketsPrice={event.ticketsPrice}
+                                              eventStartDate={event.startDate}
+                                              eventLocation={event.location}
+                                              eventImg={event.img.data}
+                                              eventHref={`/dashboard`}
+                                              eventContractAddress={event.contractAddress}
+                                              key={event.contractAddress}
+                                              stream_key={event.stream_key}
+                                              stream_server={event.stream_server}
+                                              stream_playback_url={event.stream_playback_url}
                                             />
-                                        )
-                                    })
+                                          )
+                                        } else {
+                                          return (
+                                            <EventCard
+                                              eventName={event.eventName}
+                                              eventTicketsPrice={event.ticketsPrice}
+                                              eventStartDate={event.startDate}
+                                              eventLocation={event.location}
+                                              eventImg={event.img.data}
+                                              eventHref={`/event`}
+                                              eventContractAddress={event.contractAddress}
+                                              key={event.contractAddress}
+                                            />
+                                          )
+                                        }
+                                      })
                                 ) : (
                                     <p>No events found</p>
                                 )

@@ -14,9 +14,15 @@
 .contentEventCards { padding-top: calc(var(--catGap) / 2); display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: flex-start; }
 .eventCard { text-decoration: none; color: var(--text-color); padding-bottom: .8rem; padding-top: .8rem; }
 .eventCard .event { display: flex; flex-direction: column; flex-wrap: nowrap; align-items: stretch; justify-content: space-between; height: 100%; }
-.eventCard .eventImg { height: 100%; flex: 60% 2; max-height: 60%; border-radius: .5rem; overflow: hidden; position: relative; padding-top: 56.25%; }
-.eventCard .eventImg img { width: 100%; height: 100%; transition: 0.5s; object-fit: cover; object-position: 50% 50%; position: absolute; top: 0; bottom: 0; }
-.eventCard:hover .eventImg img { transform: scale(1.08); }
+
+.eventCard :is(.eventImg, .eventImgOnline) { height: 100%; flex: 60% 2; max-height: 60%; border-radius: .5rem; overflow: hidden; position: relative; padding-top: 56.25%; }
+.eventCard :is(.eventImg, .eventImgOnline) img { width: 100%; height: 100%; transition: 0.5s; object-fit: cover; object-position: 50% 50%; position: absolute; top: 0; bottom: 0; }
+.eventCard:hover :is(.eventImg, .eventImgOnline) img { transform: scale(1.08); }
+
+.eventCard .eventImgOnline { border: 2px solid var(--red); }
+.eventCard .eventImgOnline p { display: inline-block; position: absolute; color: var(--white)!important; background-color: var(--red); bottom: .5rem; left: .5rem; line-height: 1; font-size: var(--catFontSize-from); padding: .5rem 1.2rem; margin-bottom: 0; border-radius: .5rem; transition: 0.5s; }
+/* .eventCard:hover .eventImgOnline p {  } */
+
 .eventCard .eventInfo { height: 100%; flex: 40% 1 0; max-height: 40%; padding: .9rem 0; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; align-content: flex-start; }
 .eventCard .eventTitle { flex: 1 0 50%; }
 .eventCard .eventTitle h4 { color: var(--title-color); transition: 0.5s; font-size: 1.2rem; font-weight: 500; margin-bottom: .7rem; line-height: 1; }

@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@/context/DataContext";
-import OnlineEventCardCreatorOnly from "@/components/OnlineEventCard";
 import Head from 'next/head'
 import EventCard from '@/components/EventCard'
+import OnlineEventCard from "@/components/OnlineEventCard";
 import styles from '@/assets/styles/Pages.module.css'
 import styleCards from '@/assets/styles/Cards.module.css'
 
@@ -48,7 +48,7 @@ export default function Dashboard() {
                     ) : (events.length > 0 ? (
                             events.map((event) => {
                                 if(event.isOnlineEventStream){
-                                    return <OnlineEventCardCreatorOnly
+                                    return <OnlineEventCard
                                             eventName={event.eventName}
                                             eventTicketsPrice={event.ticketsPrice}
                                             eventStartDate={event.startDate}
