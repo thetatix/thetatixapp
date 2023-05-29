@@ -86,7 +86,7 @@ export default function MyTickets() {
                                                     <p>{ticket.eventTrait.location}</p>
                                                 </div>
                                                 <div className={styleCards.ticketLink}>
-                                                    <Link href={"/event/" + ticket.eventTrait.contractAddress + "/" + ticket.ticketNumber}>
+                                                    <Link href={"/event/" + ticket.eventTrait.contractAddress + "/" + ticket.ticketNumber} data-used={ticket.user ? "true" : "false"}>
                                                         Show ticket
                                                     </Link>
                                                 </div>
