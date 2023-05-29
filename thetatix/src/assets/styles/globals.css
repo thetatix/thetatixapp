@@ -22,6 +22,7 @@
     --pri-color-rgb: 68, 74, 198;
 
     --sec-color: #1D1F2D; /* inputs */
+    --sec-color-filter: invert(10%) sepia(19%) saturate(931%) hue-rotate(195deg) brightness(99%) contrast(95%);
 
     --ter-color: #1B1C2C; /* titles */
     --ter-color-rgb: 56, 48, 48;
@@ -39,6 +40,7 @@
     --light-text-color-filter: invert(0%);
     
     --bg-color: #16161C;
+    --inverted-bg-color: #FFFFFF;
 
     --price-color: #FFFFFF;
     --price-bg: var(--accent-color);
@@ -72,6 +74,7 @@
     --light-text-color-filter: invert(100%);
     
     --bg-color: #FFFFFF;
+    --inverted-bg-color: #16161C;
 
     --price-color: var(--pri-color);
     --price-bg: var(--sec-color);

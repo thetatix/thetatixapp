@@ -1,21 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@/context/DataContext";
 import Head from 'next/head'
-import EventCard from '@/components/EventCard'
-import OnlineEventCard from "@/components/OnlineEventCard";
+
+import DashboardCard from '@/components/DashboardCard'
+
 import styles from '@/assets/styles/Pages.module.css'
-import styleCards from '@/assets/styles/Cards.module.css'
 
 export default function Dashboard() {
-  const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
+  const { address, isConnected } =  useContext(DataContext);
   const [events, setEvents] = useState([]);
+  const [inPersonEvents, setInPersonEvents] = useState([]);
+  const [onlineEvents, setOnlineEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
     Promise.all([
         fetch(`/api/event/getEventsByCreator?creator=` + address)
             .then((response) => response.json())
-            .then((data) => setEvents(data.events))
+            .then((data) => {
+                const filteredInPersonEvents = data.events.filter((event) => !event.isOnlineEventStream);
+                const filteredOnlineEvents = data.events.filter((event) => event.isOnlineEventStream);
+                setEvents(data.events);
+                setInPersonEvents(filteredInPersonEvents);
+                setOnlineEvents(filteredOnlineEvents);
+            })
     ])
     .catch((error) => console.error(error))
     .finally(() => setLoading(false));
@@ -38,50 +46,26 @@ export default function Dashboard() {
                     </div>
                 </div>
             </header>
-            {/* events */}
             <section className={styles.section}>
                 <div className={styles.sectionContainer + ' container'}>
-                    <div className={styleCards.contentEventCards + ' row'}>
-                    {/* Correcto: */}
-                    {loading ? (
-                        <p>Loading events...</p>
-                    ) : (events.length > 0 ? (
-                            events.map((event) => {
-                                if(event.isOnlineEventStream){
-                                    return <OnlineEventCard
-                                            eventName={event.eventName}
-                                            eventTicketsPrice={event.ticketsPrice}
-                                            eventStartDate={event.startDate}
-                                            eventLocation={event.location}
-                                            eventImg={event.img.data}
-                                            eventHref={`/dashboard`}
-                                            eventContractAddress={event.contractAddress}
-                                            key={event.contractAddress}
-                                            stream_key={event.stream_key}
-                                            stream_server={event.stream_server}
-                                            stream_playback_url={event.stream_playback_url}
-                                    />
-                                }else{
-                                    return (
-                                        <EventCard
-                                            eventName={event.eventName}
-                                            eventTicketsPrice={event.ticketsPrice}
-                                            eventStartDate={event.startDate}
-                                            eventLocation={event.location}
-                                            eventImg={event.img.data}
-                                            eventHref={`/dashboard`}
-                                            eventContractAddress={event.contractAddress}
-                                            key={event.contractAddress}
-                                        />
-                                    )    
-                                }
-                                
-                            })
+                    <div className={styles.content}>
+                        {isConnected ? (loading ? (
+                            <p>Loading...</p>
+                            ) : events.length > 0 ? (
+                                <>
+                                    {inPersonEvents.length > 0 && (
+                                        <DashboardCard num={1} headTitle={"In person events"} events={inPersonEvents} />
+                                    )}
+                                    {onlineEvents.length > 0 && (
+                                        <DashboardCard num={2} headTitle={"Online events"} events={onlineEvents} />
+                                    )}
+                                </>
+                            ) : (
+                                <p>No events found.</p>
+                            )
                         ) : (
-                            <p>No events found</p>
-                        )
-                    )}
-                    
+                            <p>Wallet not connected.</p>
+                        )}
                     </div>
                 </div>
             </section>
