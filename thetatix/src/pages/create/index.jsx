@@ -108,7 +108,7 @@ export default function Create() {
                     formData.api_secret
                 )
 
-                setModalMessage('Your event has been created correctly! You can get more details of your event at my tickets page!')
+                setModalMessage('Your event has been created correctly! You can get more details of your event at my events page!')
                 setModalStatus('succes');
                 setModalCloseable(true);
                 setAlert(true);
