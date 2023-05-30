@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@/context/DataContext";
 import Image from 'next/image'
 // import Link from 'next/link'
@@ -8,8 +8,12 @@ import styles from '@/assets/styles/Modal.module.css'
 // message es el mensaje que aparece
 // closable: true o false; significa si se puede cerrar la alerta
 export default function DynamicModal({active, status, message, closeable}) {
-  const [modalActive, setModalActive] = useState(active);
 
+  const [modalActive, setModalActive] = useState(active);
+  useEffect(()=>{
+    setModalActive(active);
+  },[active])
+  console.log('modalActive',active, status, message, closeable)
   const closeModal = () => {
     if (closeable) {
       setModalActive(false);
