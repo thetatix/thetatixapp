@@ -5,11 +5,17 @@ import Image from 'next/image'
 // import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCreate from '@/assets/styles/Forms.module.css'
-
+import DynamicModal from "@/components/DynamicModal"
 import { DataContext } from "@/context/DataContext";
 import useContracts from '@/components/contractsHook/useContract';
 
 export default function Create() {
+    //STATE MODAL
+    const [ModalActive, setModalActive] = useState(false);
+    const [ModalStatus, setModalStatus] = useState('loading');
+    const [ModalMessage, setModalMessage] = useState('message');
+    const [ModalCloseable, setModalCloseable] = useState(false);
+    //PAGE STATES
     const { address, setAddress } = useContext(DataContext);
 
     const [formData, setFormData] = useState({
@@ -31,7 +37,6 @@ export default function Create() {
     const [alert, setAlert] = useState(false);
     const [formStatus, setFormStatus] = useState("");
     const [formStatusMsg, setFormStatusMsg] = useState("");
-    console.log(formData)
     const handleInput = (e) => {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
@@ -40,7 +45,7 @@ export default function Create() {
             [fieldName]: fieldValue
         }));
     }
-
+    console.log('address', address)
     const handleFileInput = (e) => {
         const file = e.target.files[0];
         // console.log(file);
@@ -59,37 +64,68 @@ export default function Create() {
     };
 
     const submitForm = async (e) => {
+        setModalActive(false);
         e.preventDefault();
         //DETERMINAR EL SIGNER DE METAMASK
 
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        console.log('address length',address.length)
+        if (address.length === 0) {
+            setModalActive(true);
+            setModalMessage('Please connect your metamask wallet to create an event')
+            setModalStatus('danger');
+            setModalCloseable(true);
+            return
+        } else {
 
-        // Pmetamask setup
 
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-        const contract = new useContracts(signer);
+            // Metamask setup
+            setModalMessage('Please Accept Metamask To continue with this progress')
+            await provider.send("eth_requestAccounts", []);
+            const signer = provider.getSigner();
+            const contract = new useContracts(signer);
+            setModalActive(true);
+            setModalCloseable(false);
+            setModalMessage('Your event is being created. Please DO NOT close, reload, or modify this page, as it may cause your event creation to fail. It might take some time')
+            setModalStatus('loading');
+            try {
 
-        //create ticket
-        const response = await contract.createEventTickets(
-            address,
-            formData.maxTickets,
-            formData.eventName,
-            formData.ticketsPrice,
-            formData.eventDescription,
-            formData.startDate,
-            formData.img,
-            formData.endDate,
-            formData.location,
-            formData.category,
-            formData.eventtype,
-            formData.api_key,
-            formData.api_secret
-        )
-        setAlert(true);
-        setFormStatus(response.status);
-        setFormStatusMsg(response.message);
+
+
+                const response = await contract.createEventTickets(
+                    address,
+                    formData.maxTickets,
+                    formData.eventName,
+                    formData.ticketsPrice,
+                    formData.eventDescription,
+                    formData.startDate,
+                    formData.img,
+                    formData.endDate,
+                    formData.location,
+                    formData.category,
+                    formData.eventtype,
+                    formData.api_key,
+                    formData.api_secret
+                )
+
+                setModalMessage('Your event has been created correctly! You can get more details of your event at my tickets page!')
+                setModalStatus('succes');
+                setModalCloseable(true);
+                setAlert(true);
+                setFormStatus(response.status);
+                setFormStatusMsg(response.message);
+            } catch (response) {
+                setAlert(true);
+                setFormStatus(response.status);
+                setFormStatusMsg(response.message);
+                setModalMessage(`${response.message} Your event creation failed, please try again giving the correct inputs, if you keep having errors dont doubt to contact the support team`)
+                setModalStatus('danger');
+                setModalCloseable(true);
+            }
+        }
+
     }
+    console.log('modalActiveeee', ModalActive)
 
     const getToday = () => {
         var today = new Date();
@@ -115,6 +151,7 @@ export default function Create() {
 
     return (
         <>
+            <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
             <Head>
                 <title>Thetatix Create Event</title>
                 <meta name="description" content="Thetatix web app" />
@@ -268,7 +305,7 @@ export default function Create() {
                                                                         <p>
                                                                             1.- Create an account on thetavideoapi.com
                                                                             <br />
-                                                                            2.- Create an app 
+                                                                            2.- Create an app
                                                                             <br />
                                                                             3.- Get the API_KEY of the app and paste it here
                                                                         </p>
