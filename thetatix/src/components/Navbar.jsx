@@ -10,7 +10,7 @@ import styles from '@/assets/styles/Navbar.module.css'
 
 export default function Navbar() {
 
-  const { theme, setTheme } = useContext(DataContext);
+  const { theme, setTheme, formatAddress } = useContext(DataContext);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -128,13 +128,6 @@ export default function Navbar() {
       }
     } else {
       console.log('No Metamask detected');
-    }
-  }
-  const formatAddress = (address) => {
-    if (address.length === 42) {
-      return address.substring(0, 6) + "..." + address.substring(38);
-    } else {
-      return address;
     }
   }
 
