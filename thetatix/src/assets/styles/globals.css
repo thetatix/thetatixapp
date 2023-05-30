@@ -48,9 +48,9 @@
     --date-color: #FFFFFF;
     --title-color: var(--pri-color);
     --underline: #E4E4E4;
-
-    
-    /* --event-date-color: #ffffff; */
+    --modal-border: var(--sec-color);
+    --modal-img: var(--text-color-filter);
+    --loadingW-bg-color: var(--white);
   }
   :root.light {
     --pri-color: #444AC6; /* buttons */
@@ -82,6 +82,9 @@
     --date-color: var(--pri-color);
     --title-color: var(--ter-color);
     --underline: #E4E4E4;
+    --modal-border: #ECECEC;
+    --modal-img: var(--pri-color-filter);
+    --loadingW-bg-color: var(--sec-color);
   }
 
 :root {

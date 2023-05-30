@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
     <>
     <DataProvider>
-      <DynamicModal active={false} status="success" message="Successfully created event" closeable={true} />
+      <DynamicModal active={true} status="loading" message="Successfully created event." closeable={true} />
       <Navbar />
       {children}
       </DataProvider>
