@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
+import { useRouter } from "next/router"
 
 import Head from 'next/head'
 import Image from 'next/image'
@@ -15,26 +16,41 @@ import OnlineEventCard from "@/components/OnlineEventCard";
 
 export default function Search() {
 
+    const router = useRouter();
+    const { searchQuery } = router.query;
+    const inputRef = useRef(null);
+
+    // useEffect(() => {
+    //     if (searchQuery) {
+    //       setInputQuery(searchQuery);
+    //     }
+    //   }, [searchQuery]);
+
     const submitForm = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
+        //// I want to redirect to /search/{sQuery}
+        const inputValue = inputRef.current.value;
+        router.push(`/search/${inputValue}`);
     }
 
     const [events, setEvents] = useState([]);
-
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
+
+    const fetchData = () => {
         setLoading(true);
         Promise.all([
-            fetch("/api/event/getEvents")
+            fetch(`/api/event/getEventsBySearch?searchQuery=${searchQuery}`)
                 .then((response) => response.json())
-                .then((data) => setEvents(data.events)),
-            fetch("/api/category/getCategories")
-                .then((response) => response.json())
-                .then((data) => setCategories(data))
+                .then((data) => setEvents(data.events))
         ])
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
-    }, []);
+    };
+
+
+    useEffect(() => {
+        fetchData();
+    }, [searchQuery]);
 
     return (
         <>
@@ -50,7 +66,15 @@ export default function Search() {
                             
                             <div className={styleSearch.searchBar}>
                                 <form action="" onSubmit={submitForm} method="POST" className={styleSearch.searchInput + ' input-group'}>
-                                    <input type="search" className={styleSearch.input + ' form-control'} placeholder="Search for an event" aria-describedby="searchBtn" />
+                                    <input aria-describedby="searchBtn"
+                                        id='searchQuery'
+                                        type="search"
+                                        name='searchQuery'
+                                        ref={inputRef}
+                                        className={styleSearch.input + ' form-control'} 
+                                        placeholder="Search for an event"
+                                        required
+                                    />
                                     <button id="searchBtn" type="submit">
                                     <Image
                                         src="/icons/search.svg"
@@ -61,8 +85,7 @@ export default function Search() {
                                     </button>
                                 </form>
                             </div>
-                            <h1 className={styleSearch.title}>Search for an event</h1>
-
+                            <h1 className={styleSearch.title}>{searchQuery}</h1>
                         </div>
                     </div>
                 </header>
