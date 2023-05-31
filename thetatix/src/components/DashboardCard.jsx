@@ -40,7 +40,13 @@ export default function DashboardCard({ num, headTitle, events }) {
                                     <h4>{event.eventName}</h4>
                                 </div>
                                 <div className={styles.action}>
-                                    <span>Registrer entrants</span>
+                                    <span>
+                                        {event.isOnlineEventStream ? (
+                                            "Admin details"
+                                        ) : (
+                                            "Registrer entrants"
+                                        )}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +70,13 @@ export default function DashboardCard({ num, headTitle, events }) {
                                             <h4>{event.eventName}</h4>
                                         </div>
                                         <div className={styles.action}>
-                                            <span>Registrer entrants</span>
+                                            <span>
+                                            {event.isOnlineEventStream ? (
+                                                "Admin details"
+                                            ) : (
+                                                "Registrer entrants"
+                                            )}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

@@ -132,7 +132,7 @@ export default function EventPage() {
                                         />
                                     </Link>
                                     {event.isOnlineEventStream && event.creator === address ? (
-                                        <button className={styleTickets.startStream}>Start stream</button>
+                                        <Link href={'/onlineevents/' + event.contractAddress} className={styleTickets.startStream}>Start stream</Link>
                                     ) : null}
                                 </h1>
                             </div>
@@ -205,16 +205,18 @@ export default function EventPage() {
                                                     <div className={styleTickets.ticketOwner}>
                                                         <p>{ticket.owner}</p>
                                                     </div>
-                                                    <div className={styleTickets.ticketAction}>
-                                                        {ticket.user ? (
-                                                            <button id={'registerBtn'+ ticket.ticketNumber} disabled>Entrant registered</button>
-                                                        ) : (
-                                                            <button id={'registerBtn'+ ticket.ticketNumber}>Register entrant</button>
-                                                        )}
-                                                        {/* Ticket used
-                                                        <br />
-                                                        used date: {ticket.usedDate} */}
-                                                    </div>
+                                                    {!event.isOnlineEventStream && (
+                                                        <div className={styleTickets.ticketAction}>
+                                                            {ticket.user ? (
+                                                                <button id={'registerBtn'+ ticket.ticketNumber} disabled>Entrant registered</button>
+                                                            ) : (
+                                                                <button id={'registerBtn'+ ticket.ticketNumber}>Register entrant</button>
+                                                            )}
+                                                            {/* Ticket used
+                                                            <br />
+                                                            used date: {ticket.usedDate} */}
+                                                        </div>
+                                                    )}
                                                 </form>
                                             )
                                         })

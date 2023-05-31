@@ -121,13 +121,17 @@ export default function TicketPage() {
                     </div>
 
                     <div className={styleTicket.ticketLink}>
-                      <button disabled={ticket.user}>
-                        {ticket.user ? (
-                          'Ticket already used'
-                        ): (
-                          'Ticket avaible'
-                        )}
-                      </button>
+                      {ticket.eventTrait.isOnlineEventStream ? (
+                        <Link href={'/onlineevents/' + ticket.eventContractAdress}>Go to event</Link>
+                      ) : (
+                        <button disabled={ticket.user}>
+                          {ticket.user ? (
+                            'Ticket already used'
+                          ): (
+                            'Ticket avaible'
+                          )}
+                        </button>
+                      )}
                     </div>
 
                     {/* <p>Used: {ticket.user ? 'Yes' : 'No'}</p>

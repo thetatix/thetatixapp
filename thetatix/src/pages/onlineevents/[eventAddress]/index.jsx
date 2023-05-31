@@ -128,7 +128,17 @@ export default function OnlineEventStream() {
                                             <p>Loading event...</p>
                                         ) : <>
                                             <form action="" className={styleStream.title}>
-                                                <h1>{eventData.eventName}</h1>
+                                                <h1>
+                                                    <Link href={'/event/' + eventData.contractAddress} target="_blank">
+                                                        {eventData.eventName}
+                                                        {/* <Image
+                                                            src="/icons/external-link.svg"
+                                                            alt="External link icon"
+                                                            width={32}
+                                                            height={32}
+                                                        /> */}
+                                                    </Link>
+                                                </h1>
                                                 {(eventData.creator === address) ? ((eventData.stream_playback_url?.length > 0) ? (
                                                         <button
                                                         className={styleStream.stopBtn}
@@ -149,15 +159,15 @@ export default function OnlineEventStream() {
                                                         </button>
                                                     )
                                                 ) : (!userHaveTicket ? (
-                                                        <Link href={'/event/' + eventData.contractAddress}>
+                                                        <Link href={'/event/' + eventData.contractAddress} className={styleStream.titleBuyTicket}>
                                                             Buy ticket
                                                         </Link>
-                                                    ) : <span>{categoryData.categoryName}</span>
+                                                    ) : <Link href={'/category/' + eventData.category} target="_blank" className={styleStream.catLink}>{categoryData.categoryName}</Link>
                                                 )}
                                             </form>
                                             <div className={styleStream.description}>
                                                 <p>
-                                                    {((eventData.creator === address) || (!userHaveTicket)) && <span>{categoryData.categoryName}</span>}
+                                                    {((eventData.creator === address) || (!userHaveTicket)) && <Link href={'/category/' + eventData.category} target="_blank" className={styleStream.catLink}>{categoryData.categoryName}</Link>}
                                                     {formatDescription(eventData.eventDescription)}
                                                 </p>
                                             </div>
