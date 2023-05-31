@@ -29,8 +29,6 @@ const AblyChatComponent = ({eventAddress}) => {
 
 
     const sendChatMessage = (messageText) => {
-        // const sender = address;
-        // console.log("My add: " + sender);
         channel.publish({ name: "chat-message", data: {text: messageText, author: address} });
         setMessageText("");
         inputBox.focus();
@@ -38,8 +36,7 @@ const AblyChatComponent = ({eventAddress}) => {
 
     const handleFormSubmission = (event) => {
         event.preventDefault();
-        console.log("a: "+address);
-        sendChatMessage(messageText, address);
+        sendChatMessage(messageText);
     }
 
     const handleKeyPress = (event) => {
