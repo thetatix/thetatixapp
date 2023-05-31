@@ -90,7 +90,7 @@
     --loadingW-bg-color: var(--sec-color);
     --stream-bg: var(--inverted-bg-color);
     --chatAuthor-color: var(--pri-color);
-    --chatBubble-color: #191B27;
+    --chatBubble-color: var(--accent-color);
   }
 
 :root {
