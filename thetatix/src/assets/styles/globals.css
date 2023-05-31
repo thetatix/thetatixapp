@@ -51,6 +51,9 @@
     --modal-border: var(--sec-color);
     --modal-img: var(--text-color-filter);
     --loadingW-bg-color: var(--white);
+    --stream-bg: var(--ter-color);
+    --chatAuthor-color: #7684CB;
+    --chatBubble-color: #191B27;
   }
   :root.light {
     --pri-color: #444AC6; /* buttons */
@@ -85,6 +88,9 @@
     --modal-border: #ECECEC;
     --modal-img: var(--pri-color-filter);
     --loadingW-bg-color: var(--sec-color);
+    --stream-bg: var(--inverted-bg-color);
+    --chatAuthor-color: var(--pri-color);
+    --chatBubble-color: #191B27;
   }
 
 :root {
@@ -120,6 +126,14 @@
   --catSize: 22%;
   --catFontSize-from: 1.1rem;
   --catFontSize-to: 1.2rem;
+
+  
+
+  --video-width: 78%;
+  --video-height: 75%;
+
+  --chat-top-height: 7%;
+  --chat-bottom-height: 21%;
   
   /* --line-height: 1.5; */
   /* --border-radius: 4px; */

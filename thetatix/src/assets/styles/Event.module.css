@@ -22,7 +22,7 @@
 .price:hover span { box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.03); background-color: var(--price-bg-to); }
 
 .mint { text-align: right; }
-.mintBtn { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); }
+.mintBtn { background-color: var(--pri-color); color: var(--white); border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; border: 1px solid var(--pri-color); }
 .mintBtn:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); border: 1px solid var(--accent-color); }
 .mintBtn[disabled] { background-color: var(--ter-color); opacity: .8; border: 1px solid var(--ter-color); }
 .mintBtn[disabled]:hover { box-shadow: none; }

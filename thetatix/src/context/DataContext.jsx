@@ -32,26 +32,30 @@ const formatAddress = (address) => {
 }
 
 function formatDateTime(rawDateTime) {
-    try {
-        const dateTime = new Date(rawDateTime);
-        const options = {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true,
-        timeZone: 'UTC'
-        };
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        const utcDateTimeString = formatter.format(dateTime);
-        const [dayOfWeek, month, dayOfMonth, time, timePeriod] = utcDateTimeString.split(' ');
-        const [hour, minute] = time.split(':');
-        const period = timePeriod == "PM" ? 'p.m.' : 'a.m.';
-        const formattedHour = hour % 12 || 12;
-    
-        return `${dayOfWeek} ${month} ${dayOfMonth} at ${formattedHour}:${minute} ${period}`;
-    } catch(err) {
+    if (rawDateTime) {
+        try {
+            const dateTime = new Date(rawDateTime);
+            const options = {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+            timeZone: 'UTC'
+            };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            const utcDateTimeString = formatter.format(dateTime);
+            const [dayOfWeek, month, dayOfMonth, time, timePeriod] = utcDateTimeString.split(' ');
+            const [hour, minute] = time.split(':');
+            const period = timePeriod == "PM" ? 'p.m.' : 'a.m.';
+            const formattedHour = hour % 12 || 12;
+        
+            return `${dayOfWeek} ${month} ${dayOfMonth} at ${formattedHour}:${minute} ${period}`;
+        } catch(err) {
+            return rawDateTime;
+        }
+    } else {
         return "Loading date...";
     }
 }

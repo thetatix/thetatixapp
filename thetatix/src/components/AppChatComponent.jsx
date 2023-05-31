@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useChannel } from "./AblyReactEffect";
-import styles from './AblyChatComponent.module.css';
+import styles from '@/assets/styles/Stream.module.css'
+// import styles from './AblyChatComponent.module.css';
 
 const AblyChatComponent = ({eventAddress}) => {
 
@@ -44,9 +45,17 @@ const AblyChatComponent = ({eventAddress}) => {
     }
 
     const messages = receivedMessages.map((message, index) => {
-        console.log('msg',message)
+        console.log('msg',message);
+        console.log('other',ably.connection.id);
         const author = message.connectionId === ably.connection.id ? "me" : "other";
-        return <span key={index} className={styles.message} data-author={author}>{message.data}</span>;
+        return <div key={index} className={styles.chatMessage} data-author={author}>
+            <h6>{author}</h6>
+            <div className={styles.chatBubble}>
+                <p>
+                    {message.data}
+                </p>
+            </div>
+        </div>;
     });
 
     useEffect(() => {
@@ -55,19 +64,20 @@ const AblyChatComponent = ({eventAddress}) => {
 
     return (
         <div className={styles.chatHolder}>
-            <div className={styles.chatText}>
+            <div className={styles.chatMessages}>
                 {messages}
-                <div ref={(element) => { messageEnd = element; }}></div> // empty element to control scroll to bottom
+                <div ref={(element) => { messageEnd = element; }}></div>
             </div>
-            <form onSubmit={handleFormSubmission} className={styles.form}>
+            <form onSubmit={handleFormSubmission} className={styles.chatForm}>
                 <textarea
                     ref={(element) => { inputBox = element; }}
                     value={messageText}
-                    placeholder="Type a message..."
+                    placeholder="Type a message here"
+                    rows="1"
                     onChange={e => setMessageText(e.target.value)}
                     onKeyPress={handleKeyPress}
                 ></textarea>
-                <button type="submit" className={styles.button} disabled={messageTextIsEmpty}>Send</button>
+                <button type="submit" disabled={messageTextIsEmpty}>Send</button>
             </form>
         </div>
     )
