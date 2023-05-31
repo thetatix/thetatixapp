@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "@/context/DataContext";
 import Image from 'next/image'
@@ -10,10 +11,12 @@ import styles from '@/assets/styles/Navbar.module.css'
 
 export default function Navbar() {
 
-  const [isNavbarFixed, setIsNavbarFixed] = useState(true);
-  const handleNavbarPositionChange = () => {
-    setIsNavbarFixed((prevIsNavbarFixed) => !prevIsNavbarFixed);
-  };
+  const router = useRouter();
+  const [isFixed, setIsFixed] = useState(true);
+  useEffect(() => {
+    const isOnlineEventsPage = router.pathname.includes('/onlineevents');
+    setIsFixed(!isOnlineEventsPage);
+  }, [router]);
 
   const { theme, setTheme, formatAddress } = useContext(DataContext);
 
@@ -182,7 +185,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className={`${styles.nav} ${isNavbarFixed ? styles.navFixed : styles.navRelative}`} style={{boxShadow: `0px 4px 15px rgb(0 0 0 / ${boxShadow})`,}}>
+    <nav className={`${styles.nav} ${isFixed ? styles.navFixed : styles.navRelative}`} style={{boxShadow: `0px 4px 15px rgb(0 0 0 / ${boxShadow})`,}}>
       <div className={styles.navbarContainer + ' container'}>
         <div className={styles.content}>
           <div className={styles.logo}>
@@ -281,9 +284,9 @@ export default function Navbar() {
               <button onClick={connectMetamask}>Connect wallet</button>
             </div>
           )}
-          <button className={styles.posBtn} onClick={handleNavbarPositionChange}>
+          {/* <button className={styles.posBtn} onClick={handleNavbarPositionChange}>
             x
-          </button>
+          </button> */}
           </div>
         </div>
       </div>
