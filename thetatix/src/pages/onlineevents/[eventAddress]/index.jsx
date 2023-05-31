@@ -69,31 +69,31 @@ export default function OnlineEventStream() {
         }
     }
 
-    // //check user bought ticket
-    // useEffect(() => {
-    //     setLoading(true);
-    //     if (isConnected) {
-    //         checkUserHaveTicket();
-    //     }
-    // }, [eventAddress, address, isConnected])
-
-    // //get data
-    // useEffect(() => {
-    //     if (userHaveTicket) {
-    //         initialSetup();
-    //     }
-    // }, [eventAddress, userHaveTicket])
-
-
-
-    const [streaming, setStreaming] = useState(true);
-    // eventData.stream_playback_url?.length > 0
-    const [isOwner, setIsowner] = useState(false);
-    // eventData.creator === address
+    //check user bought ticket
     useEffect(() => {
-        setUserHaveTicket(true);
-        initialSetup();
-    }, [eventAddress])
+        setLoading(true);
+        if (isConnected) {
+            checkUserHaveTicket();
+        }
+    }, [eventAddress, address, isConnected])
+
+    //get data
+    useEffect(() => {
+        if (userHaveTicket) {
+            initialSetup();
+        }
+    }, [eventAddress, userHaveTicket])
+
+
+
+    // const [streaming, setStreaming] = useState(true);
+    // eventData.stream_playback_url?.length > 0
+    // const [isOwner, setIsowner] = useState(false);
+    // eventData.creator === address
+    // useEffect(() => {
+    //     setUserHaveTicket(true);
+    //     initialSetup();
+    // }, [eventAddress])
 
     return (
         <>
@@ -109,8 +109,8 @@ export default function OnlineEventStream() {
                             <section className={styleStream.video}>
                                 <div className={styleStream.videoContainer + ' container'}>
                                     <div className={styleStream.videoContent}>
-                                        {((userHaveTicket) || (isOwner)) ? (
-                                            streaming ? (
+                                        {((userHaveTicket) || (eventData.creator === address)) ? (
+                                            (eventData.stream_playback_url?.length > 0) ? (
                                                 <VideoPlayer src={eventData.stream_playback_url}/>
                                             ) : (
                                                 <p>Stream has not started.</p>
@@ -129,7 +129,7 @@ export default function OnlineEventStream() {
                                         ) : <>
                                             <form action="" className={styleStream.title}>
                                                 <h1>{eventData.eventName}</h1>
-                                                {isOwner ? (streaming ? (
+                                                {(eventData.creator === address) ? ((eventData.stream_playback_url?.length > 0) ? (
                                                         <button
                                                         className={styleStream.stopBtn}
                                                         >
@@ -157,7 +157,7 @@ export default function OnlineEventStream() {
                                             </form>
                                             <div className={styleStream.description}>
                                                 <p>
-                                                    {((isOwner) || (!userHaveTicket)) && <span>{categoryData.categoryName}</span>}
+                                                    {((eventData.creator === address) || (!userHaveTicket)) && <span>{categoryData.categoryName}</span>}
                                                     {formatDescription(eventData.eventDescription)}
                                                 </p>
                                             </div>
@@ -180,8 +180,8 @@ export default function OnlineEventStream() {
                                     <div className={styleStream.chatHeader}>
                                         <h2>Live chat</h2>
                                     </div>
-                                    {((userHaveTicket) || (isOwner)) && (
-                                        streaming && (
+                                    {((userHaveTicket) || (eventData.creator === address)) && (
+                                        (eventData.stream_playback_url?.length > 0) && (
                                             <AblyChatComponent eventAddress={eventAddress} />
                                         )
                                     )}

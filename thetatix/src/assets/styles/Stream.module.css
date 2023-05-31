@@ -3,7 +3,7 @@
 
 .event { width: 100%; flex: 1 0 var(--video-width); max-width: var(--video-width); display: flex; flex-direction: column; flex-wrap: nowrap; justify-content: space-between; align-items: stretch; }
 
-.video { width: 100%; flex: 1 0 var(--video-height); height: 100%; max-height: var(--video-height); background: var(--stream-bg); }
+.video { width: 100%; flex: 1 0 var(--video-height); height: 100%; max-height: var(--video-height); background: var(--stream-bg); color: var(--white); }
 .videoContainer { height: 100%; }
 .videoContent { height: 100%; display: flex; width: 100%; padding: 1rem 0; justify-content: center; align-items: stretch; }
 
