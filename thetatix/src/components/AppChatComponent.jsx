@@ -53,9 +53,9 @@ const AblyChatComponent = ({eventAddress}) => {
     const messages = receivedMessages.map((message, index) => {
         // console.log(message.data.author);
         console.log('msg',message);
-        const author = message.connectionId === ably.connection.id ? "me" : "other";
+        const author = message.connectionId === ably.connection.id ? "me" : message.data.author;
         return <div key={index} className={styles.chatMessage} data-author={author}>
-            <h6>{formatAddress(message.data.author)}</h6>
+            <h6>{formatAddress(author)}</h6>
             <div className={styles.chatBubble}>
                 <p>
                     {message.data.text}
