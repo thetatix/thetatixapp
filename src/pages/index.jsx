@@ -2,13 +2,35 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
+import { useContext, useEffect, useState } from "react";
+import { DataContext } from "@/context/DataContext";
 
-import styles from '@/assets/styles/Home.module.css'
-// import { getAllUsers } from '@/server/users'
+import styleHome from '@/assets/styles/Home.module.css'
+import EventCard from '@/components/EventCard'
+import OnlineEventCard from "@/components/OnlineEventCard";
+import styles from '@/assets/styles/Pages.module.css'
+import styleCards from '@/assets/styles/Cards.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const { bufferToImg } = useContext(DataContext);
+  const [events, setEvents] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+        fetch("/api/event/getEvents")
+            .then((response) => response.json())
+            .then((data) => setEvents(data.events)),
+        fetch("/api/category/getCategories")
+            .then((response) => response.json())
+            .then((data) => setCategories(data))
+    ])
+    .catch((error) => console.error(error))
+    .finally(() => setLoading(false));
+  }, []);
   return (
     <>
       <Head>
@@ -16,18 +38,18 @@ export default function Home() {
         <meta name="description" content="Thetatix web app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <header className={styles.header}>
-          <div className={styles.headerContainer + ' container'}>
-            <div className={styles.content + ' row'}>
-              <div className={styles.column + ' col'}>
-                <p className={styles.title}>The Web3 <br></br> ticketing and <br></br> events platform</p>
-                <div className={styles.squareLeft}></div>
+      <main className={styleHome.main}>
+        <header className={styleHome.header}>
+          <div className={styleHome.headerContainer + ' container'}>
+            <div className={styleHome.content + ' row'}>
+              <div className={styleHome.column + ' col'}>
+                <p className={styleHome.title}>Web3 ticketing for <span className={styleHome.highlightText}>online</span> streaming and in person events</p>
+                <div className={styleHome.squareLeft}></div>
               </div>
-              <div className={styles.column + ' col'}>
-                <Link href="/" className={styles.eventCard}>
-                  <div className={styles.event}>
-                    <div className={styles.eventImg}>
+              <div className={styleHome.column + ' col'}>
+                <Link href="/" className={styleHome.eventCard}>
+                  <div className={styleHome.event}>
+                    <div className={styleHome.eventImg}>
                       <Image
                         src="/img/event-afterlife.png"
                         alt="Event image"
@@ -45,121 +67,85 @@ export default function Home() {
                     </p>
                   </div>
                 </Link>
-                <div className={styles.squareRight}></div>
+                <div className={styleHome.squareRight}></div>
               </div>
             </div>
           </div>
         </header>
-        <section className={styles.section}></section>
-        
-        {/* <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
+        {/* categories */}
+        {categories.length > 0 ? (
+          <section className={styles.section}>
+            <div className={styles.sectionContainer + ' container'}>
+              <h2 className={styles.subtitle}>Categories</h2>
+              <div className={styleCards.contentCategoryCards}>
+                {categories.map((category) => (
+                      <Link href={`/category/${category._id}`} className={styleCards.categoryCard} key={category._id}>
+                        <div className={styleCards.category}>
+                          <Image
+                            src={bufferToImg(category.img)}
+                            alt="Category image"
+                            className={styleCards.categoryImg}
+                            width={1800}
+                            height={1200}
+                          />
+                          <div className={styleCards.darken}></div>
+                          <p className={styleCards.categoryName} key={category._id}>{category.categoryName}</p>
+                        </div>
+                      </Link>
+                    )
+                  )}
+              </div>
+            </div>
+          </section>
+        ) : null}
+        {/* events */}
+        <section className={styles.section}>
+          <div className={styles.sectionContainer + ' container'}>
+            <h2 className={styles.subtitle + ' mt-5 pt-3 mb-2'}>Upcoming events</h2>
+            <div className={styleCards.contentEventCards + ' row pt-0'}>
+            {loading ? (
+              <p>Loading events...</p>
+            ) : (events.length > 0 ? (
+                events.map((event) => {
+                  if (event.isOnlineEventStream) {
+                    return (
+                      <OnlineEventCard
+                        eventName={event.eventName}
+                        eventTicketsPrice={event.ticketsPrice}
+                        eventStartDate={event.startDate}
+                        eventLocation={event.location}
+                        eventImg={event.img.data}
+                        eventHref={`/event`}
+                        eventContractAddress={event.contractAddress}
+                        key={event.contractAddress}
+                        stream_key={event.stream_key}
+                        stream_server={event.stream_server}
+                        stream_playback_url={event.stream_playback_url}
+                      />
+                    )
+                  } else {
+                    return (
+                      <EventCard
+                        eventName={event.eventName}
+                        eventTicketsPrice={event.ticketsPrice}
+                        eventStartDate={event.startDate}
+                        eventLocation={event.location}
+                        eventImg={event.img.data}
+                        eventHref={`/event`}
+                        eventContractAddress={event.contractAddress}
+                        key={event.contractAddress}
+                      />
+                    )
+                  }
+                })
+              ) : (
+                <p>No events found</p>
+              )
+            )}
+            </div>
           </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div> */}
+        </section>
       </main>
     </>
   );
 }
-
-// export async function getServerSideProps() {
-//   const users = await getAllUsers();
-//   return { props: { users } };
-// }
