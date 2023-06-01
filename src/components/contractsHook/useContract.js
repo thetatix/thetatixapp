@@ -167,9 +167,19 @@ class useContracts {
         try {
             const amount = await event_contract.amountTickets();
             await event_contract.withdrawAmount(receiver_address);
-            return { error: null, data: 'success', amount }
+            return { error: null, status: 'success', amount }
         } catch (err) {
-            return { error: err, data: null }
+            return { error: err, status: 'danger',data:'null' }
+        }
+    }
+
+    async getEventFundsData(ticketEventAddress){
+        const event_contract = new ethers.Contract(ticketEventAddress, this.#ABIticket, this.#signer);
+        try {
+            const amount = await event_contract.amountTickets();
+            return { error: null, status: 'success', data:amount }
+        } catch (err) {
+            return { error: err, status: 'danger',data:'null' }
         }
     }
 

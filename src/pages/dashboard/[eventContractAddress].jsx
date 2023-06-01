@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
+import { ethers } from 'ethers';
 import { DataContext } from "@/context/DataContext";
-
+import useContracts from '@/components/contractsHook/useContract';
+import DynamicModal from '@/components/DynamicModal';
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +11,12 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleTickets from '@/assets/styles/Tickets.module.css'
 
 export default function EventPage() {
+    //STATE MODAL
+    const [ModalActive, setModalActive] = useState(false);
+    const [ModalStatus, setModalStatus] = useState('loading');
+    const [ModalMessage, setModalMessage] = useState('message');
+    const [ModalCloseable, setModalCloseable] = useState(false);
+    //PAGE STATES
     const { address, bufferToImg, formatAddress, copyToClipboard } =  useContext(DataContext);
 
     const formatStreamKey = (key) => {
@@ -18,6 +26,7 @@ export default function EventPage() {
 
     const router = useRouter();
     const { eventContractAddress } = router.query;
+    const [eventFunds,setEventFunds] = useState(0);
     const [event, setEvent] = useState({});
     const [tickets, setTickets] = useState({});
     const [loading, setLoading] = useState(true);
@@ -43,6 +52,23 @@ export default function EventPage() {
         }
     };
 
+    const getContractData = async () => {
+        if (address.length === 0) {
+            
+            return
+        }
+        const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        const signer = provider.getSigner();
+        const contract = new useContracts(signer);
+        const data = await contract.getEventFundsData(eventContractAddress);
+        let amount = parseInt(data.data._hex)/1000000000000000000;
+        setEventFunds(amount);  
+    }
+
+    useEffect(()=>{
+        getContractData();
+    },[eventContractAddress,address])
+
     useEffect(() => {
         fetchData();
     }, [eventContractAddress]);
@@ -67,10 +93,63 @@ export default function EventPage() {
         setAlert(true);
         setFormStatus(response.status);
         setFormStatusMsg(response.message);
-    };      
+    };    
+    //eventContractAddress
+    const WithdrawFunds = async (e) => {
+        setModalActive(false);
+        e.preventDefault();
+        //DETERMINAR EL SIGNER DE METAMASK
+
+        const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        console.log('address length',address.length)
+        if (address.length === 0) {
+            setModalActive(true);
+            setModalMessage('Please connect your metamask wallet to create an event')
+            setModalStatus('danger');
+            setModalCloseable(true);
+            return
+        } else {
+
+
+            // Metamask setup
+            setModalMessage('Please Accept Metamask To continue with this progress')
+            await provider.send("eth_requestAccounts", []);
+            const signer = provider.getSigner();
+            const contract = new useContracts(signer);
+            setModalActive(true);
+            setModalCloseable(false);
+            setModalMessage(`${eventFunds}TFUEL are being sent to your account. It might take some time`)
+            setModalStatus('loading');
+            try {
+
+
+
+                const response = await contract.ownerWithdrawAmount(address,eventContractAddress);
+
+                setModalMessage('Your event has been created correctly! You can get more details of your event at my events page!')
+                setModalStatus('succes');
+                setModalCloseable(true);
+                setAlert(true);
+                setFormStatus(response.status);
+                setFormStatusMsg(response.message);
+            } catch (response) {
+                setAlert(true);
+                setFormStatus(response.status);
+                setFormStatusMsg(response.message);
+                setModalMessage(`${response.message} Withdraw funds have failed, please contact support team if still having this issue`)
+                setModalStatus('danger');
+                setModalCloseable(true);
+            }
+        }
+    }
+
+    const StartStream = async (e) => {
+
+    }
 
   return (
     <>
+        <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
         <Head>
             <title>{event.eventName}</title>
             <meta name="description" content="Thetatix web app" />
@@ -132,7 +211,7 @@ export default function EventPage() {
                                         />
                                     </Link>
                                     {event.isOnlineEventStream && event.creator === address ? (
-                                        <Link href={'/onlineevents/' + event.contractAddress} className={styleTickets.startStream}>Start stream</Link>
+                                        <Link href={'/onlineevents/' + event.contractAddress} className={styleTickets.startStream}><div onClick={StartStream}>Start stream</div></Link>
                                     ) : null}
                                 </h1>
                             </div>
@@ -162,7 +241,7 @@ export default function EventPage() {
                                         </div>
                                     ) : null}
                                     <div className={styleTickets.headerFundsBtn}>
-                                        <button>Withdraw funds</button>
+                                        <div>{eventFunds} TFUEL available <button onClick={WithdrawFunds}>Withdraw funds</button></div>
                                         {event.isOnlineEventStream ? (
                                             <span onClick={() => copyToClipboard(event.stream_server)}>
                                                 <abbr title={event.stream_server}>Stream server: {event.stream_server}</abbr>
