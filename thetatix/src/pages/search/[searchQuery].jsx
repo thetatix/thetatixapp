@@ -13,6 +13,7 @@ import styleCards from '@/assets/styles/Cards.module.css'
 import EventCard from '@/components/EventCard'
 import OnlineEventCard from "@/components/OnlineEventCard";
 
+import SearchBar from '@/components/SearchBar';
 
 export default function Search() {
 
@@ -63,28 +64,8 @@ export default function Search() {
                 <header className={styles.header}>
                     <div className={styles.headerContainer + ' container'}>
                         <div className={styles.content}>
-                            
-                            <div className={styleSearch.searchBar}>
-                                <form action="" onSubmit={submitForm} method="POST" className={styleSearch.searchInput + ' input-group'}>
-                                    <input aria-describedby="searchBtn"
-                                        id='searchQuery'
-                                        type="search"
-                                        name='searchQuery'
-                                        ref={inputRef}
-                                        className={styleSearch.input + ' form-control'} 
-                                        placeholder="Search for an event"
-                                        required
-                                    />
-                                    <button id="searchBtn" type="submit">
-                                    <Image
-                                        src="/icons/search.svg"
-                                        alt="Search icon"
-                                        width={40}
-                                        height={40}
-                                    />
-                                    </button>
-                                </form>
-                            </div>
+                            <SearchBar />
+
                             <h1 className={styleSearch.title}>{searchQuery}</h1>
                         </div>
                     </div>

@@ -8,6 +8,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Navbar.module.css'
 
+import SearchBar from '@/components/SearchBar';
+
 
 export default function Navbar() {
 
@@ -220,19 +222,8 @@ export default function Navbar() {
                 <button onClick={() => handleNetworkSwitch("theta")}>Theta</button>
               </li> */}
             </ul>
-            <div className={styles.searchBar}>
-              <form action="" onSubmit={submitForm} method="POST" className={styles.searchInput + ' input-group'}>
-                <input type="search" className={styles.input + ' form-control'} placeholder="Search for an event" aria-describedby="searchBtn" />
-                <button id="searchBtn" type="submit">
-                  <Image
-                    src="/icons/search.svg"
-                    alt="Search icon"
-                    width={40}
-                    height={40}
-                  />
-                </button>
-              </form>
-            </div>
+            <SearchBar />
+
           </div>
           <div className={styles.right}>
             <div className={styles.themeBtn}>
