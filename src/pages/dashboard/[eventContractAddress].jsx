@@ -9,10 +9,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleTickets from '@/assets/styles/Tickets.module.css'
-
+const { address, bufferToImg, formatAddress, copyToClipboard, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
 export default function EventPage() {
+    //STATE MODAL
+    const [ModalActive, setModalActive] = useState(false);
+    const [ModalStatus, setModalStatus] = useState('loading');
+    const [ModalMessage, setModalMessage] = useState('message');
+    const [ModalCloseable, setModalCloseable] = useState(false);
     //PAGE STATES
-    const { address, bufferToImg, formatAddress, copyToClipboard, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
+    const { address, bufferToImg, formatAddress, copyToClipboard } = useContext(DataContext);
 
     const formatStreamKey = (key) => {
         const keyLength = key.length;
@@ -21,7 +26,7 @@ export default function EventPage() {
 
     const router = useRouter();
     const { eventContractAddress } = router.query;
-    const [eventFunds,setEventFunds] = useState(0);
+    const [eventFunds, setEventFunds] = useState(0);
     const [event, setEvent] = useState({});
     const [tickets, setTickets] = useState({});
     const [loading, setLoading] = useState(true);
@@ -33,36 +38,36 @@ export default function EventPage() {
         setLoading(true);
         if (eventContractAddress) {
             fetch(`/api/event/getEvent?eventContractAddress=${eventContractAddress}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setEvent(data.event);
-                return fetch(`/api/tickets/getEventTickets?eventContractAddress=${eventContractAddress}`);
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                setTickets(data.tickets);
-            })
-            .catch((error) => console.error(error))
-            .finally(() => setLoading(false));
+                .then((response) => response.json())
+                .then((data) => {
+                    setEvent(data.event);
+                    return fetch(`/api/tickets/getEventTickets?eventContractAddress=${eventContractAddress}`);
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    setTickets(data.tickets);
+                })
+                .catch((error) => console.error(error))
+                .finally(() => setLoading(false));
         }
     };
 
     const getContractData = async () => {
         if (address.length === 0) {
-            
+
             return
         }
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
         const signer = provider.getSigner();
         const contract = new useContracts(signer);
         const data = await contract.getEventFundsData(eventContractAddress);
-        let amount = parseInt(data.data._hex)/1000000000000000000;
-        setEventFunds(amount);  
+        let amount = parseInt(data.data._hex) / 1000000000000000000;
+        setEventFunds(amount);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getContractData();
-    },[eventContractAddress,address])
+    }, [eventContractAddress, address])
 
     useEffect(() => {
         fetchData();
@@ -71,24 +76,24 @@ export default function EventPage() {
     const submitForm = async (e, ticketNumber) => {
         e.preventDefault();
         const raw_data = {
-          ticketEventAddress: eventContractAddress,
-          ticketNumber: ticketNumber
+            ticketEventAddress: eventContractAddress,
+            ticketNumber: ticketNumber
         };
         const data = JSON.stringify({ data: raw_data });
         // Push the event address and data to the database;
         const rawResponse = await fetch('/api/tickets/setTicketUsed', {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: data
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data
         });
         const response = await rawResponse.json();
         fetchData();
         setAlert(true);
         setFormStatus(response.status);
         setFormStatusMsg(response.message);
-    };    
+    };
     //eventContractAddress
     const WithdrawFunds = async (e) => {
         setModalActive(false);
@@ -96,7 +101,7 @@ export default function EventPage() {
         //DETERMINAR EL SIGNER DE METAMASK
 
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        console.log('address length',address.length)
+        console.log('address length', address.length)
         if (address.length === 0) {
             setModalActive(true);
             setModalMessage('Please connect your metamask wallet to create an event')
@@ -116,10 +121,7 @@ export default function EventPage() {
             setModalMessage(`${eventFunds}TFUEL are being sent to your account. It might take some time`)
             setModalStatus('loading');
             try {
-
-
-
-                const response = await contract.ownerWithdrawAmount(address,eventContractAddress);
+                const response = await contract.ownerWithdrawAmount(address, eventContractAddress);
 
                 setModalMessage('Your event has been created correctly! You can get more details of your event at my events page!')
                 setModalStatus('succes');
@@ -139,137 +141,197 @@ export default function EventPage() {
     }
 
     const StartStream = async (e) => {
+        setModalMessage('Please Accept Metamask To continue with this progress')
+        await provider.send("eth_requestAccounts", []);
+        const signer = provider.getSigner();
+        const contract = new useContracts(signer);
+        setModalActive(true);
+        setModalCloseable(false);
+        setModalMessage(`Your event is being started, make sure you have started the stream with the stream server and stream key correctly`)
+        setModalStatus('loading');
+        try {
 
+
+
+            const event = await fetch(`/api/event/startStream?eventContractAddress=${eventContractAddress}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if(event?.data?.data?.length===0){
+                setAlert(true);
+                setFormStatus("danger");
+                setFormStatusMsg(response.message);
+                setModalMessage(`Your event start process failed, make sure you have started the stream with the stream server and stream key correctly, you can use OBS`)
+                setModalStatus('danger');
+                setModalCloseable(true);
+                return
+            }
+            setModalMessage('Your event have been started correctly!')
+            setModalStatus('succes');
+            setModalCloseable(true);
+            setAlert(true);
+            setFormStatus("succes");
+            setFormStatusMsg(response.message);
+            const playback_url = event.data.data;
+            setEvent({ stream_playback_url: playback_url, ...event });
+        } catch (response) {
+            setAlert(true);
+            setFormStatus("danger");
+            setFormStatusMsg(response.message);
+            setModalMessage(`${response.message} there is an error with the stream keys you provided, please contact support team`)
+            setModalStatus('danger');
+            setModalCloseable(true);
+        }
+        
+        
     }
 
-  return (
-    <>
-        <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
-        <Head>
-            <title>{event.eventName}</title>
-            <meta name="description" content="Thetatix web app" />
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <main className={styles.main}>
-            {alert &&
-                <div className={styles.alert + ' ' + formStatus}>
-                    <div className="container">
-                        <div className={styles.alertContent}>
-                            <Image
-                                src={"/icons/" + formStatus + ".svg"}
-                                alt="Alert icon"
-                                width={24}
-                                height={24}
-                                className={styles.alertIcon}
-                            />
-                            <p className={styles.alertMessage}>{formStatusMsg}</p>
-                            <button className={styles.alertCloseBtn} onClick={() => setAlert(false)}>
+    return (
+        <>
+            <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
+            <Head>
+                <title>{event.eventName}</title>
+                <meta name="description" content="Thetatix web app" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className={styles.main}>
+                {alert &&
+                    <div className={styles.alert + ' ' + formStatus}>
+                        <div className="container">
+                            <div className={styles.alertContent}>
                                 <Image
-                                    src="/icons/close.svg"
-                                    alt="Close alert icon"
+                                    src={"/icons/" + formStatus + ".svg"}
+                                    alt="Alert icon"
                                     width={24}
                                     height={24}
+                                    className={styles.alertIcon}
                                 />
-                            </button>
+                                <p className={styles.alertMessage}>{formStatusMsg}</p>
+                                <button className={styles.alertCloseBtn} onClick={() => setAlert(false)}>
+                                    <Image
+                                        src="/icons/close.svg"
+                                        alt="Close alert icon"
+                                        width={24}
+                                        height={24}
+                                    />
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
-            <header className={styles.header}>
-                <div className={styles.headerContainer + ' container'}>
-                    <div className={styles.content + ' row'}>
-                        <div className='col-12'>
-                            <p className={styles.breadcrumbs}>
-                                <Link href="/dashboard">My created events</Link> / <Link href={"/dashboard/" + event.contractAddress}>{event.eventName}</Link>
-                            </p>
-                        </div>
-                        <div className={styleTickets.headerImg + ' col-2'}>
-                            <div className={styleTickets.headerImgContainer}>
-                                <Image
-                                    src={bufferToImg(event.img)}
-                                    alt="Event image"
-                                    width={2400}
-                                    height={1600}
-                                />
+                }
+                <header className={styles.header}>
+                    <div className={styles.headerContainer + ' container'}>
+                        <div className={styles.content + ' row'}>
+                            <div className='col-12'>
+                                <p className={styles.breadcrumbs}>
+                                    <Link href="/dashboard">My created events</Link> / <Link href={"/dashboard/" + event.contractAddress}>{event.eventName}</Link>
+                                </p>
                             </div>
-                        </div>
-                        <div className={styleTickets.headerInfo + ' col-10'}>
-                            <div className={styleTickets.headerTitle}>
-                                <h1 className={styleTickets.eventTitle}>
-                                    <Link href={"/event/" + event.contractAddress} target='blank'>
-                                        {event.eventName}
-                                        <Image
-                                            src="/icons/external-link.svg"
-                                            alt="External link icon"
-                                            width={32}
-                                            height={32}
-                                        />
-                                    </Link>
-                                    {event.isOnlineEventStream && event.creator === address ? (
-                                        <Link href={'/onlineevents/' + event.contractAddress} className={styleTickets.startStream}><div onClick={StartStream}>Start stream</div></Link>
-                                    ) : null}
-                                </h1>
+                            <div className={styleTickets.headerImg + ' col-2'}>
+                                <div className={styleTickets.headerImgContainer}>
+                                    <Image
+                                        src={bufferToImg(event.img)}
+                                        alt="Event image"
+                                        width={2400}
+                                        height={1600}
+                                    />
+                                </div>
                             </div>
-                            {event.creator === address ? (
-                                <>
-                                    <div className={styleTickets.headerContractAddress}>
-                                        <h2>Event address</h2>
-                                        <span onClick={() => copyToClipboard(event.contractAddress)}>
-                                            <abbr title={event.contractAddress}>{formatAddress(event.contractAddress)}</abbr>
-                                        </span>
-                                    </div>
-                                    <div className={styleTickets.headerEarnings}>
-                                        <h2>Total event earnings</h2>
-                                        <p>{(event.ticketsPrice / 1000000) * event.ticketsAmount} TFUEL</p>
-                                    </div>
-                                    <div className={styleTickets.headerTicketsNumber}>
-                                        <h2>Remaining tickets</h2>
-                                        <p>
-                                            {event.maxTickets - event.ticketsAmount} / {event.maxTickets}
-                                        </p>
-                                    </div>
-                                    {event.isOnlineEventStream ? (
-                                        <div className={styleTickets.headerStreamKey}>
-                                            <span onClick={() => copyToClipboard(event.stream_key)}>
-                                                <abbr title={event.stream_key}>Stream key: {formatStreamKey(event.stream_key)}</abbr>
+                            <div className={styleTickets.headerInfo + ' col-10'}>
+                                <div className={styleTickets.headerTitle}>
+                                    <h1 className={styleTickets.eventTitle}>
+                                        <Link href={"/event/" + event.contractAddress} target='blank'>
+                                            {event.eventName}
+                                            <Image
+                                                src="/icons/external-link.svg"
+                                                alt="External link icon"
+                                                width={32}
+                                                height={32}
+                                            />
+                                        </Link>
+
+                                        {event.isOnlineEventStream && event.creator === address
+                                            ?
+
+                                            event.stream_playback_url.length > 0
+                                                ?
+                                                <div>
+                                                    {/* <span onClick={() => copyToClipboard(`${window. location. href}/onlineevents/${event.contractAddress}`)}>
+                                                        <abbr title={event.stream_server}>Event Stream Link: `${window. location. href}/onlineevents/${event.contractAddress}`</abbr>
+                                                    </span> */}
+                                                    <Link href={'/onlineevents/' + event.contractAddress} className={styleTickets.startStream}><div onClick={StartStream}>Go to the event</div></Link>
+                                                </div>
+                                                :
+                                                (
+                                                    <Link href={'/dashboard/' + event.contractAddress} className={styleTickets.startStream}><div onClick={StartStream}>Start stream</div></Link>
+                                                )
+
+                                            :
+                                            null}
+                                    </h1>
+                                </div>
+                                {event.creator === address ? (
+                                    <>
+                                        <div className={styleTickets.headerContractAddress}>
+                                            <h2>Event address</h2>
+                                            <span onClick={() => copyToClipboard(event.contractAddress)}>
+                                                <abbr title={event.contractAddress}>{formatAddress(event.contractAddress)}</abbr>
                                             </span>
                                         </div>
-                                    ) : null}
-                                    <div className={styleTickets.headerFundsBtn}>
-                                        <div>{eventFunds} TFUEL available <button onClick={WithdrawFunds}>Withdraw funds</button></div>
+                                        <div className={styleTickets.headerEarnings}>
+                                            <h2>Total event earnings</h2>
+                                            <p>{(event.ticketsPrice / 1000000) * event.ticketsAmount} TFUEL</p>
+                                        </div>
+                                        <div className={styleTickets.headerTicketsNumber}>
+                                            <h2>Remaining tickets</h2>
+                                            <p>
+                                                {event.maxTickets - event.ticketsAmount} / {event.maxTickets}
+                                            </p>
+                                        </div>
                                         {event.isOnlineEventStream ? (
-                                            <span onClick={() => copyToClipboard(event.stream_server)}>
-                                                <abbr title={event.stream_server}>Stream server: {event.stream_server}</abbr>
-                                            </span>
+                                            <div className={styleTickets.headerStreamKey}>
+                                                <span onClick={() => copyToClipboard(event.stream_key)}>
+                                                    <abbr title={event.stream_key}>Stream key: {formatStreamKey(event.stream_key)}</abbr>
+                                                </span>
+                                            </div>
                                         ) : null}
-                                    </div>
-                                </>
-                            ) : (
-                                <p className='pt-3'>You are not the owner of this event.</p>
-                            )}
+                                        <div className={styleTickets.headerFundsBtn}>
+                                            <div>{eventFunds} TFUEL available <button onClick={WithdrawFunds}>Withdraw funds</button></div>
+                                            {event.isOnlineEventStream ? (
+                                                <span onClick={() => copyToClipboard(event.stream_server)}>
+                                                    <abbr title={event.stream_server}>Stream server: {event.stream_server}</abbr>
+                                                </span>
+                                            ) : null}
+                                        </div>
+                                    </>
+                                ) : (
+                                    <p className='pt-3'>You are not the owner of this event.</p>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </header>
-            <section className={styles.section}>
-                <div className={styles.sectionContainer + ' container'}>
-                    <div className={styleTickets.ticketsContent}>
-                        {event.creator === address ? (
-                            <div className={styleTickets.tickets}>
-                                <div className={styleTickets.ticketHead}>
-                                    <div className={styleTickets.ticketNumber}>
-                                        <h3>Ticket #</h3>
+                </header>
+                <section className={styles.section}>
+                    <div className={styles.sectionContainer + ' container'}>
+                        <div className={styleTickets.ticketsContent}>
+                            {event.creator === address ? (
+                                <div className={styleTickets.tickets}>
+                                    <div className={styleTickets.ticketHead}>
+                                        <div className={styleTickets.ticketNumber}>
+                                            <h3>Ticket #</h3>
+                                        </div>
+                                        <div className={styleTickets.ticketOwner}>
+                                            <h3>Owner's Address</h3>
+                                        </div>
+                                        <div className={styleTickets.ticketAction}>
+                                            <h3>Action</h3>
+                                        </div>
                                     </div>
-                                    <div className={styleTickets.ticketOwner}>
-                                        <h3>Owner's Address</h3>
-                                    </div>
-                                    <div className={styleTickets.ticketAction}>
-                                        <h3>Action</h3>
-                                    </div>
-                                </div>
-                                {loading ? (
-                                    <p>Loading tickets...</p>
-                                ) : (tickets && tickets.length > 0 ? (
+                                    {loading ? (
+                                        <p>Loading tickets...</p>
+                                    ) : (tickets && tickets.length > 0 ? (
                                         tickets.map((ticket) => {
                                             return (
                                                 <form action='/api/tickets/setTicketUsed' onSubmit={(e) => submitForm(e, ticket.ticketNumber)} method='PUT' key={ticket.ticketNumber} className={styleTickets.ticket}>
@@ -282,9 +344,9 @@ export default function EventPage() {
                                                     {!event.isOnlineEventStream && (
                                                         <div className={styleTickets.ticketAction}>
                                                             {ticket.user ? (
-                                                                <button id={'registerBtn'+ ticket.ticketNumber} disabled>Entrant registered</button>
+                                                                <button id={'registerBtn' + ticket.ticketNumber} disabled>Entrant registered</button>
                                                             ) : (
-                                                                <button id={'registerBtn'+ ticket.ticketNumber}>Register entrant</button>
+                                                                <button id={'registerBtn' + ticket.ticketNumber}>Register entrant</button>
                                                             )}
                                                             {/* Ticket used
                                                             <br />
@@ -297,13 +359,13 @@ export default function EventPage() {
                                     ) : (
                                         <p>No tickets found</p>
                                     )
-                                )}
-                            </div>
-                        ) : null}
+                                    )}
+                                </div>
+                            ) : null}
+                        </div>
                     </div>
-                </div>
-            </section>
-        </main>
-    </>
-  );
+                </section>
+            </main>
+        </>
+    );
 };
