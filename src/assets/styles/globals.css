@@ -54,6 +54,8 @@
     --stream-bg: var(--ter-color);
     --chatAuthor-color: #7684CB;
     --chatBubble-color: #191B27;
+
+    --profile-bg: radial-gradient(circle, rgba(68,74,198,1) 0%, rgba(22,22,28,1) 70%);
   }
   :root.light {
     --pri-color: #444AC6; /* buttons */
@@ -91,6 +93,7 @@
     --stream-bg: var(--inverted-bg-color);
     --chatAuthor-color: var(--pri-color);
     --chatBubble-color: var(--accent-color);
+    --profile-bg: radial-gradient(circle, rgba(68,74,198,1) 0%, rgba(255,255,255,1) 30%);
   }
 
 :root {

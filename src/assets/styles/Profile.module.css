@@ -1,4 +1,4 @@
-.main { padding-top: 6rem; min-height: 100vh; background: rgb(68,74,198); background: radial-gradient(circle, rgba(68,74,198,1) 0%, rgba(22,22,28,1) 70%); }
+.main { padding-top: 6rem; min-height: 100vh; background: var(--bg-color); background: var(--profile-bg); }
 
 .title { text-align: center; padding-top: 3rem; }
 .subtitle { text-align: center; color: var(--text-color); font-size: var(--font-size); margin-bottom: 2rem; line-height: 1.2; font-weight: 400; }
