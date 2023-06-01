@@ -8,26 +8,26 @@ const handler = async (req, res) => {
             const { data } = req.body;
             const { walletAddress, username } = data;
 
-            let user = await User.findOne({ walletAddress });
+            let my_user = await User.findOne({ walletAddress });
+            const user = await User.findOne({ username });
 
             if (user) {
-                if (user.walletAddress !== walletAddress) {
-                    res.status(406).json({ data: null, message: 'Username already taken' });
-                }
-                // User already exists, update the username
-                const statusMsg = 'Username changed successfully from ' + user.username + ' to ' + username + '.';
-                user.username = username;
-                await user.save();
-                res.status(200).json({ data: user, message: statusMsg });
+                res.status(406).json({ data: null, message: 'Username already taken.' });
             } else {
+                if (my_user) {
+                    const statusMsg = 'Username changed successfully from ' + my_user.username + ' to ' + username + '.';
+                    my_user.username = username;
+                    await my_user.save();
+                    res.status(200).json({ data: my_user, message: statusMsg });
+                }
                 // User does not exist, create a new user
-                user = new User({
+                const new_user = new User({
                     walletAddress,
                     username,
                 });
                 const statusMsg = 'Username changed successfully as ' + username + '.';
-                await user.save();
-                res.status(200).json({ data: user, message: statusMsg });
+                await new_user.save();
+                res.status(200).json({ data: new_user, message: statusMsg });
             }
         } catch (err) {
             console.error(err);
