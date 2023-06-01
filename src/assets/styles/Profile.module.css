@@ -1,0 +1,12 @@
+.main { padding-top: 6rem; min-height: 100vh; background: rgb(68,74,198); background: radial-gradient(circle, rgba(68,74,198,1) 0%, rgba(22,22,28,1) 70%); }
+
+.title { text-align: center; padding-top: 3rem; }
+.subtitle { text-align: center; color: var(--text-color); font-size: var(--font-size); margin-bottom: 2rem; line-height: 1.2; font-weight: 400; }
+
+.form { display: block; max-width: 35%; margin: 0 auto; text-align: center; }
+.form label { display: block; width: 100%; color: var(--text-color); font-size: var(--font-size); margin-bottom: .5rem; line-height: 1.2; font-weight: 400; text-align: left; }
+.form input { display: block; width: 100%; text-align: left; color: var(--text-color); line-height: 1.7; margin-bottom: 1.2rem; font-weight: 400; font-size: var(--font-size); background-color: var(--sec-color); border: 0; border-radius: .5rem; padding: .5rem 1rem; outline: 0; }
+.form input:focus { box-shadow: 0px 4px 15px rgba(var(--ter-color-rgb), 0.03); outline: 2px solid rgba(var(--pri-color-rgb), 0.1); }
+.form input::placeholder { color: var(--info-color); }
+.form button { background-color: var(--pri-color); color: var(--white); border: 0; border-radius: 3rem; padding: .6rem 1rem; font-size: var(--font-size); line-height: 1; font-weight: 400; transition: 0.5s; text-align: center; }
+.form button:hover { background-color: var(--ter-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); }

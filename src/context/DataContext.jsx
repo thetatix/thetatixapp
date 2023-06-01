@@ -71,7 +71,13 @@ function formatDescription(rawDescription) {
 export const DataContext = createContext(null);
 
 export const DataProvider = ({ children }) => {
+    const [ModalActive, setModalActive] = useState(false);
+    const [ModalStatus, setModalStatus] = useState('loading');
+    const [ModalMessage, setModalMessage] = useState('message');
+    const [ModalCloseable, setModalCloseable] = useState(false);
+    
     const [address, setAddress] = useState('');
+    const [username, setUsername] = useState('');
     const [isConnected, setIsConnected] = useState(false);
     const [theme, setTheme] = useState("dark");
 
@@ -91,7 +97,7 @@ export const DataProvider = ({ children }) => {
     };
 
 return(
-    <DataContext.Provider value={{ address, setAddress, isConnected, setIsConnected, theme, setTheme: updateTheme, bufferToImg, formatDate, copyToClipboard, formatAddress, formatDateTime, formatDescription }}>
+    <DataContext.Provider value={{ address, setAddress, isConnected, setIsConnected, username, setUsername, theme, setTheme: updateTheme, bufferToImg, formatDate, copyToClipboard, formatAddress, formatDateTime, formatDescription, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable }}>
         {children}
     </DataContext.Provider>
 );

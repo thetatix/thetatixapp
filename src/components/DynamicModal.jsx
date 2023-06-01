@@ -7,15 +7,18 @@ import styles from '@/assets/styles/Modal.module.css'
 // status solo puede ser: "success", "danger", "loading"
 // message es el mensaje que aparece
 // closable: true o false; significa si se puede cerrar la alerta
-export default function DynamicModal({active, status, message, closeable}) {
+export default function DynamicModal() {
+  // const { modalActive, setModalActive,   } = useContext(DataContext);
 
-  const [modalActive, setModalActive] = useState(active);
-  useEffect(()=>{
-    setModalActive(active);
-  },[active])
-  console.log('modalActive',active, status, message, closeable)
+  const { ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } = useContext(DataContext);
+
+  // const [modalActive, setModalActive] = useState(active);
+  // useEffect(()=>{
+  //   setModalActive(active);
+  // },[active])
+  // console.log('modalActive',active, status, message, closeable)
   const closeModal = () => {
-    if (closeable) {
+    if (ModalCloseable) {
       setModalActive(false);
     }
   };
@@ -23,25 +26,25 @@ export default function DynamicModal({active, status, message, closeable}) {
 
   let statusContent = null;
 
-  if (status === 'success') {
+  if (ModalStatus === 'success') {
     statusContent = (
       <Image
-        src={"/icons/" + status + "-i.svg"}
+        src={"/icons/" + ModalStatus + "-i.svg"}
         alt="Status icon"
         width={24}
         height={24}
       />
     );
-  } else if (status === 'danger') {
+  } else if (ModalStatus === 'danger') {
     statusContent = (
       <Image
-        src={"/icons/" + status + "-i.svg"}
+        src={"/icons/" + ModalStatus + "-i.svg"}
         alt="Status icon"
         width={24}
         height={24}
       />
     );
-  } else if (status === 'loading') {
+  } else if (ModalStatus === 'loading') {
     statusContent = (
       <div className={styles.loadingWheel}>
         <div className={styles.wheel}></div>
@@ -57,7 +60,7 @@ export default function DynamicModal({active, status, message, closeable}) {
       />
     );
   }
-  if (!modalActive) {
+  if (!ModalActive) {
     return null;
   }
   return (
@@ -66,7 +69,7 @@ export default function DynamicModal({active, status, message, closeable}) {
         <div className={styles.modal}>
           <div className={styles.modalContainer + ' container'}>
             <div className={styles.content}>
-              {closeable && (
+              {ModalCloseable && (
                 <div className={styles.closeBtn}>
                   <button onClick={closeModal}>
                     <Image
@@ -83,7 +86,7 @@ export default function DynamicModal({active, status, message, closeable}) {
               </div>
               <div className={styles.text}>
                 <p>
-                  {message}
+                  {ModalMessage}
                 </p>
               </div>
             </div>

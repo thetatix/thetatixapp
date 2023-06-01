@@ -104,7 +104,7 @@ export default function Navbar() {
     }
   }, []);
   
-  const { address, setAddress, isConnected, setIsConnected } =  useContext(DataContext);
+  const { address, setAddress, isConnected, setIsConnected, username, setUsername } =  useContext(DataContext);
 
   const connectMetamask = async () => {
     if (window.ethereum) {
@@ -114,6 +114,7 @@ export default function Navbar() {
         setIsConnected(true);
         let account = await window.ethereum.request({ method: "eth_accounts"});
         setAddress(account[0]);
+        getUsername(account[0]);
         console.log(address);
         await handleNetworkSwitch("thetatestnet");
       } catch (error) {
@@ -130,6 +131,7 @@ export default function Navbar() {
         console.log('Disconnected from Ethereum');
         setIsConnected(false);
         setAddress('');
+        setUsername('');
       } catch (error) {
         console.log('Error disconnecting from Ethereum');
       }
@@ -137,6 +139,18 @@ export default function Navbar() {
       console.log('No Metamask detected');
     }
   }
+
+  const getUsername = async (walletAddress) => {
+    try {
+      const response = await fetch(`/api/user/getUser?walletAddress=${walletAddress}`);
+      const data = await response.json();
+      if (data.user) {
+        setUsername(data.user.username);
+      }
+    } catch (err) {
+      console.error('Error retrieving username:', err);
+    }
+  };
 
   const switchNetwork = async () => {
     try {
@@ -157,10 +171,6 @@ export default function Navbar() {
     } catch (addError) {
       console.log(addError);
     }
-  }
-
-  const submitForm = async (e) => {
-    // e.preventDefault();
   }
 
   const [clientWindowHeight, setClientWindowHeight] = useState("");
@@ -240,7 +250,7 @@ export default function Navbar() {
           {isConnected ? (
             <div className={styles.connectBtn}>
               <button>
-                {formatAddress(address)}
+                {username ? (username) : (formatAddress(address))}
                 <Image
                   src="/icons/chevron.svg"
                   alt="Chevron icon"
@@ -249,6 +259,16 @@ export default function Navbar() {
                 />
               </button>
               <div className={styles.dropdown}>
+              <Link href="/profile" className={styles.dropdownLink}>
+                  <Image
+                    src="/icons/account.svg"
+                    alt="Account icon"
+                    width={40}
+                    height={40}
+                  />
+                  Profile
+                </Link>
+                <br />
                 <Link href="/dashboard" className={styles.dropdownLink}>
                   <Image
                     src="/icons/account.svg"
