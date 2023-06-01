@@ -64,3 +64,6 @@
 .ticketLink a:hover { background-color: var(--ter-color); border: 1px solid var(--accent-color); box-shadow: 0px 8px 18px 0px rgba(0, 0, 0, 0.15); }
 .ticketLink a[data-used="true"] { background-color: var(--underline); color: var(--info-color); border: 1px solid var(--underline); }
 .ticketLink a[data-used="true"]:hover { box-shadow: none; }
+
+.ticketIsOnline { color: var(--white); background-color: var(--danger-color-border); font-size: 1rem; padding: .3rem .6rem; line-height: 1; border-radius: .2rem; display: inline-block; float: right; transition: 0.5s; }
+.ticketIsOnline:hover { background: var(--danger-color-border); filter: grayscale(0.2); }

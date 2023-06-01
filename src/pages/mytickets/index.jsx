@@ -70,6 +70,9 @@ export default function MyTickets() {
                                                                 width={32}
                                                                 height={32}
                                                             />
+                                                            {ticket.eventTrait.isOnlineEventStream && (
+                                                                <span className={styleCards.ticketIsOnline}>Online</span>
+                                                            )}
                                                         </h1>
                                                     </div>
                                                     <div className={styleCards.ticketId}>
