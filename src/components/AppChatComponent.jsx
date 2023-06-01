@@ -4,7 +4,7 @@ import { DataContext } from '@/context/DataContext';
 import styles from '@/assets/styles/Stream.module.css'
 // import styles from './AblyChatComponent.module.css';
 
-export default function AblyChatComponent({eventAddress}) {
+const AblyChatComponent = ({eventAddress}) => {
 
     const { address, formatAddress, username } = useContext(DataContext);
 
@@ -86,6 +86,9 @@ export default function AblyChatComponent({eventAddress}) {
         </div>
     )
 }
+
+export default AblyChatComponent;
+
 
 
 
