@@ -178,7 +178,11 @@ export default function EventPage() {
                                 </div>
                                 <div className={styleEvent.location}>
                                     <h2>Location</h2>
-                                    <p>{event.location}</p>
+                                    {event.isOnlineEventStream ? (
+                                        <p>Online event</p>
+                                        ) : (
+                                        <p>{event.location}</p>
+                                    )}
                                 </div>
                                 <div className={styleEvent.description}>
                                     <p>{formatDescription(event.eventDescription)}</p>

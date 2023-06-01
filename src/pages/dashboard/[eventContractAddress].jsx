@@ -132,6 +132,7 @@ export default function EventPage() {
                 setModalCloseable(true);
             }
         }
+        fetchData();
     }
 
     const StartStream = async (e) => {

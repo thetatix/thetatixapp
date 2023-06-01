@@ -183,7 +183,7 @@ export default function Create() {
                         <div className={styles.column + ' col-7'}>
                             <header className={styles.header}>
                                 <h1>Let's create your event</h1>
-                                <p className={styles.subtitle}>Creating your event is free, it only costs the transaction fee.</p>
+                                {/* <p className={styles.subtitle}>Creating your event is free, it only costs the transaction fee.</p> */}
                             </header>
                             <section className={styles.section}>
                                 <div className={styles.sectionContainer}>

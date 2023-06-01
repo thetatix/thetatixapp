@@ -114,7 +114,11 @@ export default function TicketPage() {
                     </div>
                     <div className={styleTicket.location}>
                         <h2>Location</h2>
-                        <p>{ticket.eventTrait.location}</p>
+                        {ticket.eventTrait.isOnlineEventStream ? (
+                          <p>Online event</p>
+                        ) : (
+                          <p>{ticket.eventTrait.location}</p>
+                        )}
                     </div>
                     <div className={styleTicket.description}>
                         <p>{formatDescription(ticket.eventTrait.eventDescription)}</p>
