@@ -6,7 +6,7 @@ import styles from '@/assets/styles/Stream.module.css'
 
 const AblyChatComponent = ({eventAddress}) => {
 
-    const { address, formatAddress } = useContext(DataContext);
+    const { address, formatAddress, username } = useContext(DataContext);
 
     let inputBox = null;
     let messageEnd = null;
@@ -29,7 +29,8 @@ const AblyChatComponent = ({eventAddress}) => {
 
 
     const sendChatMessage = (messageText) => {
-        channel.publish({ name: "chat-message", data: {text: messageText, author: address} });
+        const me = username ? username : address;
+        channel.publish({ name: "chat-message", data: {text: messageText, author: me} });
         setMessageText("");
         inputBox.focus();
     }

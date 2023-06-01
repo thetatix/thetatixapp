@@ -11,12 +11,8 @@ import useContracts from '@/components/contractsHook/useContract';
 
 export default function Create() {
     //STATE MODAL
-    const [ModalActive, setModalActive] = useState(false);
-    const [ModalStatus, setModalStatus] = useState('loading');
-    const [ModalMessage, setModalMessage] = useState('message');
-    const [ModalCloseable, setModalCloseable] = useState(false);
     //PAGE STATES
-    const { address, setAddress } = useContext(DataContext);
+    const { address, setAddress, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } = useContext(DataContext);
 
     const [formData, setFormData] = useState({
         // contractAddress: "",

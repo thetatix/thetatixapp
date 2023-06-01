@@ -11,13 +11,8 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleTickets from '@/assets/styles/Tickets.module.css'
 
 export default function EventPage() {
-    //STATE MODAL
-    const [ModalActive, setModalActive] = useState(false);
-    const [ModalStatus, setModalStatus] = useState('loading');
-    const [ModalMessage, setModalMessage] = useState('message');
-    const [ModalCloseable, setModalCloseable] = useState(false);
     //PAGE STATES
-    const { address, bufferToImg, formatAddress, copyToClipboard } =  useContext(DataContext);
+    const { address, bufferToImg, formatAddress, copyToClipboard, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
 
     const formatStreamKey = (key) => {
         const keyLength = key.length;

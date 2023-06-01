@@ -11,18 +11,13 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleEvent from '@/assets/styles/Event.module.css'
 
 export default function EventPage() {
-    //STATE MODAL
-    const [ModalActive, setModalActive] = useState(false);
-    const [ModalStatus, setModalStatus] = useState('loading');
-    const [ModalMessage, setModalMessage] = useState('message');
-    const [ModalCloseable, setModalCloseable] = useState(false);
     //PAGE STATES
     const [alert, setAlert] = useState(false);
     const [formStatus, setFormStatus] = useState("");
     const [formStatusMsg, setFormStatusMsg] = useState("");
     const router = useRouter();
     const { eventContractAddress } = router.query;
-    const { address, isConnected, copyToClipboard, bufferToImg, formatDateTime, formatDescription, formatAddress } = useContext(DataContext);
+    const { address, isConnected, copyToClipboard, bufferToImg, formatDateTime, formatDescription, formatAddress, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } = useContext(DataContext);
     const [event, setEvent] = useState({});
     const [category, setCategory] = useState({});
 
