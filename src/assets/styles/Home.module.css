@@ -1,7 +1,7 @@
 
 .main { padding-top: 6rem; padding-bottom: 6rem; min-height: 100vh; font-family: 'Biotif', sans-serif; }
 
-.highlightText { background-color: var(--pri-color); border-radius: .4rem; padding: .5rem; }
+.highlightText { background-color: var(--pri-color); border-radius: .4rem; padding: .5rem; color: var(--white); }
 
 .header { min-height: 65vh; }
 .headerContainer {  }
