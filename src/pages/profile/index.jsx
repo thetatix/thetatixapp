@@ -7,7 +7,7 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleProfile from '@/assets/styles/Profile.module.css'
 
 export default function Profile() {
-    const { address, isConnected, username, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
+    const { address, isConnected, username, setUsername, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
     const [inputUsername, setInputUsername] = useState('');
     const submitForm = async (e) => {
         e.preventDefault();
@@ -37,6 +37,7 @@ export default function Profile() {
             });
             const responseData = await response.json();
             if (response.ok) {
+                setUsername(responseData.data.username);
                 setModalMessage(responseData.message);
                 setModalStatus('success');
                 setModalCloseable(true);
