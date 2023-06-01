@@ -64,7 +64,7 @@ export default function Search() {
                 <header className={styles.header}>
                     <div className={styles.headerContainer + ' container'}>
                         <div className={styles.content}>
-                            <SearchBar />
+                            {/* <SearchBar /> */}
 
                             <h1 className={styleSearch.title}>{searchQuery}</h1>
                         </div>
