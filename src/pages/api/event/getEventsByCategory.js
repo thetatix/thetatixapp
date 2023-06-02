@@ -10,7 +10,7 @@ const handler = async (req, res) => {
             await connectMongo();
 
             // Find events by category
-            const events = await Event.find({ category: categoryId });
+            const events = await Event.find({ category: categoryId }, { img: 0 });
             if (events.length === 0) {
               // Handle case where no events were found
               // For example, return an error message

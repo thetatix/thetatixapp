@@ -54,7 +54,7 @@ export default function Events() {
                         <Link href={`/category/${category._id}`} className={styleCards.categoryCard} key={category._id}>
                           <div className={styleCards.category}>
                             <Image
-                              src={bufferToImg(category.img)}
+                              src={'/img/' + category._id + '.png'}
                               alt="Category image"
                               className={styleCards.categoryImg}
                               width={1800}
@@ -85,7 +85,7 @@ export default function Events() {
                           eventTicketsPrice={event.ticketsPrice}
                           eventStartDate={event.startDate}
                           eventLocation={event.location}
-                          eventImg={event.img.data}
+                          eventImg={event.category}
                           eventHref={`/event`}
                           eventContractAddress={event.contractAddress}
                           key={event.contractAddress}
@@ -101,7 +101,7 @@ export default function Events() {
                           eventTicketsPrice={event.ticketsPrice}
                           eventStartDate={event.startDate}
                           eventLocation={event.location}
-                          eventImg={event.img.data}
+                          eventImg={event.category}
                           eventHref={`/event`}
                           eventContractAddress={event.contractAddress}
                           key={event.contractAddress}

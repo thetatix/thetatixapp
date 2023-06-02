@@ -9,7 +9,10 @@ const handler = async (req, res) => {
             // connect to MongoDB
             await connectMongo();
             // find all events and return them
-            const userTickets = await Ticket.find({ owner: owner }).populate("eventDataTrait");
+            const userTickets = await Ticket.find({ owner: owner }).populate({
+                path: "eventDataTrait",
+                select: "-img" // Exclude the 'img' field from the eventTrait
+            });
             //eventDataTrait is invisible so solve it
             const array_object_visible_fields = [];
             //make event trait visible

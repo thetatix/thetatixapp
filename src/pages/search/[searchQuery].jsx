@@ -85,7 +85,7 @@ export default function Search() {
                                     eventTicketsPrice={event.ticketsPrice}
                                     eventStartDate={event.startDate}
                                     eventLocation={event.location}
-                                    eventImg={event.img.data}
+                                    eventImg={event.category}
                                     eventHref={`/event`}
                                     eventContractAddress={event.contractAddress}
                                     key={event.contractAddress}
@@ -101,7 +101,7 @@ export default function Search() {
                                     eventTicketsPrice={event.ticketsPrice}
                                     eventStartDate={event.startDate}
                                     eventLocation={event.location}
-                                    eventImg={event.img.data}
+                                    eventImg={event.category}
                                     eventHref={`/event`}
                                     eventContractAddress={event.contractAddress}
                                     key={event.contractAddress}

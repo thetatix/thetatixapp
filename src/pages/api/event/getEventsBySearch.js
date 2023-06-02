@@ -8,11 +8,12 @@ const handler = async (req, res) => {
       // connect to MongoDB
       await connectMongo();
 
-      const events = await Event.find({
-        eventName: { $regex: searchQuery, $options: 'i'}
-      }).exec();
-      
-      
+      const events = await Event.find(
+        {
+          eventName: { $regex: searchQuery, $options: 'i' }
+        },
+        { img: 0 } // Exclude the 'img' field from the fetched events
+      ).exec();
   
       // find all events and return them
       if (events.length === 0) {

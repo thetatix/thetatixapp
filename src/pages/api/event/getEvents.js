@@ -1,8 +1,3 @@
-// export default async function handler(req, res) {
-//     //-----------COMPLETAR-----------
-//     res.status(200).json({data:'succes'})
-// }
-
 import connectMongo from '@/server/mongo';
 import Event from '@/server/models/event';
 
@@ -12,7 +7,7 @@ const handler = async (req, res) => {
     await connectMongo();
 
     // find all events and return them
-    const events = await Event.find().exec();
+    const events = await Event.find({}, { img: 0 }).exec();
     if (events.length === 0) {
       // Handle case where no events were found
       // For example, return an error message

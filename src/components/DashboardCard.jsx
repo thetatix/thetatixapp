@@ -29,7 +29,7 @@ export default function DashboardCard({ num, headTitle, events }) {
                         <div className={styles.event}>
                             <div className={styles.eventImg}>
                                 <Image
-                                    src={bufferToImg(event.img)}
+                                    src={'/img/' + event.category + '.png'}
                                     alt="Event image"
                                     width={2400}
                                     height={1600}
@@ -59,7 +59,7 @@ export default function DashboardCard({ num, headTitle, events }) {
                                 <div className={styles.event}>
                                     <div className={styles.eventImg}>
                                         <Image
-                                            src={bufferToImg(event.img)}
+                                            src={'/img/' + event.category + '.png'}
                                             alt="Event image"
                                             width={2400}
                                             height={1600}

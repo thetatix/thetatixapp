@@ -26,7 +26,7 @@ export default function OnlineEventCard({ eventName, eventTicketsPrice, eventSta
 
                 <div className={styles.eventImgOnline}>
                     <Image
-                        src={bufferToImg(eventImg)}
+                        src={'/img/' + eventImg + '.png'}
                         alt="Event image"
                         width={2400}
                         height={1600}

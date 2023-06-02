@@ -54,7 +54,7 @@ export default function MyTickets() {
                                             <div className={styleCards.ticket}>
                                                 <div className={styleCards.ticketImg}>
                                                     <Image
-                                                        src={bufferToImg(ticket.eventTrait.img)}
+                                                        src={'/img/' + ticket.eventTrait.category + '.png'}
                                                         alt="Event image"
                                                         width={2400}
                                                         height={1600}

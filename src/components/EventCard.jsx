@@ -26,7 +26,7 @@ export default function EventCard({ eventName, eventTicketsPrice, eventStartDate
 
                 <div className={styles.eventImg}>
                     <Image
-                        src={bufferToImg(eventImg)}
+                        src={'/img/' + eventImg + '.png'}
                         alt="Event image"
                         width={2400}
                         height={1600}

@@ -13,7 +13,7 @@ const handler = async (req, res) => {
             await connectMongo();
 
             // Find events by creator
-            const events = await Event.find({ creator: creator });
+            const events = await Event.find({ creator: creator }, { img: 0 });
             if (events.length === 0) {
               // Handle case where no events were found
               // For example, return an error message
