@@ -134,7 +134,7 @@ export default function Create() {
             <main className={styles.main}>
                 <div className={styles.mainContainer + ' container'}>
                     <div className={styles.content + ' row'}>
-                        <div className={styles.column + ' col-7'}>
+                        <div className={styles.column + ' col-12 col-sm-7'}>
                             <header className={styles.header}>
                                 <h1>Let's create your event</h1>
                             </header>
@@ -380,7 +380,7 @@ export default function Create() {
                                 </div>
                             </section>
                         </div>
-                        <div className={styles.column + ' col-5'}>
+                        <div className={styles.column + ' col-12 col-sm-5'}>
                             <section className={styles.sideImgSection}>
                                 <div className={styles.sideImgContainer}>
                                     <Image
