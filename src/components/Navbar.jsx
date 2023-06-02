@@ -257,7 +257,7 @@ export default function Navbar() {
                 />
               </button>
               <div className={styles.dropdown}>
-              <Link href="/profile" className={styles.dropdownLink}>
+              <Link href="/profile" className={styles.dropdownLink} onClick={closeNavbar}>
                   <Image
                     src="/icons/account.svg"
                     alt="Account icon"
@@ -267,7 +267,7 @@ export default function Navbar() {
                   Profile
                 </Link>
                 <br />
-                <Link href="/dashboard" className={styles.dropdownLink}>
+                <Link href="/dashboard" className={styles.dropdownLink} onClick={closeNavbar}>
                   <Image
                     src="/icons/writing.svg"
                     alt="Dashboard icon"
