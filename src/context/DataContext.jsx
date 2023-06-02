@@ -75,11 +75,20 @@ export const DataProvider = ({ children }) => {
     const [ModalStatus, setModalStatus] = useState('loading');
     const [ModalMessage, setModalMessage] = useState('message');
     const [ModalCloseable, setModalCloseable] = useState(false);
+
+    const [isNavbarOpen, setIsNavbarOpen] = useState(false);
     
     const [address, setAddress] = useState('');
     const [username, setUsername] = useState('');
     const [isConnected, setIsConnected] = useState(false);
     const [theme, setTheme] = useState("dark");
+
+    const toggleOpenNavbar = () => {
+        setIsNavbarOpen(!isNavbarOpen);
+    }
+    const closeNavbar = () => {
+        setIsNavbarOpen(false);
+    }
 
     useEffect(() => {
         // Retrieve theme preference from local storage or any other source
@@ -97,7 +106,7 @@ export const DataProvider = ({ children }) => {
     };
 
 return(
-    <DataContext.Provider value={{ address, setAddress, isConnected, setIsConnected, username, setUsername, theme, setTheme: updateTheme, bufferToImg, formatDate, copyToClipboard, formatAddress, formatDateTime, formatDescription, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable }}>
+    <DataContext.Provider value={{ address, setAddress, isConnected, setIsConnected, username, setUsername, theme, setTheme: updateTheme, bufferToImg, formatDate, copyToClipboard, formatAddress, formatDateTime, formatDescription, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable, isNavbarOpen, setIsNavbarOpen, toggleOpenNavbar, closeNavbar }}>
         {children}
     </DataContext.Provider>
 );

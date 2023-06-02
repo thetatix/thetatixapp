@@ -1,5 +1,6 @@
-import { useRef, useState, useEffect } from "react"
+import { useRef, useContext, useState, useEffect } from "react"
 import { useRouter } from "next/router"
+import { DataContext } from "@/context/DataContext";
 
 import Image from 'next/image'
 
@@ -11,11 +12,13 @@ export default function SearchBar() {
     const { searchQuery } = router.query;
     const inputRef = useRef(null);
 
+    const { closeNavbar } = useContext(DataContext);
+
     const submitForm = async (e) => {
         e.preventDefault();
-        //// I want to redirect to /search/{sQuery}
         const inputValue = inputRef.current.value;
         router.push(`/search/${inputValue}`);
+        closeNavbar();
     }
 
     const [events, setEvents] = useState([]);
