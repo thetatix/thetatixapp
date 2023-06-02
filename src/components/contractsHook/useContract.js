@@ -31,9 +31,9 @@ class useContracts {
         }
         const imageBuffer = Buffer.from(_img, 'base64');
         const imageSize = imageBuffer.length;
-        const maxSizeInBytes = 500 * 1024;
+        const maxSizeInBytes = 800 * 1024;
         if (imageSize > maxSizeInBytes) {
-            return { error: "Exceed image limit.", data: null, status: "danger", message: "Image exceeds 1MB limit." };
+            return { error: "Exceed image limit.", data: null, status: "danger", message: "Image exceeds 500kb limit." };
         }
         try {
             let streamid = "";
