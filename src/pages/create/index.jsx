@@ -137,6 +137,9 @@ export default function Create() {
                         <div className={styles.column + ' col-12 col-sm-7'}>
                             <header className={styles.header}>
                                 <h1>Let's create your event</h1>
+                                <p className={styles.subtitle}>
+                                    Image must not exceed 500 KB in order for the event to be created successfully.
+                                </p>
                             </header>
                             <section className={styles.section}>
                                 <div className={styles.sectionContainer}>
@@ -373,7 +376,7 @@ export default function Create() {
                                             </div>
                                             <div className={styleCreate.row + ' row'}>
                                                 <div className={styleCreate.column + ' col-12'}>
-                                                    <button type="submit" className={styleCreate.submit}>Create event</button>
+                                                    <button type="submit" className={styleCreate.submit + ' mb-3'}>Create event</button>
                                                 </div>
                                             </div>
 
