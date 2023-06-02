@@ -16,7 +16,7 @@
 .subtitle { font-size: var(--font-size); line-height: 1; }
 .subtitle img { vertical-align: bottom; height: 1.5rem; width: auto; margin-left: .5rem; }
 
-.blurRight { position: absolute; top: 42.5%; right: 28.5%; transform: translate(50%, -50%); z-index: -1; width: 900px; height: 900px; }
+.blurRight { position: absolute; top: 16%; right: 28.5%; transform: translate(50%, -50%); z-index: -1; width: 900px; height: 900px; }
 
 .eventCard { text-decoration: none; color: var(--text-color); }
 .eventCard:hover { color: var(--pri-color); }
