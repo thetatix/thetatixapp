@@ -228,9 +228,6 @@ export default function Navbar() {
                   Create an event
                 </Link>
               </li>
-              {/* <li>
-                <button onClick={() => handleNetworkSwitch("theta")}>Theta</button>
-              </li> */}
             </ul>
             <SearchBar />
 

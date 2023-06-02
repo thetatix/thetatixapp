@@ -21,7 +21,7 @@ function bufferToImg(buffer) {
 
 export default function OnlineEventCard({ eventName, eventTicketsPrice, eventStartDate, eventLocation, eventImg, eventHref, eventContractAddress, stream_key, stream_server, stream_playback_url }) {
     return (
-        <Link href={eventHref + '/' + eventContractAddress} className={styles.eventCard + ' col-4'} key={eventContractAddress}>
+        <Link href={eventHref + '/' + eventContractAddress} className={styles.eventCard + ' col-12 col-sm-4'} key={eventContractAddress}>
             <div className={styles.event}>
 
                 <div className={styles.eventImgOnline}>

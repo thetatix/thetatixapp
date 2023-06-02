@@ -43,9 +43,19 @@ export default function Home() {
           <div className={styleHome.headerContainer + ' container'}>
             <div className={styleHome.content + ' row'}>
               <div className={styleHome.column + ' col'}>
-                <p className={styleHome.title}>Web3 ticketing for <span className={styleHome.highlightText}>online</span> streaming and in person events</p>
-                {/* <p>Powered by Theta Network</p> */}
-                {/* <div className={styleHome.squareLeft}></div> */}
+                <p className={styleHome.title}>
+                  Web3 ticketing for <span className={styleHome.highlightText}>online</span> streaming and in person events
+                </p>
+                <p className={styleHome.subtitle}>
+                  Powered by Theta Network
+                  <Image
+                    src="/img/full-theta-icon.svg"
+                    alt="Theta network icon"
+                    width={24}
+                    height={24}
+                    priority
+                  />
+                </p>
               </div>
               <div className={styleHome.column + ' col'}>
                 <Link href="/" className={styleHome.eventCard}>

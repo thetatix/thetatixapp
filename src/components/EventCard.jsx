@@ -21,7 +21,7 @@ function bufferToImg(buffer) {
 
 export default function EventCard({ eventName, eventTicketsPrice, eventStartDate, eventLocation, eventImg, eventHref, eventContractAddress }) {
     return (
-        <Link href={eventHref + '/' + eventContractAddress} className={styles.eventCard + ' col-4'} key={eventContractAddress}>
+        <Link href={eventHref + '/' + eventContractAddress} className={styles.eventCard + ' col-12 col-sm-4'} key={eventContractAddress}>
             <div className={styles.event}>
 
                 <div className={styles.eventImg}>

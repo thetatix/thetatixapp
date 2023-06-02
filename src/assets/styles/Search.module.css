@@ -8,3 +8,22 @@
 .searchBar .searchInput button img { width: 100%; height: 1.2rem; vertical-align: text-bottom; filter: var(--filter-info-color); transition: 0.5s; }
 .searchBar .searchInput button:focus img { filter: var(--text-color-filter); }
 .title { text-align: center; margin-top: 1rem;}
+
+
+@media (max-width: 1399.98px) {}
+
+/* `xl` applies to large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .searchBar { width: 50%; }
+}
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {}
+
+/* `md` applies to small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .searchBar { height: 30%; }
+}
+
+/* `sm` applies to x-small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {}

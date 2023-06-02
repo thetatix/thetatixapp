@@ -43,3 +43,33 @@
 .dropdownLink:hover img { filter: var(--pri-color-filter); }
 
 .posBtn { background-color: unset; color: var(--accent-color); border: 0; }
+
+
+
+@media (max-width: 1399.98px) {}
+
+/* `xl` applies to large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .logo .logoImg { display: block; width: 60%; max-width: 8rem; }
+    .center { gap: 1rem; }
+    .center ul { gap: 1rem; width: 50%; }
+
+    .right { gap: 1rem; }
+}
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {}
+
+/* `md` applies to small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .logo { z-index: 5; }
+    .center { position: fixed; top: 0; background-color: var(--bg-color); z-index: 4; left: 0; right: 0; bottom: 50%; flex-direction: column; transition: 0.5s; transform: translateY(-100%); }
+    .center[data-open="true"] { transform: translateY(0%); }
+    .center ul { flex-direction: column; height: 70%; justify-content: flex-end; }
+    .center ul li { flex: unset; }
+    .right { position: fixed; top: 50%; background-color: var(--bg-color); z-index: 4; left: 0; right: 0; bottom: 0; justify-content: center; align-items: flex-start; transition: 0.5s; transform: translateY(-200%); }
+    .right[data-open="true"] { transform: translateY(0%); }
+}
+
+/* `sm` applies to x-small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {}

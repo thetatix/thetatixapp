@@ -176,4 +176,9 @@ body { color: var(--text-color); background: var(--bg-color); }
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {}
+@media (max-width: 575.98px) {
+  :root {
+    --catGap: 1rem;
+    --catSize: 40%;
+  }
+}

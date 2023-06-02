@@ -9,10 +9,12 @@
 .squareRight { background-color: var(--pri-color); width: 150px; height: 75px; position: absolute; top: 25%; right: 0; transform: translateY(-50%); z-index: -1; }
 .header .content {  }
 .header .content .column {  }
-.header .content .column:nth-child(1) { display: flex; align-items: center; position: relative; }
+.header .content .column:nth-child(1) { display: flex; align-items: flex-start; position: relative; flex-direction: column; justify-content: center; }
 .header .content .column:nth-child(1) .title { font-size: var(--font-size-xl); font-family: 'Biotif', sans-serif; font-weight: 500; }
 .header .content .column:nth-child(2) {  }
 .header .content .column h1 {  }
+.subtitle { font-size: var(--font-size); line-height: 1; }
+.subtitle img { vertical-align: bottom; height: 1.5rem; width: auto; margin-left: .5rem; }
 
 .blurRight { position: absolute; top: 42.5%; right: 28.5%; transform: translate(50%, -50%); z-index: -1; width: 900px; height: 900px; }
 
@@ -44,4 +46,6 @@
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
-@media (max-width: 575.98px) {}
+@media (max-width: 575.98px) {
+    .event { width: 75%; display: block; margin: 1rem auto 0 auto; }
+}
