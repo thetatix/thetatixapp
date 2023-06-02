@@ -15,17 +15,13 @@ export default function Navbar() {
 
   const router = useRouter();
   const [isFixed, setIsFixed] = useState(true);
-  const [isOpen, setIsOpen] = useState(false);
-  const handleOpenNavbar = () => {
-    setIsOpen(!isOpen);
-  }
 
   useEffect(() => {
     const isOnlineEventsPage = router.pathname.includes('/onlineevents');
     setIsFixed(!isOnlineEventsPage);
   }, [router]);
 
-  const { theme, setTheme, formatAddress } = useContext(DataContext);
+  const { theme, setTheme, formatAddress, isNavbarOpen, setIsNavbarOpen, toggleOpenNavbar, closeNavbar } = useContext(DataContext);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -206,7 +202,7 @@ export default function Navbar() {
       <div className={styles.navbarContainer + ' container'}>
         <div className={styles.content}>
           <div className={styles.logo}>
-            <Link href="/" className={styles.logoImg}>
+            <Link href="/" className={styles.logoImg} onClick={closeNavbar}>
               <Image
                 src="/img/Thetatix-b.svg"
                 alt="Thetatix Logo"
@@ -216,20 +212,20 @@ export default function Navbar() {
               />
             </Link>
           </div>
-          <div className={styles.center} data-open={isOpen}>
+          <div className={styles.center} data-open={isNavbarOpen}>
             <ul>
               <li>
-                <Link href="/mytickets" className={styles.navLink}>
+                <Link href="/mytickets" className={styles.navLink} onClick={closeNavbar}>
                   My tickets
                 </Link>
               </li>
               <li>
-                <Link href="/events" className={styles.navLink}>
+                <Link href="/events" className={styles.navLink} onClick={closeNavbar}>
                   Events
                 </Link>
               </li>
               <li>
-                <Link href="/create" className={styles.navLink}>
+                <Link href="/create" className={styles.navLink} onClick={closeNavbar}>
                   Create an event
                 </Link>
               </li>
@@ -237,7 +233,7 @@ export default function Navbar() {
             <SearchBar />
 
           </div>
-          <div className={styles.right} data-open={isOpen}>
+          <div className={styles.right} data-open={isNavbarOpen}>
             <div className={styles.themeBtn}>
               <button onClick={toggleTheme}>
                 <Image
@@ -298,7 +294,7 @@ export default function Navbar() {
             </div>
           )}
           </div>
-          <button className={styles.toggleBtn} type="button" onClick={handleOpenNavbar} data-open={isOpen}>
+          <button className={styles.toggleBtn} type="button" onClick={toggleOpenNavbar} data-open={isNavbarOpen}>
             <div className={styles.tbBar1}></div>
             <div className={styles.tbBar2}></div>
             <div className={styles.tbBar3}></div>

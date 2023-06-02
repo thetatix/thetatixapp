@@ -22,7 +22,7 @@
 
 /* `md` applies to small devices (landscape phones, less than 768px) */
 @media (max-width: 767.98px) {
-    .searchBar { height: 30%; }
+    .searchBar { width: 65%; height: 30%; }
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */
