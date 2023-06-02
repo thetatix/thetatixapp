@@ -271,8 +271,8 @@ export default function Navbar() {
                 <br />
                 <Link href="/dashboard" className={styles.dropdownLink}>
                   <Image
-                    src="/icons/account.svg"
-                    alt="Account icon"
+                    src="/icons/writing.svg"
+                    alt="Dashboard icon"
                     width={40}
                     height={40}
                   />

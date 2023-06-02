@@ -1,4 +1,4 @@
-.main { padding-top: 6rem; min-height: 100vh; background: var(--bg-color); background: var(--profile-bg); }
+.main { padding-top: 6rem; min-height: 100vh; background: var(--bg-color); background: var(--profile-bg); background-position: 35vw 50%; background-repeat: no-repeat; }
 
 .title { text-align: center; padding-top: 3rem; }
 .subtitle { text-align: center; color: var(--text-color); font-size: var(--font-size); margin-bottom: 2rem; line-height: 1.2; font-weight: 400; }
