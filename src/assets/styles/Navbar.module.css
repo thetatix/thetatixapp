@@ -42,7 +42,11 @@
 .dropdownLink img { width: auto; height: .8rem; vertical-align: text-top; margin-right: .4rem; transition: 0.2s; filter: var(--text-color-filter); }
 .dropdownLink:hover img { filter: var(--pri-color-filter); }
 
-.posBtn { background-color: unset; color: var(--accent-color); border: 0; }
+.toggleBtn { background-color: unset; border: 0; z-index: 5; position: fixed; top: .2rem; right: 10%; outline: none; padding-top: .25rem; padding-bottom: .25rem; transition: 0.4s; border-radius: 5px; padding-left: 6px; padding-right: 6px; display: none; }
+.tbBar1, .tbBar2, .tbBar3{ width: 30px; height: 2px; background-color: var(--text-color); margin: 6px 0; transition: 0.5s; }
+.toggleBtn[data-open="true"] .tbBar1 { -webkit-transform: rotate(-45deg) translate(-9px, 6px); transform: rotate(-45deg) translate(-9px, 6px); }
+.toggleBtn[data-open="true"] .tbBar2 { opacity: 0; }
+.toggleBtn[data-open="true"] .tbBar3 { -webkit-transform: rotate(45deg) translate(-5px, -3px); transform: rotate(45deg) translate(-5px, -3px); }
 
 
 
@@ -69,6 +73,7 @@
     .center ul li { flex: unset; }
     .right { position: fixed; top: 50%; background-color: var(--bg-color); z-index: 4; left: 0; right: 0; bottom: 0; justify-content: center; align-items: flex-start; transition: 0.5s; transform: translateY(-200%); }
     .right[data-open="true"] { transform: translateY(0%); }
+    .toggleBtn { display: inline-block; }
 }
 
 /* `sm` applies to x-small devices (portrait phones, less than 576px) */

@@ -15,6 +15,11 @@ export default function Navbar() {
 
   const router = useRouter();
   const [isFixed, setIsFixed] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpenNavbar = () => {
+    setIsOpen(!isOpen);
+  }
+
   useEffect(() => {
     const isOnlineEventsPage = router.pathname.includes('/onlineevents');
     setIsFixed(!isOnlineEventsPage);
@@ -211,7 +216,7 @@ export default function Navbar() {
               />
             </Link>
           </div>
-          <div className={styles.center}>
+          <div className={styles.center} data-open={isOpen}>
             <ul>
               <li>
                 <Link href="/mytickets" className={styles.navLink}>
@@ -232,7 +237,7 @@ export default function Navbar() {
             <SearchBar />
 
           </div>
-          <div className={styles.right}>
+          <div className={styles.right} data-open={isOpen}>
             <div className={styles.themeBtn}>
               <button onClick={toggleTheme}>
                 <Image
@@ -292,10 +297,12 @@ export default function Navbar() {
               <button onClick={connectMetamask}>Connect wallet</button>
             </div>
           )}
-          {/* <button className={styles.posBtn} onClick={handleNavbarPositionChange}>
-            x
-          </button> */}
           </div>
+          <button className={styles.toggleBtn} type="button" onClick={handleOpenNavbar} data-open={isOpen}>
+            <div className={styles.tbBar1}></div>
+            <div className={styles.tbBar2}></div>
+            <div className={styles.tbBar3}></div>
+          </button>
         </div>
       </div>
     </nav>
