@@ -59,7 +59,7 @@ export default function Home() {
                 </p>
               </div>
               <div className={styleHome.column + ' col'}>
-                <Link href="/" className={styleHome.eventCard}>
+                <Link href="/event/0x767F0F7CA42467d698b4f6e56eDBdEab0f9b5585" className={styleHome.eventCard}>
                   <div className={styleHome.event}>
                     <div className={styleHome.eventImg}>
                       <Image

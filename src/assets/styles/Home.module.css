@@ -19,7 +19,7 @@
 .blurRight { position: absolute; top: 16%; right: 28.5%; transform: translate(50%, -50%); z-index: -1; width: 900px; height: 900px; }
 
 .eventCard { text-decoration: none; color: var(--text-color); }
-.eventCard:hover { color: var(--pri-color); }
+.eventCard:hover { color: var(--text-color); }
 .eventCard .event { text-align: right; }
 .eventCard:hover .event {  }
 .eventCard .event .eventImg { overflow: hidden; border-radius: .5rem; border: 3px solid var(--red); }
