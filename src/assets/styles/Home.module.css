@@ -14,6 +14,8 @@
 .header .content .column:nth-child(2) {  }
 .header .content .column h1 {  }
 
+.blurRight { position: absolute; top: 42.5%; right: 28.5%; transform: translate(50%, -50%); z-index: -1; width: 900px; height: 900px; }
+
 .eventCard { text-decoration: none; color: var(--text-color); }
 .eventCard:hover { color: var(--pri-color); }
 .eventCard .event { text-align: right; }

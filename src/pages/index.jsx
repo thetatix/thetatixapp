@@ -45,7 +45,7 @@ export default function Home() {
               <div className={styleHome.column + ' col'}>
                 <p className={styleHome.title}>Web3 ticketing for <span className={styleHome.highlightText}>online</span> streaming and in person events</p>
                 {/* <p>Powered by Theta Network</p> */}
-                <div className={styleHome.squareLeft}></div>
+                {/* <div className={styleHome.squareLeft}></div> */}
               </div>
               <div className={styleHome.column + ' col'}>
                 <Link href="/" className={styleHome.eventCard}>
@@ -68,7 +68,8 @@ export default function Home() {
                     </p>
                   </div>
                 </Link>
-                <div className={styleHome.squareRight}></div>
+                {/* <div className={styleHome.squareRight}></div> */}
+                <Image className={styleHome.blurRight} src="/img/right-blur.png" alt="" width={900} height={900} />
               </div>
             </div>
           </div>
