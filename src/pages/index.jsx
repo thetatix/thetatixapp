@@ -62,19 +62,19 @@ export default function Home() {
                   <div className={styleHome.event}>
                     <div className={styleHome.eventImg}>
                       <Image
-                        src="/img/event-afterlife.png"
+                        src="/img/event-thetacon-live-2.png"
                         alt="Event image"
-                        width={2400}
-                        height={1600}
+                        width={1200}
+                        height={800}
                         priority
                       />
                     </div>
                     <p>
-                      <strong>Afterlife</strong>
+                      <strong>ThetaCon 2023 Livestream (Example)</strong>
                       <br />
-                      Monday, 10:00 A.M.
+                      Jun 2, 10:00 A.M. - Jun 5, 8:00 P.M.
                       <br />
-                      Mexico City
+                      Online
                     </p>
                   </div>
                 </Link>
