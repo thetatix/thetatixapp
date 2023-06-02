@@ -53,17 +53,17 @@ const handler = async (req, res) => {
                     isOnlineEventStream:data.contractData.isOnlineEventStream
                 })
 
-                res.status(201).json({ error: null, data: event, status: "success", message: 'Event created successfully.' })
+                res.status(201).json({ error: null, data: event, status: "success", message: 'Your event has been created correctly! You can get more details of your event at my events page!' })
 
             } catch (err) {
                 console.log(err);
-                res.status(500).json({ error: err, data: null, status: "danger", message: 'Error pushing event to database' });
+                res.status(500).json({ error: err, data: null, status: "danger", message: 'Error pushing event to database.' });
 
             }
 
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: err, data: null, status: "danger", message: 'Unable to create event.' });
+            res.status(500).json({ error: err, data: null, status: "danger", message: 'Your event creation failed, please try again giving the correct inputs, if you keep having errors dont doubt to contact the support team.' });
         }
     } else {
         res.status(405).json({ error: "Method not allowed", data: null, status: "danger", message: 'Method not allowed.' });

@@ -11,7 +11,7 @@ import styles from '@/assets/styles/Pages.module.css'
 import styleTickets from '@/assets/styles/Tickets.module.css'
 
 export default function EventPage() {
-    const { address, bufferToImg, formatAddress, copyToClipboard, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
+    const { address, isConnected, bufferToImg, formatAddress, copyToClipboard, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } =  useContext(DataContext);
 
     const formatStreamKey = (key) => {
         const keyLength = key.length;
@@ -24,6 +24,7 @@ export default function EventPage() {
     const [event, setEvent] = useState({});
     const [tickets, setTickets] = useState({});
     const [loading, setLoading] = useState(true);
+
     const [alert, setAlert] = useState(false);
     const [formStatus, setFormStatus] = useState("");
     const [formStatusMsg, setFormStatusMsg] = useState("");
@@ -48,7 +49,6 @@ export default function EventPage() {
 
     const getContractData = async () => {
         if (address.length === 0) {
-
             return
         }
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -84,50 +84,35 @@ export default function EventPage() {
         });
         const response = await rawResponse.json();
         fetchData();
-        setAlert(true);
-        setFormStatus(response.status);
-        setFormStatusMsg(response.message);
     };
     //eventContractAddress
     const WithdrawFunds = async (e) => {
-        setModalActive(false);
         e.preventDefault();
+        setModalActive(true);
         //DETERMINAR EL SIGNER DE METAMASK
 
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        console.log('address length', address.length)
-        if (address.length === 0) {
-            setModalActive(true);
-            setModalMessage('Please connect your metamask wallet to create an event')
+        if (!isConnected) {
             setModalStatus('danger');
+            setModalMessage('Please connect your wallet to continue.');
             setModalCloseable(true);
             return
         } else {
-
-
             // Metamask setup
-            setModalMessage('Please Accept Metamask To continue with this progress')
+            setModalMessage('Please sign the contract to continue with this progress.');
             await provider.send("eth_requestAccounts", []);
             const signer = provider.getSigner();
             const contract = new useContracts(signer);
-            setModalActive(true);
             setModalCloseable(false);
-            setModalMessage(`${eventFunds}TFUEL are being sent to your account. It might take some time`)
             setModalStatus('loading');
+            setModalMessage(`${eventFunds} TFUEL are being sent to your account. It might take some time.`);
             try {
                 const response = await contract.ownerWithdrawAmount(address, eventContractAddress);
-
-                setModalMessage('Your event has been created correctly! You can get more details of your event at my events page!')
-                setModalStatus('succes');
+                setModalStatus(response.status);
+                setModalMessage(response.message);
                 setModalCloseable(true);
-                setAlert(true);
-                setFormStatus(response.status);
-                setFormStatusMsg(response.message);
             } catch (response) {
-                setAlert(true);
-                setFormStatus(response.status);
-                setFormStatusMsg(response.message);
-                setModalMessage(`${response.message} Withdraw funds have failed, please contact support team if still having this issue`)
+                setModalMessage(`${response.message} Withdraw funds have failed, please contact support team if you are still having this issue.`);
                 setModalStatus('danger');
                 setModalCloseable(true);
             }
@@ -155,9 +140,6 @@ export default function EventPage() {
                 },
             });
             if(event?.data?.data?.length===0){
-                setAlert(true);
-                setFormStatus("danger");
-                setFormStatusMsg(response.message);
                 setModalMessage(`Your event start process failed, make sure you have started the stream with the stream server and stream key correctly, you can use OBS`)
                 setModalStatus('danger');
                 setModalCloseable(true);
@@ -166,15 +148,9 @@ export default function EventPage() {
             setModalMessage('Your event have been started correctly!')
             setModalStatus('succes');
             setModalCloseable(true);
-            setAlert(true);
-            setFormStatus("succes");
-            setFormStatusMsg(response.message);
             const playback_url = event.data.data;
             setEvent({ stream_playback_url: playback_url, ...event });
         } catch (response) {
-            setAlert(true);
-            setFormStatus("danger");
-            setFormStatusMsg(response.message);
             setModalMessage(`${response.message} there is an error with the stream keys you provided, please contact support team`)
             setModalStatus('danger');
             setModalCloseable(true);
@@ -185,7 +161,7 @@ export default function EventPage() {
 
     return (
         <>
-            <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
+            <DynamicModal />
             <Head>
                 <title>{event.eventName}</title>
                 <meta name="description" content="Thetatix web app" />

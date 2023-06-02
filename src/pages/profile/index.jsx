@@ -61,7 +61,7 @@ export default function Profile() {
 
   return (
     <>
-        <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
+        <DynamicModal />
         <Head>
             <title>Profile</title>
             <meta name="description" content="Thetatix web app" />

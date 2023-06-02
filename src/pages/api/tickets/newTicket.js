@@ -44,7 +44,7 @@ export default async function handler(req, res) {
                 $inc: { ticketsAmount: 1 } 
             })
         }
-        res.status(200).json({ status:'success', message: 'Ticket bought successfully.' })
+        res.status(200).json({ status:'success', message: 'Your ticket has been bought correctly! You can get more details of your ticket at my tickets page!' })
     } else {
         res.status(405).json({ status: 'danger', message: 'Method not allowed.' });
     }

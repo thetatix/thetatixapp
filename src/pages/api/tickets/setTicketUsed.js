@@ -20,13 +20,13 @@ const handler = async (req, res) => {
             },{ 
                 usedDate: Date.now()
             }) 
-            res.status(200).json({ status:'success', message: "Registered entrant successfully.", ticket })
+            res.status(200).json({ status:'success', message: "Registered entrant successfully.", ticket });
         } catch(err) {
             console.error(err);
-            res.status(500).json({ ticket: { status: 'danger', message: "Unable to fetch tickets." } });
+            res.status(500).json({ status: 'danger', message: "Unable to register entrant." });
         }
     } else {
-        res.status(405).json({ ticket: { status: 'danger', message: 'Method not allowed.' } });
+        res.status(405).json({ status: 'danger', message: 'Method not allowed.' });
     }
 }
 

@@ -27,7 +27,7 @@ class useContracts {
 
     async createEventTickets(_creator, _maxTickets, _name, _ticketPrice, _description, _startDate, _img, _endDate, _location, _category, _eventtype, _api_key, _api_secret) {
         if (_creator.length === 0) {
-            return { error: "Wallet not connected.", data: null, status: "warning", message: "Wallet not connected." };   //data = address created contract
+            return { error: "Wallet not connected.", data: null, status: "danger", message: "Wallet not connected." };   //data = address created contract
         }
         try {
             let streamid = "";
@@ -53,7 +53,7 @@ class useContracts {
 
                     });
                 } catch (err) {
-                    return { error: err, data: null, status: "danger", message: "invalid api or secret key, also u may have exceed 3 streams per thetavideoapi private keys" };
+                    return { error: err, data: null, status: "danger", message: "Invalid API or secret key, also you may have exceed 3 streams per thetavideoapi private keys." };
                 }
                 //define needed properties to sotre on backend
                 streamid = created_stream.data.body.id;
@@ -112,13 +112,14 @@ class useContracts {
                 },
                 body: data
             });
+            const response = await event.json();
             if (event.status == 413) {
                 return { error: event.statusText, data: null, status: "danger", message: "Image exceeds 1MB limit." };
             }
-            return { error: null, data: event, status: "success", message: "Event created successfully." };   //data = address created contract
+            return { error: null, data: event, status: response.status, message: response.message };   //data = address created contract
         } catch (err) {
             console.log(err);
-            return { error: err, data: null, status: "danger", message: "There was an error creating your event." }
+            return { error: err, data: null, status: "danger", message: 'Your event creation failed, please try again giving the correct inputs, if you keep having errors dont doubt to contact the support team.' }
 
         }
 
@@ -127,9 +128,8 @@ class useContracts {
 
     async buyTicket(buyerWalletAddress, ticketEventAddress, price) {
         if (buyerWalletAddress.length === 0) {
-            return { error: "please connect ur wallet", data: null };   //data = address created contract
+            return { error: "Please connect your wallet.", data: null };   //data = address created contract
         }
-        console.log('buyin ticket')
         //buy ticket on smart contract
         const event_contract = new ethers.Contract(ticketEventAddress, this.#ABIticket, this.#signer);
         try {
@@ -148,17 +148,18 @@ class useContracts {
                 owner: buyerWalletAddress
             }
             const data = JSON.stringify({ data: raw_data });
-            const event = await fetch('/api/tickets/newTicket', {
+            const ticket = await fetch('/api/tickets/newTicket', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: data
-            })
-
-            return { error: null, data: parsedNumbers, status: 'success', message: 'Ticket bought successfully.' } //data = todos los tickets comprados del usuario que lo compro
+            });
+            const response = await ticket.json();
+            return { error: null, data: parsedNumbers, status: response.status, message: response.message }
+            //data = todos los tickets comprados del usuario que lo compro
         } catch (err) {
-            return { error: err, data: null, status: 'danger', message: 'Error while buying ticket.' }
+            return { error: err, data: null, status: 'danger', message: 'Your buy ticket process failed, please try again make sure there are available tickets and you have enough TFUEL in your account, if you keep having errors dont doubt to contact the support team.' }
         }
     }
 
@@ -167,9 +168,9 @@ class useContracts {
         try {
             const amount = await event_contract.amountTickets();
             await event_contract.withdrawAmount(receiver_address);
-            return { error: null, status: 'success', amount }
+            return { error: null, status: 'success', message: `${amount} TFUEL has been successfully withdrawn to your account.`, data: amount }
         } catch (err) {
-            return { error: err, status: 'danger',data:'null' }
+            return { error: err, status: 'danger', message: 'There was an error withdrawing funds to your account.', data: null }
         }
     }
 

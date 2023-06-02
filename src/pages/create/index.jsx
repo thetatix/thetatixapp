@@ -2,7 +2,6 @@ import { useContext, useState, useEffect } from "react"
 import { ethers } from "ethers"
 import Head from 'next/head'
 import Image from 'next/image'
-// import Link from 'next/link'
 import styles from '@/assets/styles/Pages.module.css'
 import styleCreate from '@/assets/styles/Forms.module.css'
 import DynamicModal from "@/components/DynamicModal"
@@ -12,7 +11,7 @@ import useContracts from '@/components/contractsHook/useContract';
 export default function Create() {
     //STATE MODAL
     //PAGE STATES
-    const { address, setAddress, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } = useContext(DataContext);
+    const { address, isConnected, setModalActive, setModalStatus, setModalMessage, setModalCloseable } = useContext(DataContext);
 
     const [formData, setFormData] = useState({
         // contractAddress: "",
@@ -30,9 +29,6 @@ export default function Create() {
         api_key: "",
         api_secret: ""
     });
-    const [alert, setAlert] = useState(false);
-    const [formStatus, setFormStatus] = useState("");
-    const [formStatusMsg, setFormStatusMsg] = useState("");
     const handleInput = (e) => {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
@@ -41,7 +37,6 @@ export default function Create() {
             [fieldName]: fieldValue
         }));
     }
-    console.log('address', address)
     const handleFileInput = (e) => {
         const file = e.target.files[0];
         // console.log(file);
@@ -60,34 +55,24 @@ export default function Create() {
     };
 
     const submitForm = async (e) => {
-        setModalActive(false);
         e.preventDefault();
+        setModalActive(true);
         //DETERMINAR EL SIGNER DE METAMASK
-
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        console.log('address length',address.length)
-        if (address.length === 0) {
-            setModalActive(true);
-            setModalMessage('Please connect your metamask wallet to create an event')
+        if (!isConnected) {
+            setModalMessage('Please connect your wallet to create an event.')
             setModalStatus('danger');
             setModalCloseable(true);
             return
         } else {
-
-
-            // Metamask setup
-            setModalMessage('Please Accept Metamask To continue with this progress')
+            setModalMessage('Please sign the contract to continue with this progress.');
             await provider.send("eth_requestAccounts", []);
             const signer = provider.getSigner();
             const contract = new useContracts(signer);
-            setModalActive(true);
             setModalCloseable(false);
-            setModalMessage('Your event is being created. Please DO NOT close, reload, or modify this page, as it may cause your event creation to fail. It might take some time')
             setModalStatus('loading');
+            setModalMessage('Your event is being created. Please DO NOT close, reload, or modify this page, as it may cause your event creation to fail. It might take some time.');
             try {
-
-
-
                 const response = await contract.createEventTickets(
                     address,
                     formData.maxTickets,
@@ -103,25 +88,17 @@ export default function Create() {
                     formData.api_key,
                     formData.api_secret
                 )
-
-                setModalMessage('Your event has been created correctly! You can get more details of your event at my events page!')
-                setModalStatus('succes');
+                setModalStatus(response.status);
+                setModalMessage(response.message);
                 setModalCloseable(true);
-                setAlert(true);
-                setFormStatus(response.status);
-                setFormStatusMsg(response.message);
             } catch (response) {
-                setAlert(true);
-                setFormStatus(response.status);
-                setFormStatusMsg(response.message);
-                setModalMessage(`${response.message} Your event creation failed, please try again giving the correct inputs, if you keep having errors dont doubt to contact the support team`)
-                setModalStatus('danger');
+                setModalStatus(response.status);
+                setModalMessage(response.message);
                 setModalCloseable(true);
             }
         }
 
     }
-    console.log('modalActiveeee', ModalActive)
 
     const getToday = () => {
         var today = new Date();
@@ -147,43 +124,18 @@ export default function Create() {
 
     return (
         <>
-            <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
+            <DynamicModal />
             <Head>
                 <title>Thetatix Create Event</title>
                 <meta name="description" content="Thetatix web app" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main className={styles.main}>
-                {alert &&
-                    <div className={styles.alert + ' ' + formStatus}>
-                        <div className="container">
-                            <div className={styles.alertContent}>
-                                <Image
-                                    src={"/icons/" + formStatus + ".svg"}
-                                    alt="Alert icon"
-                                    width={24}
-                                    height={24}
-                                    className={styles.alertIcon}
-                                />
-                                <p className={styles.alertMessage}>{formStatusMsg}</p>
-                                <button className={styles.alertCloseBtn} onClick={() => setAlert(false)}>
-                                    <Image
-                                        src="/icons/close.svg"
-                                        alt="Close alert icon"
-                                        width={24}
-                                        height={24}
-                                    />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                }
                 <div className={styles.mainContainer + ' container'}>
                     <div className={styles.content + ' row'}>
                         <div className={styles.column + ' col-7'}>
                             <header className={styles.header}>
                                 <h1>Let's create your event</h1>
-                                {/* <p className={styles.subtitle}>Creating your event is free, it only costs the transaction fee.</p> */}
                             </header>
                             <section className={styles.section}>
                                 <div className={styles.sectionContainer}>

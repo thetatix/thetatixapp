@@ -34,8 +34,11 @@ export default function SearchBar() {
 
 
     useEffect(() => {
-        fetchData();
-    }, [searchQuery]);
+        const isInSearchPage = router.pathname.includes('/search');
+        if (isInSearchPage) {
+            fetchData();
+        }
+    }, [searchQuery, router]);
 
     return(
         <>

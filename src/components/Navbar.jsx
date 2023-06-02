@@ -110,7 +110,7 @@ export default function Navbar() {
     if (window.ethereum) {
       try {
         await window.ethereum.request({method: "eth_requestAccounts"});
-        console.log('Connected to Ethereum');
+        console.log('Connected to Theta Network');
         setIsConnected(true);
         let account = await window.ethereum.request({ method: "eth_accounts"});
         setAddress(account[0]);
@@ -118,7 +118,7 @@ export default function Navbar() {
         console.log(address);
         await handleNetworkSwitch("thetatestnet");
       } catch (error) {
-        console.log('Error connecting to Ethereum');
+        console.log('Error connecting to Theta Network');
       }
     } else {
       console.log('Metamask not detected');
@@ -128,12 +128,12 @@ export default function Navbar() {
     if (window.ethereum) {
       try {
         await window.ethereum.request({ method: "eth_requestAccounts" });
-        console.log('Disconnected from Ethereum');
+        console.log('Disconnected from Theta Network');
         setIsConnected(false);
         setAddress('');
         setUsername('');
       } catch (error) {
-        console.log('Error disconnecting from Ethereum');
+        console.log('Error disconnecting from Theta Network');
       }
     } else {
       console.log('No Metamask detected');

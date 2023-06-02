@@ -12,27 +12,21 @@ import styleEvent from '@/assets/styles/Event.module.css'
 
 export default function EventPage() {
     //PAGE STATES
-    const [alert, setAlert] = useState(false);
-    const [formStatus, setFormStatus] = useState("");
-    const [formStatusMsg, setFormStatusMsg] = useState("");
     const router = useRouter();
     const { eventContractAddress } = router.query;
-    const { address, isConnected, copyToClipboard, bufferToImg, formatDateTime, formatDescription, formatAddress, ModalActive, setModalActive, ModalStatus, setModalStatus, ModalMessage, setModalMessage, ModalCloseable, setModalCloseable } = useContext(DataContext);
+    const { address, isConnected, copyToClipboard, bufferToImg, formatDateTime, formatDescription, formatAddress, setModalActive, setModalStatus, setModalMessage, setModalCloseable } = useContext(DataContext);
     const [event, setEvent] = useState({});
     const [category, setCategory] = useState({});
 
     const submitForm = async (e) => {
-        setModalActive(false);
-        console.log('Form submitted');
         e.preventDefault();
+        setModalActive(true);
         //DETERMINAR EL SIGNER DE METAMASK
-        console.log('Metamask thing');
         const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-        console.log('Metamask setup');
-        if (address.length === 0) {
+        if (!isConnected) {
             setModalActive(true);
-            setModalMessage('Please connect your metamask wallet to create an event')
             setModalStatus('danger');
+            setModalMessage('Please connect your wallet to continue.');
             setModalCloseable(true);
             return
         }
@@ -41,10 +35,9 @@ export default function EventPage() {
         const signer = provider.getSigner();
         const contract = new useContracts(signer);
         setModalActive(true);
-        setModalCloseable(false);
-        setModalMessage('Your ticket is being bought. Please DO NOT close, reload, or modify this page, as it may cause your ticket buy process to fail. It might take some time')
         setModalStatus('loading');
-        console.log('Contract buyTicket()');
+        setModalCloseable(false);
+        setModalMessage('Your ticket is being bought. Please DO NOT close, reload, or modify this page, as it may cause your ticket buy process to fail. It might take some time.')
         const eventTicketsPrice = event.ticketsPrice / 1000000;
         try{
             //create ticket
@@ -52,28 +45,17 @@ export default function EventPage() {
                 address,
                 event.contractAddress,
                 eventTicketsPrice
-            )
-            console.log('Responded');
-            console.log(response);
-            setModalMessage('Your ticket has been bought correctly! You can get more details of your ticket at my tickets page!')
-            setModalStatus('succes');
+            );
+            setModalStatus(response.status);
+            setModalMessage(response.message);
             setModalCloseable(true);
-            setAlert(true);
-            setFormStatus(response.status);
-            setFormStatusMsg(response.message);  
-        }catch(response){
-            setAlert(true);
-            setFormStatus(response.status);
-            setFormStatusMsg(response.message);  
-            setModalMessage(`${response.message} Your event buy process failed, please try again make sure there are available tickets and you have enough tfuel in your account, if you keep having errors dont doubt to contact the support team`)
-            setModalStatus('danger');
+        } catch(err) {
+            setModalStatus("danger");
+            setModalMessage('Your buy ticket process failed, please try again make sure there are available tickets and you have enough TFUEL in your account, if you keep having errors dont doubt to contact the support team.');
             setModalCloseable(true);
         }
         
     }
-      
-      
-    
 
     useEffect(() => {
         if (eventContractAddress) {
@@ -97,38 +79,14 @@ export default function EventPage() {
     }
 
   return (
-    <>  
-        <DynamicModal active={ModalActive} status={ModalStatus} message={ModalMessage} closeable={ModalCloseable} />
+    <>
+        <DynamicModal />
         <Head>
             <title>{event.eventName}</title>
             <meta name="description" content="Thetatix web app" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <main className={styles.main}>
-            {alert &&
-                <div className={styles.alert + ' ' + formStatus}>
-                    <div className="container">
-                        <div className={styles.alertContent}>
-                            <Image
-                                src={"/icons/" + formStatus + ".svg"}
-                                alt="Alert icon"
-                                width={24}
-                                height={24}
-                                className={styles.alertIcon}
-                            />
-                            <p className={styles.alertMessage}>{formStatusMsg}</p>
-                            <button className={styles.alertCloseBtn} onClick={() => setAlert(false)}>
-                                <Image
-                                    src="/icons/close.svg"
-                                    alt="Close alert icon"
-                                    width={24}
-                                    height={24}
-                                />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            }
             <header className={styles.header}>
                 <div className={styles.headerContainer + ' container'}>
                     <div className={styles.content + ' row'}>
