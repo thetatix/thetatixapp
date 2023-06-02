@@ -29,6 +29,12 @@ class useContracts {
         if (_creator.length === 0) {
             return { error: "Wallet not connected.", data: null, status: "danger", message: "Wallet not connected." };   //data = address created contract
         }
+        const imageBuffer = Buffer.from(_img, 'base64');
+        const imageSize = imageBuffer.length;
+        const maxSizeInBytes = 500 * 1024;
+        if (imageSize > maxSizeInBytes) {
+            return { error: "Exceed image limit.", data: null, status: "danger", message: "Image exceeds 1MB limit." };
+        }
         try {
             let streamid = "";
             let stream_key = "";
@@ -114,7 +120,7 @@ class useContracts {
             });
             const response = await event.json();
             if (event.status == 413) {
-                return { error: event.statusText, data: null, status: "danger", message: "Image exceeds 1MB limit." };
+                return { error: event.statusText, data: null, status: "danger", message: "Image exceeds 500kb limit." };
             }
             return { error: null, data: event, status: response.status, message: response.message };   //data = address created contract
         } catch (err) {
