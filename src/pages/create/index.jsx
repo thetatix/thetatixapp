@@ -217,21 +217,23 @@ export default function Create() {
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div className={styleCreate.row + ' row'}>
-                                                <div className={styleCreate.column + ' col-12'}>
-                                                    <label htmlFor="location" className={styleCreate.label}>Location</label>
-                                                    <input
-                                                        id='location'
-                                                        type="text"
-                                                        name='location'
-                                                        placeholder="Enter your city"
-                                                        value={formData.location}
-                                                        onChange={handleInput}
-                                                        className={styleCreate.input}
-                                                        required
-                                                    />
+                                            {formData.eventtype === 'offline' ? (
+                                                <div className={styleCreate.row + ' row'}>
+                                                    <div className={styleCreate.column + ' col-12'}>
+                                                        <label htmlFor="location" className={styleCreate.label}>Location</label>
+                                                        <input
+                                                            id='location'
+                                                            type="text"
+                                                            name='location'
+                                                            placeholder="Enter your city"
+                                                            value={formData.location}
+                                                            onChange={handleInput}
+                                                            className={styleCreate.input}
+                                                            required
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            ) : null}
                                             {formData.eventtype === 'online'
                                                 ?
                                                 <>
