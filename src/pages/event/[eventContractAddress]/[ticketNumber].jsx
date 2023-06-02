@@ -38,6 +38,7 @@ export default function TicketPage() {
         ) : (
           <title>Ticket {ticket.ticketNumber}</title>
         )}
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="Ticket details" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

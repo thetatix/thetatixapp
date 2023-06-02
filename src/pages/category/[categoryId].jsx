@@ -50,6 +50,7 @@ export default function CategoryPage() {
             ) : (
                 <title>{category.categoryName}</title>
             )}
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="description" content="Thetatix web app" />
             <link rel="icon" href="/favicon.ico" />
         </Head>

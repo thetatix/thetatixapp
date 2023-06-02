@@ -127,6 +127,7 @@ export default function Create() {
             <DynamicModal />
             <Head>
                 <title>Thetatix Create Event</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Thetatix web app" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
@@ -216,23 +217,21 @@ export default function Create() {
                                                     </select>
                                                 </div>
                                             </div>
-                                            {formData.eventtype === 'offline' ? (
-                                                <div className={styleCreate.row + ' row'}>
-                                                    <div className={styleCreate.column + ' col-12'}>
-                                                        <label htmlFor="location" className={styleCreate.label}>Location</label>
-                                                        <input
-                                                            id='location'
-                                                            type="text"
-                                                            name='location'
-                                                            placeholder="Enter your city"
-                                                            value={formData.location}
-                                                            onChange={handleInput}
-                                                            className={styleCreate.input}
-                                                            required
-                                                        />
-                                                    </div>
+                                            <div className={styleCreate.row + ' row'}>
+                                                <div className={styleCreate.column + ' col-12'}>
+                                                    <label htmlFor="location" className={styleCreate.label}>Location</label>
+                                                    <input
+                                                        id='location'
+                                                        type="text"
+                                                        name='location'
+                                                        placeholder="Enter your city"
+                                                        value={formData.location}
+                                                        onChange={handleInput}
+                                                        className={styleCreate.input}
+                                                        required
+                                                    />
                                                 </div>
-                                            ) : null}
+                                            </div>
                                             {formData.eventtype === 'online'
                                                 ?
                                                 <>
